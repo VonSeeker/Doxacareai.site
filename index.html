@@ -1429,51 +1429,7 @@
       }
     }
 
-    // Account Form Toggle
-    document.getElementById('show-signup').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('signin-form').classList.add('hidden');
-      document.getElementById('signup-form').classList.remove('hidden');
-    });
 
-    document.getElementById('show-signin').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('signup-form').classList.add('hidden');
-      document.getElementById('signin-form').classList.remove('hidden');
-    });
-
-    // Social Login Handlers
-    document.querySelectorAll('#signin-form .fab, #signup-form .fab').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const provider = e.target.closest('button').textContent.trim().toLowerCase();
-        alert(`Redirecting to ${provider} login...`);
-        // In a real app, you would implement OAuth flow here
-      });
-    });
-
-    // Form Submission
-    document.querySelector('#signin-form form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      // In a real app, you would validate and send to backend
-      alert(`Signing in with ${email}`);
-    });
-
-    document.querySelector('#signup-form form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('signup-name').value;
-      const email = document.getElementById('signup-email').value;
-      const password = document.getElementById('signup-password').value;
-      const confirm = document.getElementById('signup-confirm').value;
-      
-      if (password !== confirm) {
-        alert("Passwords don't match!");
-        return;
-      }
-      // In a real app, you would validate and send to backend
-      alert(`Creating account for ${name} (${email})`);
-    });
 
     // Initialization
     document.addEventListener('DOMContentLoaded', () => {
