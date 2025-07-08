@@ -292,58 +292,26 @@
     
     <!-- Find Clinics Tab -->
     <div id="clinics-tab" class="tab-content hidden">
-      <div class="bg-white rounded-lg shadow-md overflow-hidden">
-        <div class="bg-red-600 p-3">
-          <h2 class="text-white font-bold flex items-center">
-            <i class="fas fa-hospital mr-2"></i>
-            <span>Find Clinics</span>
-          </h2>
-        </div>
-        <div class="p-4">
-          <div class="mb-4">
-            <label for="locationInput" class="block text-gray-700 mb-2">Enter your location (district or city):</label>
-            <div class="flex">
-              <input type="text" id="locationInput" class="flex-grow px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="e.g. Freetown, Bo, Kenema">
-              <button id="findClinicsBtn" class="bg-red-600 text-white px-4 py-2 rounded-r-lg hover:bg-red-700">Search</button>
-            </div>
-          </div>
-          <div id="clinicResults" class="space-y-4">
-            <!-- Sample clinic cards - will be replaced by dynamic content -->
-            <div class="border border-gray-200 rounded-lg p-3">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="font-semibold text-gray-800">Connaught Hospital</h3>
-                  <p class="text-sm text-gray-600">Freetown • Government Hospital</p>
-                </div>
-                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24-Hour</span>
-              </div>
-              <div class="mt-2 flex items-center text-sm">
-                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
-                <span>+232 25 345678</span>
-              </div>
-              <div class="mt-1 flex items-center text-sm">
-                <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
-                <span>Lightfoot Boston St, Freetown</span>
-              </div>
-            </div>
-            <div class="border border-gray-200 rounded-lg p-3">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="font-semibold text-gray-800">Bo Government Hospital</h3>
-                  <p class="text-sm text-gray-600">Bo • Government Hospital</p>
-                </div>
-              </div>
-              <div class="mt-2 flex items-center text-sm">
-                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
-                <span>+232 76 345678</span>
-              </div>
-              <div class="mt-1 flex items-center text-sm">
-                <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
-                <span>Kissi Town, Bo</span>
-              </div>
-            </div>
-          </div>
-        </div>
+     <div class="bg-white rounded-lg shadow-md overflow-hidden">
+  <div class="bg-red-600 p-3">
+    <h2 class="text-white font-bold flex items-center">
+      <i class="fas fa-hospital mr-2"></i>
+      <span>Find Clinics</span>
+    </h2>
+  </div>
+  <div class="p-4">
+    <div class="mb-4">
+      <label for="locationInput" class="block text-gray-700 mb-2">Enter your location (district or city):</label>
+      <div class="flex">
+        <input type="text" id="locationInput" class="flex-grow px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="e.g. Freetown, Bo, Kenema">
+        <button id="findClinicsBtn" class="bg-red-600 text-white px-4 py-2 rounded-r-lg hover:bg-red-700">Search</button>
+      </div>
+    </div>
+    <div id="clinicResults" class="space-y-4">
+      <!-- Results from JavaScript will appear here -->
+    </div>
+  </div>
+</div>
       </div>
     </div>
   <!-- Footer -->
