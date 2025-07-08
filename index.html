@@ -1261,29 +1261,36 @@ function renderForum() {
   } else {
     posts.sort((a, b) => b.created - a.created);
   }
-  forumFeed.innerHTML = posts.map((post, idx) => `
+  forumFeed.innerHTML = posts.map((post, idx) => 
     <div class="border border-gray-200 rounded-lg p-4 mb-3">
-      <div class="flex justify-between items-center mb-2">
-        <h4 class="font-medium text-purple-700">${post.content}</h4>
-        <div class="flex items-center gap-2">
-          <button onclick="likeForumPost(${post.id})" class="text-green-600 hover:text-green-800">
-            <i class="fas fa-thumbs-up"></i> ${post.likes}
-          </button>
-          <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">${post.comments.length} comments</span>
-        </div>
-      </div>
-      <div class="mb-2">
-        <small class="text-gray-500">${timeAgo(post.created)}</small>
-      </div>
-      <div>
-        <input id="commentInput${post.id}" class="border px-2 py-1 rounded text-sm" placeholder="Add a comment...">
-        <button onclick="addForumComment(${post.id})" class="text-purple-600 hover:underline text-sm ml-2">Comment</button>
-      </div>
-      <div class="mt-2 ml-2">
-        ${post.comments.map(c => `<div class="text-gray-700 text-sm mb-1"><i class="fas fa-user-circle mr-1"></i>${c.text} <small class="text-gray-400 ml-2">${timeAgo(c.created)}</small></div>`).join('')}
-      </div>
+  <div class="flex justify-between items-center mb-2">
+    <h4 class="font-medium text-purple-700">${post.content}</h4>
+    <div class="flex items-center gap-2">
+      <button onclick="likeForumPost(${post.id})" class="text-green-600 hover:text-green-800">
+        <i class="fas fa-thumbs-up"></i> ${post.likes}
+      </button>
+      <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">${post.comments.length} comments</span>
     </div>
-  `).join('') || '<div class="text-gray-400 italic text-center">No posts yet. Be the first to share!</div>';
+  </div>
+  <div class="mb-2">
+    <small class="text-gray-500">${timeAgo(post.created)}</small>
+  </div>
+  <div>
+    <input id="commentInput${post.id}" class="border px-2 py-1 rounded text-sm" placeholder="Add a comment...">
+    <button onclick="addForumComment(${post.id})" class="text-purple-600 hover:underline text-sm ml-2">Comment</button>
+  </div>
+  <div class="mt-2 ml-2">
+    ${
+      post.comments.map(c => `
+        <div class="text-gray-700 text-sm mb-1">
+          <i class="fas fa-user-circle mr-1"></i>
+          ${c.text} <small class="text-gray-400 ml-2">${timeAgo(c.created)}</small>
+        </div>
+      `).join('')
+    }
+  </div>
+</div>
+  ).join('') || '<div class="text-gray-400 italic text-center">No posts yet. Be the first to share!</div>';
 }
 window.likeForumPost = function(postId) {
   const post = forumPosts.find(p => p.id === postId);
@@ -1323,4 +1330,6 @@ function timeAgo(ts) {
 renderForum();
     
   </script>
+  </div>
+  </main>
 </html>
