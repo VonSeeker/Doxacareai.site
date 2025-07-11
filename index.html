@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DoxaCare AI - Healthcare Assistant for Sierra Leone</title>
+  <title>EvaCare AI - Healthcare Assistant for Sierra Leone</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -46,12 +46,14 @@
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
+  <div id="auth-root"></div>
+  <div id="app-content">
   <!-- Header -->
   <header class="bg-gradient-to-r from-green-600 to-yellow-400 shadow-md">
     <div class="container mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <i class="fas fa-heartbeat text-white text-2xl"></i>
-        <h1 class="text-white font-bold text-xl md:text-2xl">Doxacare AI</h1>
+        <h1 class="text-white font-bold text-xl md:text-2xl">EvaCare AI</h1>
       </div>
       <div class="flex items-center space-x-4">
         <button id="languageToggle" class="bg-white text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center translate-btn">
@@ -82,7 +84,9 @@
         <button class="tab-btn px-4 py-3 text-gray-600 font-medium whitespace-nowrap" data-tab="clinics">
           <i class="fas fa-hospital mr-2"></i>Find Clinics
         </button>
-    
+        <button class="tab-btn px-4 py-3 text-gray-600 font-medium whitespace-nowrap" data-tab="account">
+          <i class="fas fa-user mr-2"></i>Account
+        </button>
       </div>
     </div>
   </div>
@@ -269,56 +273,257 @@
             <i class="fas fa-plus mr-1"></i> New Post
           </button>
         </div>
-       <div class="p-4 space-y-4">
-  <!-- Forum Controls -->
-  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
-    <button id="refreshForumBtn" class="bg-green-100 text-green-800 px-3 py-1 rounded hover:bg-green-200 flex items-center">
-      <i class="fas fa-sync-alt mr-2"></i> Refresh Feed
-    </button>
-    <select id="forumSort" class="border px-2 py-1 rounded text-sm">
-      <option value="latest">Sort: Latest</option>
-      <option value="trending">Sort: Trending</option>
-    </select>
-  </div>
-  <!-- New Post Form -->
-  <div class="bg-purple-50 border border-purple-200 rounded-lg p-3 mb-4">
-    <textarea id="forumPostInput" class="w-full border border-gray-300 rounded p-2 mb-2" rows="2" placeholder="Share your health advice or question..."></textarea>
-    <button id="forumPostBtn" class="bg-purple-600 text-white px-4 py-1 rounded hover:bg-purple-700">Post</button>
-  </div>
-  <!-- Forum Feed -->
-  <div id="forumFeed"></div>
-</div>
+        <div class="p-4 space-y-4">
+          <!-- Forum Categories -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+              <h3 class="font-semibold text-green-800 mb-2 flex items-center">
+                <i class="fas fa-bug text-green-600 mr-2"></i>
+                Infectious Diseases
+              </h3>
+              <p class="text-gray-600 text-sm">Malaria, Cholera, Lassa Fever discussions</p>
+              <div class="mt-2 text-xs text-gray-500">
+                <span>24 active discussions</span>
+              </div>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+              <h3 class="font-semibold text-blue-800 mb-2 flex items-center">
+                <i class="fas fa-baby text-blue-600 mr-2"></i>
+                Maternal & Child Health
+              </h3>
+              <p class="text-gray-600 text-sm">Pregnancy, breastfeeding, child care</p>
+              <div class="mt-2 text-xs text-gray-500">
+                <span>18 active discussions</span>
+              </div>
+            </div>
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+              <h3 class="font-semibold text-yellow-800 mb-2 flex items-center">
+                <i class="fas fa-heartbeat text-yellow-600 mr-2"></i>
+                Chronic Conditions
+              </h3>
+              <p class="text-gray-600 text-sm">Diabetes, Hypertension, Asthma</p>
+              <div class="mt-2 text-xs text-gray-500">
+                <span>12 active discussions</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Discussions -->
+          <div class="border-t pt-4">
+            <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
+              <i class="fas fa-fire text-orange-500 mr-2"></i>
+              Trending Discussions
+            </h3>
+            
+            <!-- Discussion Thread -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-3 hover:shadow-md transition-shadow">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="font-medium text-purple-700">Malaria prevention during rainy season</h4>
+                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24 replies</span>
+              </div>
+              <p class="text-gray-600 text-sm mb-3">What are the most effective ways to prevent malaria when mosquito population is high? Share your experiences...</p>
+              <div class="flex items-center text-xs text-gray-500">
+                <img src="https://randomuser.me/api/portraits/women/32.jpg" class="w-6 h-6 rounded-full mr-2" alt="User">
+                <span>By Aminata K.</span>
+                <span class="mx-2">•</span>
+                <span>2 hours ago</span>
+              </div>
+            </div>
+
+            <!-- Discussion Thread -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-3 hover:shadow-md transition-shadow">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="font-medium text-purple-700">Traditional remedies for diarrhea</h4>
+                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">15 replies</span>
+              </div>
+              <p class="text-gray-600 text-sm mb-3">What home remedies have worked for your family when dealing with diarrhea? Looking for safe options...</p>
+              <div class="flex items-center text-xs text-gray-500">
+                <img src="https://randomuser.me/api/portraits/men/45.jpg" class="w-6 h-6 rounded-full mr-2" alt="User">
+                <span>By Mohamed T.</span>
+                <span class="mx-2">•</span>
+                <span>5 hours ago</span>
+              </div>
+            </div>
+
+            <!-- Discussion Thread -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-3 hover:shadow-md transition-shadow">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="font-medium text-purple-700">Prenatal care experiences at local clinics</h4>
+                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">8 replies</span>
+              </div>
+              <p class="text-gray-600 text-sm mb-3">Expecting mothers - share your experiences with prenatal care at different clinics in Freetown area...</p>
+              <div class="flex items-center text-xs text-gray-500">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-6 h-6 rounded-full mr-2" alt="User">
+                <span>By Fatmata B.</span>
+                <span class="mx-2">•</span>
+                <span>1 day ago</span>
+              </div>
+            </div>
+
+            <button class="w-full mt-4 bg-purple-50 text-purple-600 py-2 rounded-lg border border-purple-200 hover:bg-purple-100">
+              View All Discussions
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+    
     <!-- Find Clinics Tab -->
     <div id="clinics-tab" class="tab-content hidden">
-     <div class="bg-white rounded-lg shadow-md overflow-hidden">
-  <div class="bg-red-600 p-3">
-    <h2 class="text-white font-bold flex items-center">
-      <i class="fas fa-hospital mr-2"></i>
-      <span>Find Clinics</span>
-    </h2>
-  </div>
-  <div class="p-4">
-    <div class="mb-4">
-      <label for="locationInput" class="block text-gray-700 mb-2">Enter your location (district or city):</label>
-      <div class="flex">
-        <input type="text" id="locationInput" class="flex-grow px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="e.g. Freetown, Bo, Kenema">
-        <button id="findClinicsBtn" class="bg-red-600 text-white px-4 py-2 rounded-r-lg hover:bg-red-700">Search</button>
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-red-600 p-3">
+          <h2 class="text-white font-bold flex items-center">
+            <i class="fas fa-hospital mr-2"></i>
+            <span>Find Clinics</span>
+          </h2>
+        </div>
+        <div class="p-4">
+          <div class="mb-4">
+            <label for="locationInput" class="block text-gray-700 mb-2">Enter your location (district or city):</label>
+            <div class="flex">
+              <input type="text" id="locationInput" class="flex-grow px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="e.g. Freetown, Bo, Kenema">
+              <button id="findClinicsBtn" class="bg-red-600 text-white px-4 py-2 rounded-r-lg hover:bg-red-700">Search</button>
+            </div>
+          </div>
+          <div id="clinicResults" class="space-y-4">
+            <!-- Sample clinic cards - will be replaced by dynamic content -->
+            <div class="border border-gray-200 rounded-lg p-3">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-semibold text-gray-800">Connaught Hospital</h3>
+                  <p class="text-sm text-gray-600">Freetown • Government Hospital</p>
+                </div>
+                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24-Hour</span>
+              </div>
+              <div class="mt-2 flex items-center text-sm">
+                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                <span>+232 25 345678</span>
+              </div>
+              <div class="mt-1 flex items-center text-sm">
+                <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                <span>Lightfoot Boston St, Freetown</span>
+              </div>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-3">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-semibold text-gray-800">Bo Government Hospital</h3>
+                  <p class="text-sm text-gray-600">Bo • Government Hospital</p>
+                </div>
+              </div>
+              <div class="mt-2 flex items-center text-sm">
+                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                <span>+232 76 345678</span>
+              </div>
+              <div class="mt-1 flex items-center text-sm">
+                <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                <span>Kissi Town, Bo</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div id="clinicResults" class="space-y-4">
-      <!-- Results from JavaScript will appear here -->
-    </div>
-  </div>
-</div>
+    
+    <!-- Account Tab -->
+    <div id="account-tab" class="tab-content hidden">
+      <div class="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+        <!-- Sign In Form -->
+        <div id="signin-form" class="p-6">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Sign In</h2>
+          <form>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-medium mb-2" for="email">Email</label>
+              <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+                     id="email" type="email" placeholder="your@email.com">
+            </div>
+            <div class="mb-6">
+              <label class="block text-gray-700 text-sm font-medium mb-2" for="password">Password</label>
+              <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+                     id="password" type="password" placeholder="••••••••">
+            </div>
+            <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors mb-4">
+              Sign In
+            </button>
+            <div class="text-center mb-4">
+              <a href="#" id="forgot-password" class="text-sm text-green-600 hover:underline">Forgot password?</a>
+            </div>
+            <div class="flex items-center mb-4">
+              <div class="flex-grow border-t border-gray-300"></div>
+              <span class="mx-4 text-gray-500 text-sm">OR</span>
+              <div class="flex-grow border-t border-gray-300"></div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <button type="button" class="flex items-center justify-center bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                <i class="fab fa-facebook-f mr-2"></i> Facebook
+              </button>
+              <button type="button" class="flex items-center justify-center bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition-colors">
+                <i class="fab fa-google mr-2"></i> Google
+              </button>
+            </div>
+            <div class="text-center text-sm">
+              <span class="text-gray-600">Don't have an account?</span>
+              <a href="#" id="show-signup" class="text-green-600 hover:underline ml-1">Sign up</a>
+            </div>
+          </form>
+        </div>
+
+        <!-- Sign Up Form (hidden by default) -->
+        <div id="signup-form" class="p-6 hidden">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Create Account</h2>
+          <form>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-medium mb-2" for="signup-name">Full Name</label>
+              <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+                     id="signup-name" type="text" placeholder="John Doe">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-medium mb-2" for="signup-email">Email</label>
+              <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+                     id="signup-email" type="email" placeholder="your@email.com">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-medium mb-2" for="signup-password">Password</label>
+              <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+                     id="signup-password" type="password" placeholder="••••••••">
+            </div>
+            <div class="mb-6">
+              <label class="block text-gray-700 text-sm font-medium mb-2" for="signup-confirm">Confirm Password</label>
+              <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+                     id="signup-confirm" type="password" placeholder="••••••••">
+            </div>
+            <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors mb-4">
+              Create Account
+            </button>
+            <div class="flex items-center mb-4">
+              <div class="flex-grow border-t border-gray-300"></div>
+              <span class="mx-4 text-gray-500 text-sm">OR</span>
+              <div class="flex-grow border-t border-gray-300"></div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <button type="button" class="flex items-center justify-center bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                <i class="fab fa-facebook-f mr-2"></i> Facebook
+              </button>
+              <button type="button" class="flex items-center justify-center bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition-colors">
+                <i class="fab fa-google mr-2"></i> Google
+              </button>
+            </div>
+            <div class="text-center text-sm">
+              <span class="text-gray-600">Already have an account?</span>
+              <a href="#" id="show-signin" class="text-green-600 hover:underline ml-1">Sign in</a>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+  </main>
+
   <!-- Footer -->
   <footer class="bg-green-800 text-white py-6">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <h3 class="font-bold mb-3">DoxaCare AI</h3>
+          <h3 class="font-bold mb-3">EvaCare AI</h3>
           <p class="text-sm">Providing trusted healthcare advice for Sierra Leone</p>
           <div class="mt-3">
             <p class="text-sm"><i class="fas fa-phone-alt mr-2"></i> Emergency: 117, 112</p>
@@ -339,7 +544,7 @@
         </div>
       </div>
       <div class="border-t border-green-700 mt-6 pt-4 text-center text-sm">
-        <p>© 2023 DoxaCare AI - Healthcare Assistant for Sierra Leone</p>
+        <p>© 2023 EvaCare AI - Healthcare Assistant for Sierra Leone</p>
       </div>
     </div>
   </footer>
@@ -387,8 +592,10 @@
   </div>
 
   <script>
-    // Install Firebase CLI (run this command in terminal)
-    // npm install -g firebase-tools
+    // Force refresh by adding cache-busting parameter
+    if (performance.navigation.type === 1) {
+      window.location.search = '?refresh=' + new Date().getTime();
+    }
     
     // Language Toggle
     const languageToggle = document.getElementById('languageToggle');
@@ -658,7 +865,6 @@
               </div>
             </div>
           `;
-
           
           // Add event listener to the find clinic button
           document.getElementById('findClinicFromSymptoms').addEventListener('click', () => {
@@ -707,7 +913,6 @@
         document.getElementById('symptomsInput').value = '';
       }, 1000);
     });
-
     // Symptom Tag Buttons
     const symptomTags = document.querySelectorAll('.symptom-tag');
     
@@ -720,130 +925,232 @@
     });
     
     // Find Clinics
-const findClinicsBtn = document.getElementById('findClinicsBtn');
-const locationInput = document.getElementById('locationInput');
-
-findClinicsBtn.addEventListener('click', () => {
-  const location = locationInput.value.trim().toLowerCase();
-
-  if (location) {
-    // Show loading state
-    const clinicResults = document.getElementById('clinicResults');
-    clinicResults.innerHTML = `
-      <div class="flex items-center justify-center py-4">
-        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
-        <span class="ml-3">Searching for clinics in ${locationInput.value}...</span>
-      </div>
-    `;
-
-    setTimeout(() => {
-      let clinics = [];
-
-      // Mock data for districts (unchanged)
-      const districtMap = {
-        'freetown': [
-          { name: 'Connaught Hospital', location: 'Lightfoot Boston St, Freetown', phone: '+232 25 345678', type: 'Government Hospital', is24Hour: true },
-          { name: 'Lumley Government Hospital', location: 'Lumley, Freetown', phone: '+232 76 543210', type: 'Government Hospital', is24Hour: false },
-          { name: 'Cottage Hospital', location: 'Fourah Bay Road, Freetown', phone: '+232 22 221234', type: 'Private Hospital', is24Hour: true }
-        ],
-        'bo': [
-          { name: 'Bo Government Hospital', location: 'Kissi Town, Bo', phone: '+232 76 345678', type: 'Government Hospital', is24Hour: true },
-          { name: 'Mercy Hospital', location: 'Tikonko Rd, Bo', phone: '+232 33 567890', type: 'Private Hospital', is24Hour: false },
-          { name: 'St. Francis Health Center', location: 'Dambala Rd, Bo', phone: '+232 76 789012', type: 'Clinic', is24Hour: false }
-        ],
-        'kenema': [
-          { name: 'Kenema Government Hospital', location: 'Hanga Rd, Kenema', phone: '+232 78 123456', type: 'Government Hospital', is24Hour: true },
-          { name: 'Holy Spirit Hospital', location: 'Dama Rd, Kenema', phone: '+232 78 654321', type: 'Mission Hospital', is24Hour: true }
-        ],
-        'makeni': [
-          { name: 'Makeni Government Hospital', location: 'Magburaka Rd, Makeni', phone: '+232 77 112233', type: 'Government Hospital', is24Hour: true },
-          { name: 'Binkolo Community Health Center', location: 'Binkolo, Makeni', phone: '+232 77 445566', type: 'Clinic', is24Hour: false }
-        ],
-        'koidu': [
-          { name: 'Koidu Government Hospital', location: 'Mines Rd, Koidu', phone: '+232 77 778899', type: 'Government Hospital', is24Hour: true },
-          { name: 'Mines Medical Center', location: 'Koidu Mines Area', phone: '+232 77 001122', type: 'Company Hospital', is24Hour: true }
-        ],
-        'port loko': [
-          { name: 'Port Loko Government Hospital', location: 'Rokel St, Port Loko', phone: '+232 76 334455', type: 'Government Hospital', is24Hour: true },
-          { name: 'Mercy Community Health Center', location: 'Gbinti Rd, Port Loko', phone: '+232 77 667788', type: 'Clinic', is24Hour: false }
-        ],
-        'kambia': [
-          { name: 'Kambia Government Hospital', location: 'Mange Bureh Rd, Kambia', phone: '+232 77 998877', type: 'Government Hospital', is24Hour: false }
-        ],
-        'kailahun': [
-          { name: 'Kailahun Government Hospital', location: 'Luawa Rd, Kailahun', phone: '+232 77 665544', type: 'Government Hospital', is24Hour: true },
-          { name: 'Segbwema Community Health Center', location: 'Segbwema Town', phone: '+232 76 223344', type: 'Clinic', is24Hour: false }
-        ],
-        'default': [
-          {
-            name: 'General Advice',
-            location: '',
-            phone: '',
-            type: '',
-            is24Hour: false,
-            advice: 'For medical facilities in your area, visit the local health center or district hospital. In emergencies, call 117. Major district hospitals include:<br><br>' +
-                    '• Freetown - Connaught Hospital<br>' +
-                    '• Bo - Bo Government Hospital<br>' +
-                    '• Kenema - Kenema Government Hospital<br>' +
-                    '• Makeni - Makeni Government Hospital<br>' +
-                    '• Koidu - Koidu Government Hospital<br>' +
-                    '• Port Loko - Port Loko Government Hospital<br>' +
-                    '• Kambia - Kambia Government Hospital<br>' +
-                    '• Kailahun - Kailahun Government Hospital'
+    const findClinicsBtn = document.getElementById('findClinicsBtn');
+    const locationInput = document.getElementById('locationInput');
+    
+    findClinicsBtn.addEventListener('click', () => {
+      const location = locationInput.value.trim();
+      
+      if (location) {
+        // Show loading state
+        const clinicResults = document.getElementById('clinicResults');
+        clinicResults.innerHTML = `
+          <div class="flex items-center justify-center py-4">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
+            <span class="ml-3">Searching for clinics in ${location}...</span>
+          </div>
+        `;
+        
+        // Simulate API call delay
+        setTimeout(() => {
+          let clinics = [];
+          
+          // Mock data for districts
+          const districtMap = {
+            'freetown': [
+              {
+                name: 'Connaught Hospital',
+                location: 'Lightfoot Boston St, Freetown',
+                phone: '+232 25 345678',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Lumley Government Hospital',
+                location: 'Lumley, Freetown',
+                phone: '+232 76 543210',
+                type: 'Government Hospital',
+                is24Hour: false
+              },
+              {
+                name: 'Cottage Hospital',
+                location: 'Fourah Bay Road, Freetown',
+                phone: '+232 22 221234',
+                type: 'Private Hospital',
+                is24Hour: true
+              }
+            ],
+            'bo': [
+              {
+                name: 'Bo Government Hospital',
+                location: 'Kissi Town, Bo',
+                phone: '+232 76 345678',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Mercy Hospital',
+                location: 'Tikonko Rd, Bo',
+                phone: '+232 33 567890',
+                type: 'Private Hospital',
+                is24Hour: false
+              },
+              {
+                name: 'St. Francis Health Center',
+                location: 'Dambala Rd, Bo',
+                phone: '+232 76 789012',
+                type: 'Clinic',
+                is24Hour: false
+              }
+            ],
+            'kenema': [
+              {
+                name: 'Kenema Government Hospital',
+                location: 'Hanga Rd, Kenema',
+                phone: '+232 78 123456',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Holy Spirit Hospital',
+                location: 'Dama Rd, Kenema',
+                phone: '+232 78 654321',
+                type: 'Mission Hospital',
+                is24Hour: true
+              }
+            ],
+            'makeni': [
+              {
+                name: 'Makeni Government Hospital',
+                location: 'Magburaka Rd, Makeni',
+                phone: '+232 77 112233',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Binkolo Community Health Center',
+                location: 'Binkolo, Makeni',
+                phone: '+232 77 445566',
+                type: 'Clinic',
+                is24Hour: false
+              }
+            ],
+            'koidu': [
+              {
+                name: 'Koidu Government Hospital',
+                location: 'Mines Rd, Koidu',
+                phone: '+232 77 778899',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Mines Medical Center',
+                location: 'Koidu Mines Area',
+                phone: '+232 77 001122',
+                type: 'Company Hospital',
+                is24Hour: true
+              }
+            ],
+            'port loko': [
+              {
+                name: 'Port Loko Government Hospital',
+                location: 'Rokel St, Port Loko',
+                phone: '+232 76 334455',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Mercy Community Health Center',
+                location: 'Gbinti Rd, Port Loko',
+                phone: '+232 77 667788',
+                type: 'Clinic',
+                is24Hour: false
+              }
+            ],
+            'kambia': [
+              {
+                name: 'Kambia Government Hospital',
+                location: 'Mange Bureh Rd, Kambia',
+                phone: '+232 77 998877',
+                type: 'Government Hospital',
+                is24Hour: false
+              }
+            ],
+            'kailahun': [
+              {
+                name: 'Kailahun Government Hospital',
+                location: 'Luawa Rd, Kailahun',
+                phone: '+232 77 665544',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Segbwema Community Health Center',
+                location: 'Segbwema Town',
+                phone: '+232 76 223344',
+                type: 'Clinic',
+                is24Hour: false
+              }
+            ],
+            'default': [
+              {
+                name: 'General Advice',
+                location: '',
+                phone: '', 
+                type: '',
+                is24Hour: false,
+                advice: 'For medical facilities in your area, visit the local health center or district hospital. In emergencies, call 117. Major district hospitals include:\n\n' +
+                        '• Freetown - Connaught Hospital\n' +
+                        '• Bo - Bo Government Hospital\n' + 
+                        '• Kenema - Kenema Government Hospital\n' +
+                        '• Makeni - Makeni Government Hospital\n' +
+                        '• Koidu - Koidu Government Hospital\n' +
+                        '• Port Loko - Port Loko Government Hospital\n' +
+                        '• Kambia - Kambia Government Hospital\n' +
+                        '• Kailahun - Kailahun Government Hospital'
+              }
+            ]
+          };
+          // Find matching districts
+          clinics = [];
+          for (const [district, facilities] of Object.entries(districtMap)) {
+            if (location.toLowerCase().includes(district)) {
+              clinics = [...facilities];
+              break;
+            }
           }
-        ]
-      };
-
-      // Robust district search
-      clinics = [];
-      for (const [district, facilities] of Object.entries(districtMap)) {
-        if (district !== 'default' && location.includes(district)) {
-          clinics = facilities;
-          break;
-        }
-      }
-      if (clinics.length === 0) {
-        clinics = districtMap.default;
-      }
-
-      // Display results
-      let clinicsHTML = clinics.map(clinic => {
-        if (clinic.advice) {
-          return `
-            <div class="border border-gray-200 rounded-lg p-3">
-              <p class="text-gray-700">${clinic.advice}</p>
-            </div>
-          `;
-        } else {
-          return `
-            <div class="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="font-semibold text-gray-800">${clinic.name}</h3>
-                  <p class="text-sm text-gray-600">${clinic.location} • ${clinic.type}</p>
+          if (clinics.length === 0) {
+            clinics = districtMap.default;
+          }
+          
+          // Display results
+          let clinicsHTML = clinics.map(clinic => {
+            if (clinic.advice) {
+              return `
+                <div class="border border-gray-200 rounded-lg p-3">
+                  <p class="text-gray-700">${clinic.advice}</p>
                 </div>
-                ${clinic.is24Hour ? '<span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24-Hour</span>' : ''}
-              </div>
-              ${clinic.phone ? `
-              <div class="mt-2 flex items-center text-sm">
-                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
-                <span>${clinic.phone}</span>
-              </div>` : ''}
-              <div class="mt-1 flex items-center text-sm">
-                <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
-                <span>${clinic.location}</span>
-              </div>
-            </div>
-          `;
-        }
-      }).join('');
-
-      clinicResults.innerHTML = clinicsHTML;
-    }, 1200);
-  } else {
-    alert('Please enter a location to search for clinics.');
-  }
-});
+              `;
+            } else {
+              return `
+                <div class="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <h3 class="font-semibold text-gray-800">${clinic.name}</h3>
+                      <p class="text-sm text-gray-600">${clinic.location} • ${clinic.type}</p>
+                    </div>
+                    ${clinic.is24Hour ? '<span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24-Hour</span>' : ''}
+                  </div>
+                  ${clinic.phone ? `
+                  <div class="mt-2 flex items-center text-sm">
+                    <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                    <span>${clinic.phone}</span>
+                  </div>` : ''}
+                  <div class="mt-1 flex items-center text-sm">
+                    <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                    <span>${clinic.location}</span>
+                  </div>
+                </div>
+              `;
+            }
+          }).join('');
+          
+          clinicResults.innerHTML = clinicsHTML;
+        }, 1200);
+      } else {
+        alert('Please enter a location to search for clinics.');
+      }
+    });
     
     // Chat Functionality
     const userInput = document.getElementById('userInput');
@@ -947,9 +1254,21 @@ findClinicsBtn.addEventListener('click', () => {
       }, 1500);
     }
     
-    function processUserMessage(message) {
+    async function processUserMessage(message) {
       // Convert message to lowercase for easier matching
       const lowerMessage = message.toLowerCase();
+      
+      // First try to get response from API
+      const apiResponse = await callEvaCareAPI('chat', {
+        message: message,
+        language: isEnglish ? 'en' : 'krio'
+      });
+      
+      if (apiResponse && !apiResponse.error) {
+        // If API returned a valid response, use it
+        simulateBotResponse(apiResponse.message);
+        return;
+      }
       
       // Emergency conditions
       if (lowerMessage.includes('emergency') || 
@@ -1212,9 +1531,73 @@ findClinicsBtn.addEventListener('click', () => {
         });
       }
     }
-
-
-
+    // Account Form Toggle
+    document.getElementById('show-signup').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('signin-form').classList.add('hidden');
+      document.getElementById('signup-form').classList.remove('hidden');
+    });
+    document.getElementById('show-signin').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('signup-form').classList.add('hidden');
+      document.getElementById('signin-form').classList.remove('hidden');
+    });
+    // Social Login Handlers
+    document.querySelectorAll('#signin-form .fab, #signup-form .fab').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const provider = e.target.closest('button').textContent.trim().toLowerCase();
+        alert(`Redirecting to ${provider} login...`);
+        // In a real app, you would implement OAuth flow here
+      });
+    });
+    // Form Submission
+    document.querySelector('#signin-form form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      // In a real app, you would validate and send to backend
+      alert(`Signing in with ${email}`);
+    });
+    document.querySelector('#signup-form form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const confirm = document.getElementById('signup-confirm').value;
+      
+      if (password !== confirm) {
+        alert("Passwords don't match!");
+        return;
+      }
+      // In a real app, you would validate and send to backend
+      alert(`Creating account for ${name} (${email})`);
+    });
+    // API Configuration
+    const API_BASE_URL = 'https://Nb-RLYP.b99cdc1c-e949-43d7-9434-f71ae43c19cf';
+    
+    async function callEvaCareAPI(endpoint, data = {}) {
+      try {
+        const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+        
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
+        
+        return await response.json();
+      } catch (error) {
+        console.error('API Error:', error);
+        return {
+          error: true,
+          message: error.message
+        };
+      }
+    }
     // Initialization
     document.addEventListener('DOMContentLoaded', () => {
       // Fetch WHO health alerts
@@ -1222,7 +1605,6 @@ findClinicsBtn.addEventListener('click', () => {
         .then(response => response.json())
         .then(data => displayHealthAlert(data))
         .catch(error => console.error('Error fetching health alerts:', error));
-
       // Show welcome message in chat
       setTimeout(() => {
         if (isEnglish) {
@@ -1240,95 +1622,8 @@ findClinicsBtn.addEventListener('click', () => {
         }, 1000);
       }, 30000);
     });
-
-    // --- COMMUNITY HEALTH FORUM LOGIC ---
-const forumFeed = document.getElementById('forumFeed');
-const forumPostInput = document.getElementById('forumPostInput');
-const forumPostBtn = document.getElementById('forumPostBtn');
-const refreshForumBtn = document.getElementById('refreshForumBtn');
-const forumSort = document.getElementById('forumSort');
-
-let forumPosts = JSON.parse(localStorage.getItem('evacare_forum_posts') || '[]');
-
-function saveForumPosts() {
-  localStorage.setItem('evacare_forum_posts', JSON.stringify(forumPosts));
-}
-
-function renderForum() {
-  let posts = [...forumPosts];
-  if (forumSort.value === 'trending') {
-    posts.sort((a, b) => (b.likes + b.comments.length) - (a.likes + a.comments.length));
-  } else {
-    posts.sort((a, b) => b.created - a.created);
-  }
-  forumFeed.innerHTML = posts.map((post, idx) => 
-    <div class="border border-gray-200 rounded-lg p-4 mb-3">
-  <div class="flex justify-between items-center mb-2">
-    <h4 class="font-medium text-purple-700">${post.content}</h4>
-    <div class="flex items-center gap-2">
-      <button onclick="likeForumPost(${post.id})" class="text-green-600 hover:text-green-800">
-        <i class="fas fa-thumbs-up"></i> ${post.likes}
-      </button>
-      <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">${post.comments.length} comments</span>
-    </div>
-  </div>
-  <div class="mb-2">
-    <small class="text-gray-500">${timeAgo(post.created)}</small>
-  </div>
-  <div>
-    <input id="commentInput${post.id}" class="border px-2 py-1 rounded text-sm" placeholder="Add a comment...">
-    <button onclick="addForumComment(${post.id})" class="text-purple-600 hover:underline text-sm ml-2">Comment</button>
-  </div>
-  <div class="mt-2 ml-2">
-    ${
-      post.comments.map(c => `
-        <div class="text-gray-700 text-sm mb-1">
-          <i class="fas fa-user-circle mr-1"></i>
-          ${c.text} <small class="text-gray-400 ml-2">${timeAgo(c.created)}</small>
-        </div>
-      `).join('')
-    }
-  </div>
-</div>
-  ).join('') || '<div class="text-gray-400 italic text-center">No posts yet. Be the first to share!</div>';
-}
-window.likeForumPost = function(postId) {
-  const post = forumPosts.find(p => p.id === postId);
-  if (post) { post.likes++; saveForumPosts(); renderForum(); }
-}
-window.addForumComment = function(postId) {
-  const inp = document.getElementById('commentInput' + postId);
-  const text = inp.value.trim();
-  if (!text) return;
-  const post = forumPosts.find(p => p.id === postId);
-  post.comments.push({text, created: Date.now()});
-  inp.value = '';
-  saveForumPosts();
-  renderForum();
-}
-forumPostBtn.onclick = () => {
-  const content = forumPostInput.value.trim();
-  if (!content) return alert('Please enter your post!');
-  forumPosts.unshift({ id: Date.now(), content, created: Date.now(), likes: 0, comments: [] });
-  forumPostInput.value = '';
-  saveForumPosts();
-  renderForum();
-}
-refreshForumBtn.onclick = renderForum;
-forumSort.onchange = renderForum;
-
-// Helper to show time ago
-function timeAgo(ts) {
-  const now = Date.now(), s = Math.floor((now-ts)/1000);
-  if (s < 60) return 'just now';
-  const m = Math.floor(s/60); if (m<60) return m+' min ago';
-  const h=Math.floor(m/60); if(h<24)return h+' hr ago';
-  const d=Math.floor(h/24);return d+' day'+(d>1?'s':'')+' ago';
-}
-
-// Render on load
-renderForum();
-    
   </script>
-  </main>
+  </div>
+  </div>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://deepsite.hf.co/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://deepsite.hf.co" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://deepsite.hf.co?remix=vonSeeker/evacare1-5" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p><p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=vonSeeker/evacare1-5" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
 </html>
