@@ -113,7 +113,7 @@
         <div class="bg-green-100 p-4 border-b border-green-200">
           <h2 class="text-green-800 font-bold text-lg">Welcome to DoxaCare AI</h2>
           <p id="welcomeText" class="text-gray-700 text-sm mt-1">Your trusted healthcare assistant for Sierra Leone. Ask about symptoms, get health advice, or find nearby clinics.</p>
-          <p id="welcomeTextKrio" class="text-gray-700 text-sm mt-1 hidden">EvaCare AI wey dey for you pan Salone health. Ask about sick wey you get, take health advice, or find clinic close to you.</p>
+          <p id="welcomeTextKrio" class="text-gray-700 text-sm mt-1 hidden">DoxaCare AI wey dey for you pan Salone health. Ask about sick wey you get, take health advice, or find clinic close to you.</p>
         </div>
         <div class="p-4">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -202,7 +202,7 @@
         </div>
         <div class="p-4">
           <div class="flex flex-col md:flex-row items-center">
-            <img src="https://images.app.goo.gl/yodxUkY2sWEmGoMB9" alt="Lumley Beach in Freetown, Sierra Leone" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-lg shadow mb-4 md:mb-0 md:mr-4">
+            <img src="https://images.app.goo.gl/6DwoTn2NgUnF7Di77" alt="Lumley Beach in Freetown, Sierra Leone" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-lg shadow mb-4 md:mb-0 md:mr-4">
             <div>
               <h3 class="font-semibold text-green-800 mb-2" id="localTipTitle">Local Health Wisdom</h3>
               <div id="culturalTipText" class="text-gray-700">
@@ -242,20 +242,19 @@
             </div>
           </div>
           <div id="symptomResults" class="hidden border-t pt-4">
-            <h3 class="font-semibold text-gray-800 mb-3">Possible Conditions:</h3>
             <!-- Results will be inserted here by JavaScript -->
           </div>
           <div class="mt-4 p-3 bg-gray-100 rounded-lg">
             <h4 class="font-medium text-gray-700 mb-2">Common Health Topics:</h4>
             <div class="grid grid-cols-2 gap-2">
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="fever,chills,headache,muscle pain">Malaria</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="fever,abdominal pain,constipation,diarrhea">Typhoid</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="watery diarrhea,vomiting,dehydration">Cholera</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="high fever,severe headache,eye pain,muscle pain">Dengue</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="cough,fever,difficulty breathing">Pneumonia</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="fever,headache,stiff neck,sensitivity to light">Meningitis</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="fever,skin rash,conjunctivitis,muscle pain">Lassa Fever</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="fever,cough,loss of taste/smell,difficulty breathing">COVID-19</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Malaria">Malaria</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Typhoid">Typhoid</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Cholera">Cholera</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Dengue">Dengue</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Pneumonia">Pneumonia</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Meningitis">Meningitis</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Lassa Fever">Lassa Fever</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="COVID-19">COVID-19</button>
             </div>
           </div>
           <div class="mt-4 p-3 bg-gray-100 rounded-lg">
@@ -317,6 +316,14 @@
                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                           placeholder="Enter post title">
                   </div>
+                  <div class="mb-4">
+                      <label for="postCity" class="block text-gray-700 text-sm font-medium mb-2">
+                          City/Town:
+                      </label>
+                      <input type="text" id="postCity"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                          placeholder="e.g., Freetown, Bo">
+                  </div>
                   <div class="mb-6">
                       <label for="postContent" class="block text-gray-700 text-sm font-medium mb-2">
                           Content:
@@ -376,40 +383,7 @@
             </div>
           </div>
           <div id="clinicResults" class="space-y-4">
-            <!-- Sample clinic cards - will be replaced by dynamic content -->
-            <div class="border border-gray-200 rounded-lg p-3">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="font-semibold text-gray-800">Connaught Hospital</h3>
-                  <p class="text-sm text-gray-600">Freetown • Government Hospital</p>
-                </div>
-                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24-Hour</span>
-              </div>
-              <div class="mt-2 flex items-center text-sm">
-                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
-                <span>+232 25 345678</span>
-              </div>
-              <div class="mt-1 flex items-center text-sm">
-                <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
-                <span>Lightfoot Boston St, Freetown</span>
-              </div>
-            </div>
-            <div class="border border-gray-200 rounded-lg p-3">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="font-semibold text-gray-800">Bo Government Hospital</h3>
-                  <p class="text-sm text-gray-600">Bo • Government Hospital</p>
-                </div>
-              </div>
-              <div class="mt-2 flex items-center text-sm">
-                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
-                <span>+232 76 345678</span>
-              </div>
-              <div class="mt-1 flex items-center text-sm">
-                <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
-                <span>Kissi Town, Bo</span>
-              </div>
-            </div>
+            <!-- Clinic cards will be dynamically inserted here by JavaScript -->
           </div>
         </div>
       </div>
@@ -420,7 +394,7 @@
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <h3 class="font-bold mb-3">EvaCare AI</h3>
+          <h3 class="font-bold mb-3">DoxaCare AI</h3>
           <p class="text-sm">Providing trusted healthcare advice for Sierra Leone</p>
           <div class="mt-3">
             <p class="text-sm"><i class="fas fa-phone-alt mr-2"></i> Emergency: 117, 112</p>
@@ -437,11 +411,11 @@
         </div>
         <div>
           <h3 class="font-bold mb-3">Disclaimer</h3>
-          <p class="text-xs">EvaCare AI provides general health information only and does not replace professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.</p>
+          <p class="text-xs">DoxaCare AI provides general health information only and does not replace professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.</p>
         </div>
       </div>
       <div class="border-t border-green-700 mt-6 pt-4 text-center text-sm">
-        <p>© 2023 EvaCare AI - Healthcare Assistant for Sierra Leone</p>
+        <p>© 2023 DoxaCare AI - Healthcare Assistant for Sierra Leone</p>
       </div>
     </div>
   </footer>
@@ -505,7 +479,7 @@
     const malariaBtnText = document.getElementById('malariaBtnText');
     const pregnancyBtnText = document.getElementById('pregnancyBtnText');
     const diarrheaBtnText = document.getElementById('diarrheaBtnText');
-    const hypertensionBtnText = document.getElementById('hypertensionBtnText');
+    const hypertensionBtnText = document = document.getElementById('hypertensionBtnText');
     const chatTitle = document.getElementById('chatTitle');
     const welcomeTitle = document.getElementById('welcomeTitle');
     const culturalTitle = document.getElementById('culturalTitle');
@@ -529,7 +503,7 @@
         pregnancyBtnText.textContent = 'Pregnancy';
         diarrheaBtnText.textContent = 'Diarrhea';
         hypertensionBtnText.textContent = 'Hypertension';
-        chatTitle.textContent = 'Chat with EvaCare AI';
+        chatTitle.textContent = 'Chat with DoxaCare AI';
         culturalTitle.textContent = 'Cultural Health Tips';
         localTipTitle.textContent = 'Local Health Wisdom';
         healthAlertsTitle.textContent = 'Health Alerts';
@@ -548,7 +522,7 @@
         pregnancyBtnText.textContent = 'Belleful';
         diarrheaBtnText.textContent = 'Run belle';
         hypertensionBtnText.textContent = 'High BP';
-        chatTitle.textContent = 'Chat wit EvaCare AI';
+        chatTitle.textContent = 'Chat wit DoxaCare AI';
         culturalTitle.textContent = 'Health Tip for We Culture';
         localTipTitle.textContent = 'Local Health Sense';
         healthAlertsTitle.textContent = 'Health News';
@@ -601,10 +575,12 @@
         }
       });
     });
+
     // Chatbot functionality (simplified)
     const userInput = document.getElementById('userInput');
     const sendBtn = document.getElementById('sendBtn');
     const chatWindow = document.getElementById('chatWindow');
+
     function addUserMessage(message) {
       const messageDiv = document.createElement('div');
       messageDiv.classList.add('chat-message', 'user-message', 'mb-3', 'text-right');
@@ -612,36 +588,76 @@
       chatWindow.appendChild(messageDiv);
       chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll to bottom
     }
-    function simulateBotResponse(userMessage) {
-      const lowerMessage = userMessage.toLowerCase();
-      let response = "I'm still learning! Can you please rephrase or ask a different question?";
-      if (lowerMessage.includes("fever") || lowerMessage.includes("sick")) {
-        response = "If you have a fever, it's important to rest, drink plenty of fluids, and consider paracetamol. If it's severe or persists, please see a doctor.";
-      } else if (lowerMessage.includes("malaria")) {
-        response = "Malaria symptoms include fever, chills, headache, and muscle pain. Seek immediate medical attention for diagnosis and treatment. Use mosquito nets and repellent for prevention.";
-      } else if (lowerMessage.includes("pregnancy")) {
-        response = "For pregnancy-related questions, it's best to consult with a healthcare professional for personalized advice and prenatal care.";
-      } else if (lowerMessage.includes("clinic") || lowerMessage.includes("hospital")) {
-        response = "To find a clinic, please navigate to the 'Find Clinics' tab and enter your location.";
-      } else if (lowerMessage.includes("mosquito")) {
-        response = "To prevent mosquito bites, use insecticide-treated nets, apply repellent, and eliminate stagnant water sources around your home.";
-      } else if (lowerMessage.includes("hello") || lowerMessage.includes("hi")) {
-        response = "Hello there! How can I help you today?";
+
+    // Function to format bot responses from plain text/markdown to HTML
+    function formatBotResponse(text) {
+      // Replace double newlines with paragraph breaks, adding mb-2 for spacing
+      let formattedText = text.replace(/\n\n/g, '</p><p class="mb-2">');
+      // Replace single newlines with line breaks
+      formattedText = formattedText.replace(/\n/g, '<br>');
+      // Basic bolding: **text** to <strong>text</strong>
+      formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // Basic italics: *text* to <em>text</em>
+      formattedText = formattedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      // Wrap in a paragraph if not already starting with one, adding mb-2
+      if (!formattedText.startsWith('<p')) {
+          formattedText = `<p class="mb-2">${formattedText}</p>`;
       }
+      return formattedText;
+    }
+
+
+    async function simulateBotResponse(userMessage) {
       const typingIndicator = document.createElement('div');
       typingIndicator.classList.add('chat-message', 'bot-message', 'mb-3', 'typing-indicator');
-      typingIndicator.innerHTML = '<div class="bg-white p-3 rounded-lg shadow-sm max-w-3/4 inline-block italic text-gray-500">DoxaCare AI is typing</div>';
+      typingIndicator.innerHTML = '<div class="bg-white p-3 rounded-lg shadow-sm max-w-3/4 inline-block italic text-gray-500 leading-relaxed">DoxaCare AI is thinking...</div>';
       chatWindow.appendChild(typingIndicator);
       chatWindow.scrollTop = chatWindow.scrollHeight;
-      setTimeout(() => {
-        chatWindow.removeChild(typingIndicator);
-        const botMessageDiv = document.createElement('div');
-        botMessageDiv.classList.add('chat-message', 'bot-message', 'mb-3');
-        botMessageDiv.innerHTML = `<div class="bg-white p-3 rounded-lg shadow-sm max-w-3/4 inline-block">${response}</div>`;
-        chatWindow.appendChild(botMessageDiv);
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-      }, 1500); // Simulate typing delay
+
+      try {
+          let chatHistory = [];
+          chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
+          const payload = { contents: chatHistory };
+          const apiKey = ""; // Canvas will automatically provide the API key
+          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+          const response = await fetch(apiUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+          });
+
+          const result = await response.json();
+          let botResponseText = "I'm sorry, I couldn't get a response at this time. Please try again.";
+
+          if (result.candidates && result.candidates.length > 0 &&
+              result.candidates[0].content && result.candidates[0].content.parts &&
+              result.candidates[0].content.parts.length > 0) {
+              botResponseText = result.candidates[0].content.parts[0].text;
+          } else {
+              console.error("Unexpected API response structure:", result);
+          }
+
+          chatWindow.removeChild(typingIndicator);
+          const botMessageDiv = document.createElement('div');
+          botMessageDiv.classList.add('chat-message', 'bot-message', 'mb-3');
+          // Apply formatting here, and add leading-relaxed to the container
+          const formattedHtmlResponse = formatBotResponse(botResponseText);
+          botMessageDiv.innerHTML = `<div class="bg-white p-3 rounded-lg shadow-sm max-w-3/4 inline-block leading-relaxed">${formattedHtmlResponse}</div>`;
+          chatWindow.appendChild(botMessageDiv);
+          chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      } catch (error) {
+          console.error("Error communicating with Gemini API:", error);
+          chatWindow.removeChild(typingIndicator);
+          const errorMessageDiv = document.createElement('div');
+          errorMessageDiv.classList.add('chat-message', 'bot-message', 'mb-3');
+          errorMessageDiv.innerHTML = `<div class="bg-red-100 text-red-700 p-3 rounded-lg shadow-sm max-w-3/4 inline-block leading-relaxed">Error: Could not get a response. Please check your internet connection or try again later.</div>`;
+          chatWindow.appendChild(errorMessageDiv);
+          chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
     }
+
     sendBtn?.addEventListener('click', () => {
       const message = userInput.value.trim();
       if (message) {
@@ -650,11 +666,13 @@
         userInput.value = '';
       }
     });
+
     userInput?.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         sendBtn?.click();
       }
     });
+
     document.querySelectorAll('.quick-reply-btn').forEach(button => {
       button.addEventListener('click', (event) => {
         const text = event.target.textContent || '';
@@ -664,59 +682,61 @@
         }
       });
     });
-    // Symptom checker functionality (simplified)
+
+    // Symptom checker functionality (now uses Gemini API)
     const symptomsInput = document.getElementById('symptomsInput');
     const checkSymptomsBtn = document.getElementById('checkSymptomsBtn');
     const symptomResults = document.getElementById('symptomResults');
     const refreshHealthTopics = document.getElementById('refreshHealthTopics');
-    function simulateHealthTopicResponse(topic) {
-      let resultHTML = '';
-      const lowerTopic = topic.toLowerCase();
-      if (lowerTopic.includes("fever") || lowerTopic.includes("malaria")) {
-        resultHTML = `
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-2">
-            <h4 class="font-semibold text-blue-800">Malaria (High Probability)</h4>
-            <p class="text-sm text-gray-700">Symptoms: Fever, chills, headache, muscle aches, fatigue. Can be severe if untreated.</p>
-            <p class="text-xs text-gray-600 mt-1">Recommended Action: Seek immediate medical attention for diagnosis and treatment. Use mosquito nets.</p>
-          </div>
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-            <h4 class="font-semibold text-blue-800">Typhoid Fever (Possible)</h4>
-            <p class="text-sm text-gray-700">Symptoms: Sustained fever, weakness, stomach pain, headache, loss of appetite. Spreads through contaminated food/water.</p>
-            <p class="text-xs text-gray-600 mt-1">Recommended Action: Consult a doctor for tests and antibiotics. Practice good hygiene.</p>
-          </div>
-        `;
-      } else if (lowerTopic.includes("exercise")) {
-        resultHTML = `
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-            <h4 class="font-semibold text-blue-800">Benefits of Regular Exercise</h4>
-            <p class="text-sm text-gray-700">Regular physical activity improves heart health, strengthens muscles and bones, boosts mood, and helps manage weight.</p>
-            <p class="text-xs text-gray-600 mt-1">Recommended Action: Aim for at least 30 minutes of moderate exercise most days of the week. Start slowly if you're new.</p>
-          </div>
-        `;
-      } else if (lowerTopic.includes("nutrition")) {
-        resultHTML = `
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-            <h4 class="font-semibold text-blue-800">Healthy Eating Tips</h4>
-            <p class="text-sm text-gray-700">Focus on a balanced diet with plenty of fruits, vegetables, whole grains, and lean proteins. Limit processed foods, sugar, and unhealthy fats.</p>
-            <p class="text-xs text-gray-600 mt-1">Recommended Action: Incorporate local, seasonal foods. Drink plenty of clean water.</p>
-          </div>
-        `;
-      } else if (lowerTopic.includes("diabetes")) {
-        resultHTML = `
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-            <h4 class="font-semibold text-blue-800">Understanding Diabetes</h4>
-            <p class="text-sm text-gray-700">Diabetes is a chronic condition that affects how your body turns food into energy. It can lead to serious health problems if not managed.</p>
-            <p class="text-xs text-gray-600 mt-1">Recommended Action: Regular check-ups, healthy diet, exercise, and medication as prescribed. Consult a doctor for diagnosis and management.</p>
-          </div>
-        `;
-      } else {
-        resultHTML = `<p class="text-gray-600 italic">No specific information found for "${topic}". Please try a more general health topic or symptom.</p>`;
-      }
-      if (symptomResults) {
-        symptomResults.innerHTML = resultHTML;
-        symptomResults.classList.remove('hidden');
+
+    async function simulateHealthTopicResponse(topic) {
+      symptomResults.innerHTML = ''; // Clear previous results
+      symptomResults.classList.remove('hidden'); // Ensure results section is visible
+
+      const typingIndicator = document.createElement('div');
+      typingIndicator.classList.add('bg-gray-100', 'p-3', 'rounded-lg', 'shadow-sm', 'text-center', 'text-gray-500', 'italic', 'typing-indicator', 'leading-relaxed');
+      typingIndicator.textContent = 'DoxaCare AI is fetching information...';
+      symptomResults.appendChild(typingIndicator);
+
+      try {
+          let chatHistory = [];
+          // Craft a more specific prompt for health topics
+          const prompt = `Provide detailed and accurate health information about "${topic}" relevant to Sierra Leone, including symptoms, prevention, and common treatments. Format the response clearly with paragraphs and important terms in bold.`;
+          chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+          const payload = { contents: chatHistory };
+          const apiKey = ""; // Canvas will automatically provide the API key
+          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+          const response = await fetch(apiUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+          });
+
+          const result = await response.json();
+          let botResponseText = "<p class='text-gray-600 italic'>I'm sorry, I couldn't get detailed information for that topic at this time. Please try again or ask a different question.</p>";
+
+          if (result.candidates && result.candidates.length > 0 &&
+              result.candidates[0].content && result.candidates[0].content.parts &&
+              result.candidates[0].content.parts.length > 0) {
+              botResponseText = result.candidates[0].content.parts[0].text;
+          } else {
+              console.error("Unexpected API response structure for health topics:", result);
+          }
+          
+          symptomResults.removeChild(typingIndicator); // Remove loading indicator
+          symptomResults.innerHTML = `
+            <h3 class="font-semibold text-blue-800 mb-3">Information on ${topic}:</h3>
+            <div class="text-gray-700 leading-relaxed">${botResponseText}</div>
+          `;
+
+      } catch (error) {
+          console.error("Error communicating with Gemini API for health topics:", error);
+          symptomResults.removeChild(typingIndicator); // Remove loading indicator
+          symptomResults.innerHTML = `<p class="text-red-700 leading-relaxed">Error: Could not fetch information for "${topic}". Please check your internet connection or try again later.</p>`;
       }
     }
+
     checkSymptomsBtn?.addEventListener('click', () => {
       const inputTopic = symptomsInput.value.trim();
       if (inputTopic) {
@@ -725,19 +745,22 @@
         showAlert("Please enter a health topic or symptom.");
       }
     });
+
     symptomsInput?.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         checkSymptomsBtn?.click();
       }
     });
+
     document.querySelectorAll('.symptom-tag').forEach(button => {
       button.addEventListener('click', (event) => {
         const tagText = event.target.textContent || '';
         const dataSymptoms = event.target.dataset.symptoms || tagText;
         symptomsInput.value = dataSymptoms; // Prefill input with the tag value
-        checkSymptomsBtn?.click(); // Trigger search
+        simulateHealthTopicResponse(dataSymptoms); // Directly call API with the tag
       });
     });
+
     refreshHealthTopics?.addEventListener('click', () => {
       symptomsInput.value = '';
       if (symptomResults) {
@@ -745,53 +768,104 @@
         symptomResults.classList.add('hidden');
       }
     });
-    // Find Clinics functionality (simplified)
-    const locationInput = document.getElementById('locationInput');
-    const findClinicsBtn = document.getElementById('findClinicsBtn');
-    const clinicResults = document.getElementById('clinicResults');
+
+    // Find Clinics functionality (expanded)
+    const sierraLeoneClinics = {
+      "freetown": [
+        { name: "Connaught Hospital", type: "Government Hospital", address: "Lightfoot Boston St, Freetown", phone: "+232 25 345678", services: "General medicine, emergency, surgery. Open 24/7." },
+        { name: "Lumley Community Clinic", type: "Community Health Centre", address: "Lumley Beach Rd, Freetown", phone: "+232 78 123456", services: "Outpatient care, maternal & child health. Mon-Fri, 8 AM - 5 PM." },
+        { name: "Choithram Memorial Hospital", type: "Private Hospital", address: "Hill Station, Freetown", phone: "+232 79 987654", services: "Specialized care, diagnostics, surgery." },
+        { name: "PCMH (Princess Christian Maternity Hospital)", type: "Maternity Hospital", address: "Freetown Central", phone: "+232 76 112233", services: "Maternal and child health services." }
+      ],
+      "bo": [
+        { name: "Bo Government Hospital", type: "Government Hospital", address: "Hospital Road, Bo", phone: "+232 76 345678", services: "General hospital services. Open 24/7." },
+        { name: "Bo Clinic Centre", type: "Private Clinic", address: "Dambala Road, Bo", phone: "+232 77 876543", services: "General consultations, minor procedures." }
+      ],
+      "kenema": [
+        { name: "Kenema Government Hospital", type: "Government Hospital", address: "Clinic Road, Kenema", phone: "+232 76 987654", services: "Major regional hospital. Open 24/7." },
+        { name: "Kenema Health Post", type: "Community Health Post", address: "Ngelehun, Kenema", phone: "N/A", services: "Basic health services, vaccinations." }
+      ],
+      "makeni": [
+        { name: "Makeni Government Hospital", type: "Government Hospital", address: "Hospital Road, Makeni", phone: "+232 76 223344", services: "General hospital services." },
+        { name: "St. John of God Hospital (Fatima Hospital)", type: "Mission Hospital", address: "Makeni", phone: "+232 77 556677", services: "General medical, surgical, and maternity services." }
+      ],
+      "port loko": [
+        { name: "Port Loko Government Hospital", type: "Government Hospital", address: "Hospital Road, Port Loko", phone: "+232 76 889900", services: "General hospital services." }
+      ],
+      "kailahun": [
+        { name: "Kailahun Government Hospital", type: "Government Hospital", address: "Hospital Road, Kailahun", phone: "+232 76 112233", services: "General hospital services." },
+        { name: "Daru Community Health Centre", type: "Community Health Centre", address: "Daru, Kailahun", phone: "N/A", services: "Basic health services." }
+      ],
+      "kono": [
+        { name: "Kono Government Hospital (Koidu)", type: "Government Hospital", address: "Koidu Town, Kono", phone: "+232 76 445566", services: "General hospital services." }
+      ],
+      "moyamba": [
+        { name: "Moyamba Government Hospital", type: "Government Hospital", address: "Hospital Road, Moyamba", phone: "+232 76 778899", services: "General hospital services." }
+      ],
+      "bombali": [
+        { name: "Bombali District Hospital", type: "Government Hospital", address: "Makeni", phone: "+232 76 223344", services: "General hospital services (same as Makeni Gov. Hospital for this example)." }
+      ],
+      "tonkolili": [
+        { name: "Magburaka Government Hospital", type: "Government Hospital", address: "Magburaka, Tonkolili", phone: "+232 76 334455", services: "General hospital services." }
+      ],
+      "pujehun": [
+        { name: "Pujehun Government Hospital", type: "Government Hospital", address: "Pujehun", phone: "+232 76 990011", services: "General hospital services." }
+      ],
+      "kambia": [
+        { name: "Kambia Government Hospital", type: "Government Hospital", address: "Kambia", phone: "+232 76 102030", services: "General hospital services." }
+      ],
+      "bonthe": [
+        { name: "Bonthe Government Hospital", type: "Government Hospital", address: "Bonthe Island", phone: "+232 76 405060", services: "General hospital services." }
+      ],
+      "koinadugu": [
+        { name: "Kabala Government Hospital", type: "Government Hospital", address: "Kabala, Koinadugu", phone: "+232 76 708090", services: "General hospital services." }
+      ],
+      "falaba": [
+        { name: "Falaba District Hospital", type: "Government Hospital", address: "Bendugu, Falaba", phone: "N/A", services: "General hospital services (newest district)." }
+      ],
+      " karene": [
+        { name: "Karene District Hospital", type: "Government Hospital", address: "Karene", phone: "N/A", services: "General hospital services (newest district)." }
+      ]
+    };
+
     function simulateClinicSearch(location) {
       let resultsHTML = '';
       const lowerLocation = location.toLowerCase();
-      if (lowerLocation.includes("freetown")) {
-        resultsHTML = `
-          <div class="border border-gray-200 rounded-lg p-3 shadow-sm">
-            <h4 class="font-semibold text-red-700">Central Freetown Hospital</h4>
-            <p class="text-sm text-gray-700">Address: Hospital Rd, Freetown</p>
-            <p class="text-xs text-gray-600 mt-1">Services: General medicine, emergency, surgery. Open 24/7.</p>
-            <a href="#" class="text-red-500 hover:underline text-sm mt-2 block">View on Map</a>
-          </div>
-          <div class="border border-gray-200 rounded-lg p-3 shadow-sm">
-            <h4 class="font-semibold text-red-700">Lumley Community Clinic</h4>
-            <p class="text-sm text-gray-700">Address: Lumley Beach Rd, Freetown</p>
-            <p class="text-xs text-gray-600 mt-1">Services: Outpatient care, maternal & child health. Mon-Fri, 8 AM - 5 PM.</p>
-            <a href="#" class="text-red-500 hover:underline text-sm mt-2 block">View on Map</a>
-          </div>
-        `;
-      } else if (lowerLocation.includes("bo")) {
-        resultsHTML = `
-          <div class="border border-gray-200 rounded-lg p-3 shadow-sm">
-            <h4 class="font-semibold text-red-700">Bo Government Hospital</h4>
-            <p class="text-sm text-gray-700">Address: Hospital Road, Bo</p>
-            <p class="text-xs text-gray-600 mt-1">Services: General hospital services. Open 24/7.</p>
-            <a href="#" class="text-red-500 hover:underline text-sm mt-2 block">View on Map</a>
-          </div>
-        `;
-      } else if (lowerLocation.includes("kenema")) {
-        resultsHTML = `
-          <div class="border border-gray-200 rounded-lg p-3 shadow-sm">
-            <h4 class="font-semibold text-red-700">Kenema Government Hospital</h4>
-            <p class="text-sm text-gray-700">Address: Clinic Road, Kenema</p>
-            <p class="text-xs text-gray-600 mt-1">Services: Major regional hospital. Open 24/7.</p>
-            <a href="#" class="text-red-500 hover:underline text-sm mt-2 block">View on Map</a>
-          </div>
-        `;
+      const clinicsInDistrict = sierraLeoneClinics[lowerLocation];
+
+      if (clinicsInDistrict && clinicsInDistrict.length > 0) {
+        clinicsInDistrict.forEach(clinic => {
+          resultsHTML += `
+            <div class="border border-gray-200 rounded-lg p-3 shadow-sm">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-semibold text-red-700">${clinic.name}</h3>
+                  <p class="text-sm text-gray-600">${clinic.address} • ${clinic.type}</p>
+                </div>
+                ${clinic.services.includes('24/7') ? '<span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24-Hour</span>' : ''}
+              </div>
+              ${clinic.phone !== 'N/A' ? `
+              <div class="mt-2 flex items-center text-sm">
+                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                <span>${clinic.phone}</span>
+              </div>` : ''}
+              <div class="mt-1 flex items-center text-sm">
+                <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                <span>Services: ${clinic.services}</span>
+              </div>
+              <a href="#" class="text-red-500 hover:underline text-sm mt-2 block">View on Map</a>
+            </div>
+          `;
+        });
       } else {
-        resultsHTML = `<p class="text-gray-600 italic">No clinics found for "${location}". Try "Freetown", "Bo", or "Kenema".</p>`;
+        resultsHTML = `<p class="text-gray-600 italic">No clinics found for "${location}". Please try a different district or city in Sierra Leone. (e.g., Freetown, Bo, Kenema, Makeni, Port Loko, Kailahun, Kono, Moyamba, Bombali, Tonkolili, Pujehun, Kambia, Bonthe, Koinadugu, Falaba, Karene)</p>`;
       }
+
       if (clinicResults) {
         clinicResults.innerHTML = resultsHTML;
       }
     }
+
     findClinicsBtn?.addEventListener('click', () => {
       const location = locationInput.value.trim();
       if (location) {
@@ -800,14 +874,17 @@
         showAlert("Please enter a location to search for clinics.");
       }
     });
+
     locationInput?.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         findClinicsBtn?.click();
       }
     });
+
     // START Community Forum JS
     // Global state variables
     let posts = [];
+
     // DOM elements
     // Note: These elements are within the #advice-tab, so ensure they are correctly scoped if other tabs use similar IDs.
     // For this combined file, we'll assume unique IDs across the entire document.
@@ -819,15 +896,18 @@
     const newPostModalContent = document.getElementById('newPostModalContent');
     const closeNewPostModalBtn = document.getElementById('closeNewPostModalBtn');
     const postTitleInput = document.getElementById('postTitle');
+    const postCityInput = document.getElementById('postCity'); // New: Get city input
     const postContentTextarea = document.getElementById('postContent');
     const cancelPostBtn = document.getElementById('cancelPostBtn');
     const submitPostBtn = document.getElementById('submitPostBtn');
+
     const customAlertModal = document.getElementById('customAlertModal');
     const customAlertModalContent = document.getElementById('customAlertModalContent');
     const alertTitle = document.getElementById('alertTitle');
     const alertMessage = document.getElementById('alertMessage');
     const closeAlertModalBtn = document.getElementById('closeAlertModalBtn');
     const okAlertBtn = document.getElementById('okAlertBtn');
+
     // Helper function for custom alert
     function showAlert(message, title = 'Alert') {
         alertTitle.textContent = title;
@@ -838,6 +918,7 @@
             customAlertModalContent.classList.add('opacity-100', 'scale-100');
         }, 10); // Small delay for transition
     }
+
     function hideAlert() {
         customAlertModalContent.classList.remove('opacity-100', 'scale-100');
         customAlertModalContent.classList.add('opacity-0', 'scale-95');
@@ -845,13 +926,17 @@
             customAlertModal.classList.add('hidden');
         }, 300); // Match transition duration
     }
+
     // Event listeners for custom alert
     closeAlertModalBtn.addEventListener('click', hideAlert);
     okAlertBtn.addEventListener('click', hideAlert);
+
+
     // Helper function to generate unique IDs
     function generateUniqueId() {
         return Math.random().toString(36).substring(2, 9) + Date.now().toString(36);
     }
+
     // Helper function to format timestamp
     function formatTimestamp(date) {
         const options = {
@@ -864,6 +949,7 @@
         };
         return new Intl.DateTimeFormat('en-US', options).format(date);
     }
+
     // Function to render a single post
     function renderPost(post) {
         const postDiv = document.createElement('div');
@@ -877,9 +963,11 @@
                     <i class="fas fa-user text-gray-400 text-sm"></i>
                 </div>
                 <span>By ${post.author}</span>
+                ${post.city ? `<span class="mx-2">•</span><span>${post.city}</span>` : ''} <!-- Display city if available -->
                 <span class="mx-2">•</span>
                 <span>${post.timestamp}</span>
             </div>
+
             <!-- Comments Section -->
             <div class="mt-4 border-t border-gray-200 pt-4">
                 <h5 class="font-medium text-gray-800 mb-3 flex items-center">
@@ -890,6 +978,7 @@
                     <!-- Comments will be dynamically inserted here -->
                 </div>
                 <p id="noCommentsMessage-${post.id}" class="text-sm text-gray-600 italic mb-3 ${post.comments.length > 0 ? 'hidden' : ''}">No comments yet. Be the first to reply!</p>
+
                 <!-- Add Comment Input -->
                 <div class="flex items-center mt-2">
                     <input type="text" id="commentInput-${post.id}"
@@ -906,8 +995,10 @@
         post.comments.forEach(comment => {
             commentsList.appendChild(renderComment(comment));
         });
+
         return postDiv;
     }
+
     // Function to render a single comment
     function renderComment(comment) {
         const commentDiv = document.createElement('div');
@@ -926,9 +1017,11 @@
         `;
         return commentDiv;
     }
+
     // Function to update the entire posts display
     function updatePostsDisplay() {
         postsContainer.innerHTML = ''; // Clear existing posts
+
         if (posts.length === 0) {
             noPostsMessage.classList.remove('hidden');
             postsContainer.appendChild(noPostsMessage);
@@ -941,6 +1034,7 @@
         }
         addCommentEventListeners(); // Re-attach listeners after re-rendering
     }
+
     // Function to show the new post modal
     function showNewPostModal() {
         newPostModal.classList.remove('hidden');
@@ -949,9 +1043,11 @@
             newPostModalContent.classList.add('opacity-100', 'scale-100');
         }, 10); // Small delay for transition
         postTitleInput.value = '';
+        postCityInput.value = ''; // Clear city input
         postContentTextarea.value = '';
         postTitleInput.focus();
     }
+
     // Function to hide the new post modal
     function hideNewPostModal() {
         newPostModalContent.classList.remove('opacity-100', 'scale-100');
@@ -960,45 +1056,56 @@
             newPostModal.classList.add('hidden');
         }, 300); // Match transition duration
     }
+
     // Event handler for adding a new post
     function handleAddPost() {
         const title = postTitleInput.value.trim();
+        const city = postCityInput.value.trim(); // Get city value
         const content = postContentTextarea.value.trim();
-        if (title === '' || content === '') {
-            showAlert('Please fill in both title and content for your post.');
+
+        if (title === '' || content === '' || city === '') { // Require city now
+            showAlert('Please fill in title, content, and city/town for your post.');
             return;
         }
+
         const newPost = {
             id: generateUniqueId(),
             title: title,
             content: content,
             author: 'Anonymous User', // Default author
+            city: city, // Add city to the post object
             timestamp: formatTimestamp(new Date()),
             comments: [],
         };
+
         posts.push(newPost); // Add new post to the array
         updatePostsDisplay(); // Re-render all posts
         hideNewPostModal();
     }
+
     // Event handler for adding a comment
     function handleAddComment(postId, commentText) {
         if (commentText === '') {
             showAlert('Please enter your comment.');
             return;
         }
+
         const newComment = {
             id: generateUniqueId(),
             author: 'Community Member', // Default author
             text: commentText,
             timestamp: formatTimestamp(new Date()),
         };
+
         const postIndex = posts.findIndex(p => p.id === postId);
         if (postIndex !== -1) {
             posts[postIndex].comments.push(newComment);
+
             // Update the specific post's comments section without re-rendering everything
             const commentsListElement = document.getElementById(`commentsList-${postId}`);
             const noCommentsMessageElement = document.getElementById(`noCommentsMessage-${postId}`);
             const commentCountElement = document.getElementById(`commentCount-${postId}`);
+
             if (commentsListElement) {
                 commentsListElement.appendChild(renderComment(newComment));
                 commentsListElement.scrollTop = commentsListElement.scrollHeight; // Scroll to bottom
@@ -1010,12 +1117,14 @@
                 commentCountElement.textContent = posts[postIndex].comments.length;
             }
         }
+
         // Clear the specific comment input after adding
         const commentInput = document.getElementById(`commentInput-${postId}`);
         if (commentInput) {
             commentInput.value = '';
         }
     }
+
     // Function to add event listeners to all comment buttons and inputs
     function addCommentEventListeners() {
         document.querySelectorAll('.add-comment-btn').forEach(button => {
@@ -1023,12 +1132,14 @@
             button.removeEventListener('click', handleCommentButtonClick);
             button.addEventListener('click', handleCommentButtonClick);
         });
+
         document.querySelectorAll('input[id^="commentInput-"]').forEach(input => {
             // Remove existing listener to prevent duplicates
             input.removeEventListener('keypress', handleCommentInputKeyPress);
             input.addEventListener('keypress', handleCommentInputKeyPress);
         });
     }
+
     // Event handler for comment button click
     function handleCommentButtonClick(event) {
         const postId = event.currentTarget.dataset.postId;
@@ -1037,6 +1148,7 @@
             handleAddComment(postId, commentInput.value);
         }
     }
+
     // Event handler for comment input keypress (Enter key)
     function handleCommentInputKeyPress(event) {
         if (event.key === 'Enter') {
@@ -1045,15 +1157,18 @@
             handleAddComment(postId, commentInput.value);
         }
     }
+
     // Initial setup and event listeners for Community Forum
     // This will run when the main DoxaCare AI DOMContentLoaded fires
     document.addEventListener('DOMContentLoaded', () => { // Corrected: ensure this wraps all main JS
         updatePostsDisplay(); // Render initial state (no posts)
+
         newPostBtn.addEventListener('click', showNewPostModal);
         startNewDiscussionBtn.addEventListener('click', showNewPostModal); // Button inside "no posts" message
         closeNewPostModalBtn.addEventListener('click', hideNewPostModal);
         cancelPostBtn.addEventListener('click', hideNewPostModal);
         submitPostBtn.addEventListener('click', handleAddPost);
+
         // Close modal if clicking outside the content
         newPostModal.addEventListener('click', (event) => {
             if (event.target === newPostModal) {
@@ -1065,9 +1180,44 @@
                 hideAlert();
             }
         });
+
+        // Emergency modal event listeners
+        const emergencyBtn = document.getElementById('emergencyBtn');
+        const emergencyModal = document.getElementById('emergencyModal');
+        const closeEmergencyModal = document.getElementById('closeEmergencyModal');
+        const callEmergencyBtn = document.getElementById('callEmergencyBtn');
+
+        if (emergencyBtn) {
+            emergencyBtn.addEventListener('click', () => {
+                emergencyModal.classList.remove('hidden');
+            });
+        }
+
+        if (closeEmergencyModal) {
+            closeEmergencyModal.addEventListener('click', () => {
+                emergencyModal.classList.add('hidden');
+            });
+        }
+
+        if (callEmergencyBtn) {
+            callEmergencyBtn.addEventListener('click', () => {
+                // In a real application, this would initiate a phone call
+                // For now, we'll just close the modal and could add a console log
+                console.log("Initiating emergency call...");
+                emergencyModal.classList.add('hidden');
+            });
+        }
+
+        // Close emergency modal if clicking outside the content
+        if (emergencyModal) {
+            emergencyModal.addEventListener('click', (event) => {
+                if (event.target === emergencyModal) {
+                    emergencyModal.classList.add('hidden');
+                }
+            });
+        }
     });
     // END Community Forum JS
   </script>
 </body>
 </html>
-
