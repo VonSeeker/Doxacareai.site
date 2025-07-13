@@ -8,40 +8,59 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-    
+        
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #f0fdf4;
     }
-    
+        
     .typing-indicator::after {
       content: '...';
       animation: typing 1.5s infinite;
     }
-    
+        
     @keyframes typing {
       0% { content: '.'; }
       33% { content: '..'; }
       66% { content: '...'; }
     }
-    
+        
     .translate-btn {
       transition: all 0.3s ease;
     }
-    
+        
     .translate-btn:hover {
       transform: scale(1.05);
     }
-    
+        
     .emergency-shake {
       animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
     }
-    
+        
     @keyframes shake {
       10%, 90% { transform: translate3d(-1px, 0, 0); }
       20%, 80% { transform: translate3d(2px, 0, 0); }
       30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
       40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+    /* Custom styles for the modal overlay */
+    .modal-overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    /* Custom styles for scrollbar in comments section */
+    .max-h-48::-webkit-scrollbar {
+        width: 8px;
+    }
+    .max-h-48::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    .max-h-48::-webkit-scrollbar-thumb {
+        background: #cbd5e1; /* gray-300 */
+        border-radius: 10px;
+    }
+    .max-h-48::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8; /* gray-400 */
     }
   </style>
 </head>
@@ -67,7 +86,6 @@
       </div>
     </div>
   </header>
-
   <!-- Nav Tabs -->
   <div class="bg-white shadow-sm">
     <div class="container mx-auto px-4">
@@ -84,17 +102,16 @@
         <button class="tab-btn px-4 py-3 text-gray-600 font-medium whitespace-nowrap" data-tab="clinics">
           <i class="fas fa-hospital mr-2"></i>Find Clinics
         </button>
-      </div>
+          </div>
     </div>
   </div>
-
   <!-- Main Content -->
   <main class="flex-grow container mx-auto px-4 py-6">
     <!-- Home Tab (default visible) -->
     <div id="home-tab" class="tab-content active">
       <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
         <div class="bg-green-100 p-4 border-b border-green-200">
-          <h2 class="text-green-800 font-bold text-lg">Welcome to Doxacare AI</h2>
+          <h2 class="text-green-800 font-bold text-lg">Welcome to DoxaCare AI</h2>
           <p id="welcomeText" class="text-gray-700 text-sm mt-1">Your trusted healthcare assistant for Sierra Leone. Ask about symptoms, get health advice, or find nearby clinics.</p>
           <p id="welcomeTextKrio" class="text-gray-700 text-sm mt-1 hidden">EvaCare AI wey dey for you pan Salone health. Ask about sick wey you get, take health advice, or find clinic close to you.</p>
         </div>
@@ -145,8 +162,7 @@
           </div>
         </div>
       </div>
-      
-      <!-- Chat Interface -->
+            <!-- Chat Interface -->
       <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <div class="bg-green-600 p-3">
           <h2 class="text-white font-bold flex items-center">
@@ -176,8 +192,7 @@
           </div>
         </div>
       </div>
-      
-      <!-- Cultural Feature Section -->
+            <!-- Cultural Feature Section -->
       <div class="mt-6 bg-white rounded-lg shadow-md overflow-hidden">
         <div class="bg-gradient-to-r from-yellow-400 to-green-600 p-3">
           <h2 class="text-white font-bold flex items-center">
@@ -187,7 +202,7 @@
         </div>
         <div class="p-4">
           <div class="flex flex-col md:flex-row items-center">
-            <img src="Lumley-beach-in-Freetown-Sierra-Leone-jpg.webp" alt="Lumley Beach in Freetown, Sierra Leone" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-lg shadow mb-4 md:mb-0 md:mr-4">
+            <img src="https://images.app.goo.gl/yodxUkY2sWEmGoMB9" alt="Lumley Beach in Freetown, Sierra Leone" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-lg shadow mb-4 md:mb-0 md:mr-4">
             <div>
               <h3 class="font-semibold text-green-800 mb-2" id="localTipTitle">Local Health Wisdom</h3>
               <div id="culturalTipText" class="text-gray-700">
@@ -205,7 +220,7 @@
         </div>
       </div>
     </div>
-    
+        
     <!-- Symptom Checker Tab -->
     <div id="symptoms-tab" class="tab-content hidden">
       <div class="bg-white rounded-lg shadow-md overflow-hidden">
@@ -257,18 +272,155 @@
         </div>
       </div>
     </div>
-    
+        
     <!-- Health Advice Forum Tab -->
     <div id="advice-tab" class="tab-content hidden">
-      <div class="bg-white rounded-lg shadow-md overflow-hidden"></div>
+      <div class="max-w-3xl w-full bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="bg-purple-600 p-3 flex justify-between items-center rounded-t-lg">
+              <h2 class="text-white font-bold flex items-center text-xl">
+                  <i class="fas fa-comments mr-2"></i>
+                  Community Health Forum
+              </h2>
+              <button id="newPostBtn"
+                  class="bg-white text-purple-600 px-3 py-1 rounded-full text-sm font-medium hover:bg-purple-100 transition-colors shadow-sm">
+                  <i class="fas fa-plus mr-1"></i> New Post
+              </button>
+          </div>
+
+          <div id="postsContainer" class="p-4 space-y-4">
+              <!-- Posts will be dynamically inserted here by JavaScript -->
+              <div id="noPostsMessage" class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center text-gray-600">
+                  <i class="fas fa-exclamation-circle text-gray-400 text-3xl mb-3"></i>
+                  <p class="font-medium text-lg mb-2">No posts yet!</p>
+                  <p class="mb-4">Be the first to share a health question or advice with the community.</p>
+                  <button id="startNewDiscussionBtn"
+                      class="bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-colors shadow-md">
+                      Start a New Discussion
+                  </button>
+              </div>
+          </div>
+
+          <!-- New Post Modal -->
+          <div id="newPostModal" class="fixed inset-0 modal-overlay flex items-center justify-center z-50 p-4 hidden">
+              <div class="bg-white rounded-lg shadow-xl max-w-lg w-full p-6 transform transition-all duration-300 scale-95 opacity-0" id="newPostModalContent">
+                  <div class="flex justify-between items-center mb-4">
+                      <h3 class="text-xl font-bold text-purple-700">Create New Post</h3>
+                      <button id="closeNewPostModalBtn" class="text-gray-500 hover:text-gray-700">
+                          <i class="fas fa-times text-lg"></i>
+                      </button>
+                  </div>
+                  <div class="mb-4">
+                      <label for="postTitle" class="block text-gray-700 text-sm font-medium mb-2">
+                          Title:
+                      </label>
+                      <input type="text" id="postTitle"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                          placeholder="Enter post title">
+                  </div>
+                  <div class="mb-6">
+                      <label for="postContent" class="block text-gray-700 text-sm font-medium mb-2">
+                          Content:
+                      </label>
+                      <textarea id="postContent" rows="5"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-y"
+                          placeholder="Share your health question or advice..."></textarea>
+                  </div>
+                  <div class="flex justify-end space-x-3">
+                      <button id="cancelPostBtn"
+                          class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors shadow-sm">
+                          Cancel
+                      </button>
+                      <button id="submitPostBtn"
+                          class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors shadow-md">
+                          Submit Post
+                      </button>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Custom Alert Modal -->
+          <div id="customAlertModal" class="fixed inset-0 modal-overlay flex items-center justify-center z-50 p-4 hidden">
+              <div class="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 transform transition-all duration-300 scale-95 opacity-0" id="customAlertModalContent">
+                  <div class="flex justify-between items-center mb-4">
+                      <h3 class="text-xl font-bold text-red-700" id="alertTitle">Alert</h3>
+                      <button id="closeAlertModalBtn" class="text-gray-500 hover:text-gray-700">
+                          <i class="fas fa-times text-lg"></i>
+                      </button>
+                  </div>
+                  <p id="alertMessage" class="text-gray-700 mb-6"></p>
+                  <div class="flex justify-end">
+                      <button id="okAlertBtn" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors shadow-md">
+                          OK
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
     </div>
-    
+        
+    <!-- Find Clinics Tab -->
+    <div id="clinics-tab" class="tab-content hidden">
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-red-600 p-3">
+          <h2 class="text-white font-bold flex items-center">
+            <i class="fas fa-hospital mr-2"></i>
+            <span>Find Clinics</span>
+          </h2>
+        </div>
+        <div class="p-4">
+          <div class="mb-4">
+            <label for="locationInput" class="block text-gray-700 mb-2">Enter your location (district or city):</label>
+            <div class="flex">
+              <input type="text" id="locationInput" class="flex-grow px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="e.g. Freetown, Bo, Kenema">
+              <button id="findClinicsBtn" class="bg-red-600 text-white px-4 py-2 rounded-r-lg hover:bg-red-700">Search</button>
+            </div>
+          </div>
+          <div id="clinicResults" class="space-y-4">
+            <!-- Sample clinic cards - will be replaced by dynamic content -->
+            <div class="border border-gray-200 rounded-lg p-3">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-semibold text-gray-800">Connaught Hospital</h3>
+                  <p class="text-sm text-gray-600">Freetown • Government Hospital</p>
+                </div>
+                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24-Hour</span>
+              </div>
+              <div class="mt-2 flex items-center text-sm">
+                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                <span>+232 25 345678</span>
+              </div>
+              <div class="mt-1 flex items-center text-sm">
+                <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                <span>Lightfoot Boston St, Freetown</span>
+              </div>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-3">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-semibold text-gray-800">Bo Government Hospital</h3>
+                  <p class="text-sm text-gray-600">Bo • Government Hospital</p>
+                </div>
+              </div>
+              <div class="mt-2 flex items-center text-sm">
+                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                <span>+232 76 345678</span>
+              </div>
+              <div class="mt-1 flex items-center text-sm">
+                <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                <span>Kissi Town, Bo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        </main>
   <!-- Footer -->
   <footer class="bg-green-800 text-white py-6">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <h3 class="font-bold mb-3">DoxaCare AI</h3>
+          <h3 class="font-bold mb-3">EvaCare AI</h3>
           <p class="text-sm">Providing trusted healthcare advice for Sierra Leone</p>
           <div class="mt-3">
             <p class="text-sm"><i class="fas fa-phone-alt mr-2"></i> Emergency: 117, 112</p>
@@ -289,11 +441,10 @@
         </div>
       </div>
       <div class="border-t border-green-700 mt-6 pt-4 text-center text-sm">
-        <p>© 2023 DoxaCare AI - Healthcare Assistant for Sierra Leone</p>
+        <p>© 2023 EvaCare AI - Healthcare Assistant for Sierra Leone</p>
       </div>
     </div>
   </footer>
-
   <!-- Emergency Modal -->
   <div id="emergencyModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
@@ -335,14 +486,12 @@
       </button>
     </div>
   </div>
-
   <script>
     // Force refresh by adding cache-busting parameter
     if (performance.navigation.type === 1) {
       window.location.search = '?refresh=' + new Date().getTime();
     }
-    
-    // Language Toggle
+        // Language Toggle
     const languageToggle = document.getElementById('languageToggle');
     const currentLanguage = document.getElementById('currentLanguage');
     const welcomeText = document.getElementById('welcomeText');
@@ -363,13 +512,10 @@
     const localTipTitle = document.getElementById('localTipTitle');
     const healthAlertsTitle = document.getElementById('healthAlertsTitle');
     const quickLinksTitle = document.getElementById('quickLinksTitle');
-    
-    let isEnglish = false;
-    
-    languageToggle.addEventListener('click', () => {
+        let isEnglish = false;
+        languageToggle.addEventListener('click', () => {
       isEnglish = !isEnglish;
-      
-      if (isEnglish) {
+            if (isEnglish) {
         currentLanguage.textContent = 'English';
         welcomeText.classList.remove('hidden');
         welcomeTextKrio.classList.add('hidden');
@@ -409,987 +555,519 @@
         quickLinksTitle.textContent = 'Quick Chat';
       }
     });
-    
-    // Tab Switching
+        // Tab Switching
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
-    
-    tabButtons.forEach(button => {
+        tabButtons.forEach(button => {
       button.addEventListener('click', () => {
         const tabId = button.getAttribute('data-tab');
-        
-        // Update active state for buttons
+                // Update active state for buttons
         tabButtons.forEach(btn => btn.classList.remove('active', 'text-green-700', 'border-green-700'));
         button.classList.add('active', 'text-green-700', 'border-green-700');
-        
-        // Update active state for tab contents
+                // Update active state for tab contents
         tabContents.forEach(content => {
           content.classList.add('hidden');
           content.classList.remove('active');
         });
-        
-        document.getElementById(`${tabId}-tab`).classList.remove('hidden');
+                document.getElementById(`${tabId}-tab`).classList.remove('hidden');
         document.getElementById(`${tabId}-tab`).classList.add('active');
       });
     });
-    
-    // Quick Action Buttons
+        // Quick Action Buttons
     const quickActionBtns = document.querySelectorAll('.quick-action-btn');
-    
-    quickActionBtns.forEach(button => {
+        quickActionBtns.forEach(button => {
       button.addEventListener('click', () => {
         const action = button.getAttribute('data-action');
         const chatWindow = document.getElementById('chatWindow');
-        
-        switch(action) {
+                switch(action) {
           case 'malaria':
             addUserMessage('malaria prevention');
             simulateBotResponse('Malaria prevention is crucial in Sierra Leone. Use insecticide-treated mosquito nets every night, wear protective clothing in the evening, and eliminate stagnant water around your home where mosquitoes breed. If you experience fever, headache, or chills, seek medical attention immediately as these could be malaria symptoms.');
             break;
           case 'pregnancy':
             addUserMessage('pregnancy care');
-            simulateBotResponse('For healthy pregnancy: Attend all antenatal check-ups, take prescribed iron and folic acid supplements, eat nutritious meals, and learn about danger signs like severe headaches, blurred vision, or reduced fetal movement. Always have a skilled birth attendant during delivery.');
+            simulateBotResponse('For healthy pregnancy: Attend all antenatal check-ups, take prescribed iron and folic acid supplements, eat nutritious meals, and learn about danger signs like severe headaches, blurred vision,');
             break;
           case 'diarrhea':
             addUserMessage('diarrhea treatment');
-            simulateBotResponse('For diarrhea: Drink oral rehydration solution (ORS) frequently to prevent dehydration. Continue breastfeeding infants more often. Seek medical help if diarrhea persists more than 2 days, contains blood, or if dehydration signs (dry mouth, sunken eyes, less urination) appear.');
+            simulateBotResponse('For diarrhea, the most important thing is to prevent dehydration. Drink plenty of fluids, especially Oral Rehydration Salts (ORS). Avoid sugary drinks. If diarrhea is severe, bloody, or accompanied by high fever, seek medical attention.');
             break;
           case 'hypertension':
             addUserMessage('hypertension management');
-            simulateBotResponse('Managing high blood pressure: Reduce salt intake, exercise regularly, maintain healthy weight, limit alcohol, and take prescribed medications consistently. Monitor blood pressure weekly and contact your doctor if readings are consistently high (above 140/90).');
+            simulateBotResponse('Hypertension (high blood pressure) can be managed with a healthy diet low in salt, regular exercise, maintaining a healthy weight, and avoiding smoking and excessive alcohol. Regular check-ups and medication as prescribed by a doctor are essential.');
             break;
+          default:
+            simulateBotResponse("I'm not sure about that specific quick action, but I can help with general health questions!");
         }
-        
-        // Switch to chat tab
-        tabButtons.forEach(btn => btn.classList.remove('active', 'text-green-700', 'border-green-700'));
-        document.querySelector('.tab-btn[data-tab="home"]').classList.add('active', 'text-green-700', 'border-green-700');
-        tabContents.forEach(content => {
-          content.classList.add('hidden');
-          content.classList.remove('active');
-        });
-        document.getElementById('home-tab').classList.remove('hidden');
-        document.getElementById('home-tab').classList.add('active');
-        
-        // Scroll to chat
-        chatWindow.scrollTop = chatWindow.scrollHeight;
       });
     });
-    
-    // Symptom Checker
-    const checkSymptomsBtn = document.getElementById('checkSymptomsBtn');
-    const symptomsInput = document.getElementById('symptomsInput');
-    const symptomResults = document.getElementById('symptomResults');
-    
-    checkSymptomsBtn.addEventListener('click', () => {
-      const symptoms = symptomsInput.value.trim();
-      
-      if (symptoms) {
-        // Show loading state
-        symptomResults.innerHTML = `
-          <div class="flex items-center justify-center py-4">
-            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <span class="ml-3">Analyzing symptoms...</span>
-          </div>
-        `;
-        symptomResults.classList.remove('hidden');
-        
-        // Simulate API call delay
-        setTimeout(() => {
-          let conditions = [];
-          let advice = '';
-          
-          // Enhanced symptom matching with detailed condition information
-          if (symptoms.toLowerCase().includes('fever') && 
-              (symptoms.toLowerCase().includes('headache') || symptoms.toLowerCase().includes('chills'))) {
-            conditions.push({
-              name: 'Possible Malaria',
-              description: 'A life-threatening parasitic disease transmitted through mosquito bites',
-              symptoms: '• High fever (often cyclical)\n• Chills and sweating\n• Headache\n• Muscle/joint pain\n• Fatigue\n• Nausea/vomiting',
-              treatment: '• Rapid diagnostic test required\n• Artemisinin-based combination therapy (ACT)\n• IV quinine for severe cases\n• Complete full medication course',
-              prevention: '• Use insecticide-treated nets (ITNs)\n• Indoor residual spraying\n• Wear protective clothing\n• Eliminate standing water',
-              emergency: 'Seek immediate care for:\n• Impaired consciousness\n• Multiple convulsions\n• Difficulty breathing\n• Severe bleeding\n• Clinical jaundice'
-            });
-            advice = 'Malaria is endemic in Sierra Leone. Get tested immediately at a clinic.';
-          }
-          
-          if (symptoms.toLowerCase().includes('cough') && 
-              (symptoms.toLowerCase().includes('fever') || symptoms.toLowerCase().includes('difficulty breathing'))) {
-            conditions.push({
-              name: 'Possible Respiratory Infection',
-              description: 'Infection affecting lungs and airways, ranging from mild to severe',
-              symptoms: '• Cough (dry or productive)\n• Fever\n• Shortness of breath\n• Chest pain\n• Nasal congestion\n• Fatigue',
-              treatment: '• Rest and hydration\n• Antipyretics for fever\n• Antibiotics if bacterial\n• Antivirals for influenza\n• Steam inhalation',
-              prevention: '• Frequent handwashing\n• Cover coughs/sneezes\n• Avoid close contact with sick people\n• Get vaccinated (flu, COVID-19)',
-              emergency: 'Emergency signs:\n• Blue lips/face\n• Chest indrawing\n• Inability to drink\n• Severe respiratory distress'
-            });
-            advice = 'Respiratory infections can become serious. Monitor symptoms closely.';
-          }
-          
-          if (symptoms.toLowerCase().includes('diarrhea') && 
-              (symptoms.toLowerCase().includes('vomiting') || symptoms.toLowerCase().includes('stomach pain'))) {
-            conditions.push({
-              name: 'Possible Gastroenteritis',
-              description: 'Inflammation of stomach and intestines from infection',
-              symptoms: '• Watery diarrhea\n• Vomiting\n• Abdominal cramps\n• Low-grade fever\n• Dehydration signs',
-              treatment: '• Oral rehydration solution (ORS)\n• Zinc supplements\n• Continued feeding\n• Antibiotics if bacterial',
-              prevention: '• Handwashing with soap\n• Safe water/food preparation\n• Proper sanitation\n• Rotavirus vaccination',
-              emergency: 'Seek care for:\n• Blood in stool\n• No urine >12 hours\n• Sunken eyes\n• Lethargy\n• High fever'
-            });
-            advice = 'Diarrheal diseases can lead to dangerous dehydration.';
-          }
-          
-          if (conditions.length === 0) {
-            conditions.push({
-              name: 'General Symptoms',
-              description: 'Non-specific symptoms requiring monitoring',
-              symptoms: '• Fatigue\n• Mild fever\n• Body aches\n• General discomfort',
-              treatment: '• Rest\n• Hydration\n• Symptom monitoring\n• Basic pain/fever relief',
-              prevention: '• Maintain good hygiene\n• Balanced nutrition\n• Adequate sleep\n• Stress management',
-              emergency: 'Seek care if:\n• Symptoms worsen\n• New concerning symptoms appear\n• No improvement in 48 hours'
-            });
-            advice = 'Monitor symptoms and seek care if they persist or worsen.';
-          }
-          
-          // Display results with detailed conditions list
-          let conditionsHTML = `
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
-              <h4 class="font-medium text-blue-800 mb-3 flex items-center">
-                <i class="fas fa-diagnoses mr-2"></i>
-                Possible Conditions Based on Your Symptoms:
-              </h4>
-              ${conditions.map(cond => `
-                <div class="mb-4 last:mb-0">
-                  <h5 class="font-semibold text-blue-700">${cond.name}</h5>
-                  <p class="text-sm text-gray-600 mb-1">${cond.description}</p>
-                  
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
-                    <div class="bg-white p-2 rounded border">
-                      <h6 class="text-xs font-medium text-gray-500">Symptoms</h6>
-                      <p class="text-sm whitespace-pre-line">${cond.symptoms}</p>
-                    </div>
-                    <div class="bg-white p-2 rounded border">
-                      <h6 class="text-xs font-medium text-gray-500">Treatment</h6>
-                      <p class="text-sm whitespace-pre-line">${cond.treatment}</p>
-                    </div>
-                    <div class="bg-white p-2 rounded border">
-                      <h6 class="text-xs font-medium text-gray-500">Prevention</h6>
-                      <p class="text-sm whitespace-pre-line">${cond.prevention}</p>
-                    </div>
-                    <div class="bg-white p-2 rounded border">
-                      <h6 class="text-xs font-medium text-gray-500">Emergency Signs</h6>
-                      <p class="text-sm whitespace-pre-line">${cond.emergency}</p>
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-              <div class="mt-3 text-xs text-gray-500">
-                <i class="fas fa-info-circle mr-1"></i>
-                Note: This is not a diagnosis. Please consult a healthcare provider for proper evaluation.
-              </div>
-            </div>
-          `;
-          
-          symptomResults.innerHTML = `
-            ${conditionsHTML}
-            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-              <h4 class="font-medium text-yellow-800 mb-2">
-                <i class="fas fa-lightbulb mr-2"></i>
-                Recommended Actions
-              </h4>
-              <p class="text-gray-700">${advice}</p>
-              <div class="mt-3 space-y-2">
-                <div class="flex items-center">
-                  <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
-                  <input type="text" id="symptomLocationInput" class="flex-grow px-3 py-1 border border-gray-300 rounded text-sm" placeholder="Enter your location for clinics">
-                </div>
-                <div class="flex space-x-2">
-                  <button id="findClinicFromSymptoms" class="bg-red-100 text-red-800 px-3 py-1 rounded text-sm hover:bg-red-200">
-                    <i class="fas fa-hospital mr-1"></i> Find nearest clinic
-                  </button>
-                </div>
-              </div>
-            </div>
-          `;
-          
-          // Add event listener to the find clinic button
-          document.getElementById('findClinicFromSymptoms').addEventListener('click', () => {
-            const location = document.getElementById('symptomLocationInput').value.trim();
-            if (location) {
-              // Set location in clinics tab
-              document.getElementById('locationInput').value = location;
-              // Trigger clinic search
-              document.getElementById('findClinicsBtn').click();
-              // Switch to clinics tab
-              tabButtons.forEach(btn => btn.classList.remove('active', 'text-green-700', 'border-green-700'));
-              document.querySelector('.tab-btn[data-tab="clinics"]').classList.add('active', 'text-green-700', 'border-green-700');
-              tabContents.forEach(content => {
-                content.classList.add('hidden');
-                content.classList.remove('active');
-              });
-              document.getElementById('clinics-tab').classList.remove('hidden');
-              document.getElementById('clinics-tab').classList.add('active');
-            } else {
-              alert('Please enter your location to find clinics.');
-            }
-          });
-        }, 1500);
-      } else {
-        alert('Please enter at least one symptom.');
-      }
-    });
-    
-    // Health Topics Refresh
-    const refreshHealthTopicsBtn = document.getElementById('refreshHealthTopics');
-    refreshHealthTopicsBtn.addEventListener('click', () => {
-      // Show loading state
-      const symptomResults = document.getElementById('symptomResults');
-      symptomResults.innerHTML = `
-        <div class="flex items-center justify-center py-4">
-          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          <span class="ml-3">Refreshing health topics...</span>
-        </div>
-      `;
-      symptomResults.classList.remove('hidden');
-      
-      // Simulate refresh delay
-      setTimeout(() => {
-        symptomResults.innerHTML = '';
-        symptomResults.classList.add('hidden');
-        document.getElementById('symptomsInput').value = '';
-      }, 1000);
-    });
-    // Symptom Tag Buttons
-    const symptomTags = document.querySelectorAll('.symptom-tag');
-    
-    symptomTags.forEach(tag => {
-      tag.addEventListener('click', () => {
-        const symptoms = tag.getAttribute('data-symptoms');
-        symptomsInput.value = symptoms;
-        checkSymptomsBtn.click();
-      });
-    });
-    
-    // Find Clinics
-    const findClinicsBtn = document.getElementById('findClinicsBtn');
-    const locationInput = document.getElementById('locationInput');
-    
-    findClinicsBtn.addEventListener('click', () => {
-      const location = locationInput.value.trim();
-      
-      if (location) {
-        // Show loading state
-        const clinicResults = document.getElementById('clinicResults');
-        clinicResults.innerHTML = `
-          <div class="flex items-center justify-center py-4">
-            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
-            <span class="ml-3">Searching for clinics in ${location}...</span>
-          </div>
-        `;
-        
-        // Simulate API call delay
-        setTimeout(() => {
-          let clinics = [];
-          
-          // Mock data for districts
-          const districtMap = {
-            'freetown': [
-              {
-                name: 'Connaught Hospital',
-                location: 'Lightfoot Boston St, Freetown',
-                phone: '+232 25 345678',
-                type: 'Government Hospital',
-                is24Hour: true
-              },
-              {
-                name: 'Lumley Government Hospital',
-                location: 'Lumley, Freetown',
-                phone: '+232 76 543210',
-                type: 'Government Hospital',
-                is24Hour: false
-              },
-              {
-                name: 'Cottage Hospital',
-                location: 'Fourah Bay Road, Freetown',
-                phone: '+232 22 221234',
-                type: 'Private Hospital',
-                is24Hour: true
-              }
-            ],
-            'bo': [
-              {
-                name: 'Bo Government Hospital',
-                location: 'Kissi Town, Bo',
-                phone: '+232 76 345678',
-                type: 'Government Hospital',
-                is24Hour: true
-              },
-              {
-                name: 'Mercy Hospital',
-                location: 'Tikonko Rd, Bo',
-                phone: '+232 33 567890',
-                type: 'Private Hospital',
-                is24Hour: false
-              },
-              {
-                name: 'St. Francis Health Center',
-                location: 'Dambala Rd, Bo',
-                phone: '+232 76 789012',
-                type: 'Clinic',
-                is24Hour: false
-              }
-            ],
-            'kenema': [
-              {
-                name: 'Kenema Government Hospital',
-                location: 'Hanga Rd, Kenema',
-                phone: '+232 78 123456',
-                type: 'Government Hospital',
-                is24Hour: true
-              },
-              {
-                name: 'Holy Spirit Hospital',
-                location: 'Dama Rd, Kenema',
-                phone: '+232 78 654321',
-                type: 'Mission Hospital',
-                is24Hour: true
-              }
-            ],
-            'makeni': [
-              {
-                name: 'Makeni Government Hospital',
-                location: 'Magburaka Rd, Makeni',
-                phone: '+232 77 112233',
-                type: 'Government Hospital',
-                is24Hour: true
-              },
-              {
-                name: 'Binkolo Community Health Center',
-                location: 'Binkolo, Makeni',
-                phone: '+232 77 445566',
-                type: 'Clinic',
-                is24Hour: false
-              }
-            ],
-            'koidu': [
-              {
-                name: 'Koidu Government Hospital',
-                location: 'Mines Rd, Koidu',
-                phone: '+232 77 778899',
-                type: 'Government Hospital',
-                is24Hour: true
-              },
-              {
-                name: 'Mines Medical Center',
-                location: 'Koidu Mines Area',
-                phone: '+232 77 001122',
-                type: 'Company Hospital',
-                is24Hour: true
-              }
-            ],
-            'port loko': [
-              {
-                name: 'Port Loko Government Hospital',
-                location: 'Rokel St, Port Loko',
-                phone: '+232 76 334455',
-                type: 'Government Hospital',
-                is24Hour: true
-              },
-              {
-                name: 'Mercy Community Health Center',
-                location: 'Gbinti Rd, Port Loko',
-                phone: '+232 77 667788',
-                type: 'Clinic',
-                is24Hour: false
-              }
-            ],
-            'kambia': [
-              {
-                name: 'Kambia Government Hospital',
-                location: 'Mange Bureh Rd, Kambia',
-                phone: '+232 77 998877',
-                type: 'Government Hospital',
-                is24Hour: false
-              }
-            ],
-            'kailahun': [
-              {
-                name: 'Kailahun Government Hospital',
-                location: 'Luawa Rd, Kailahun',
-                phone: '+232 77 665544',
-                type: 'Government Hospital',
-                is24Hour: true
-              },
-              {
-                name: 'Segbwema Community Health Center',
-                location: 'Segbwema Town',
-                phone: '+232 76 223344',
-                type: 'Clinic',
-                is24Hour: false
-              }
-            ],
-            'default': [
-              {
-                name: 'General Advice',
-                location: '',
-                phone: '', 
-                type: '',
-                is24Hour: false,
-                advice: 'For medical facilities in your area, visit the local health center or district hospital. In emergencies, call 117. Major district hospitals include:\n\n' +
-                        '• Freetown - Connaught Hospital\n' +
-                        '• Bo - Bo Government Hospital\n' + 
-                        '• Kenema - Kenema Government Hospital\n' +
-                        '• Makeni - Makeni Government Hospital\n' +
-                        '• Koidu - Koidu Government Hospital\n' +
-                        '• Port Loko - Port Loko Government Hospital\n' +
-                        '• Kambia - Kambia Government Hospital\n' +
-                        '• Kailahun - Kailahun Government Hospital'
-              }
-            ]
-          };
-          // Find matching districts
-          clinics = [];
-          for (const [district, facilities] of Object.entries(districtMap)) {
-            if (location.toLowerCase().includes(district)) {
-              clinics = [...facilities];
-              break;
-            }
-          }
-          if (clinics.length === 0) {
-            clinics = districtMap.default;
-          }
-          
-          // Display results
-          let clinicsHTML = clinics.map(clinic => {
-            if (clinic.advice) {
-              return `
-                <div class="border border-gray-200 rounded-lg p-3">
-                  <p class="text-gray-700">${clinic.advice}</p>
-                </div>
-              `;
-            } else {
-              return `
-                <div class="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow">
-                  <div class="flex justify-between items-start">
-                    <div>
-                      <h3 class="font-semibold text-gray-800">${clinic.name}</h3>
-                      <p class="text-sm text-gray-600">${clinic.location} • ${clinic.type}</p>
-                    </div>
-                    ${clinic.is24Hour ? '<span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24-Hour</span>' : ''}
-                  </div>
-                  ${clinic.phone ? `
-                  <div class="mt-2 flex items-center text-sm">
-                    <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
-                    <span>${clinic.phone}</span>
-                  </div>` : ''}
-                  <div class="mt-1 flex items-center text-sm">
-                    <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
-                    <span>${clinic.location}</span>
-                  </div>
-                </div>
-              `;
-            }
-          }).join('');
-          
-          clinicResults.innerHTML = clinicsHTML;
-        }, 1200);
-      } else {
-        alert('Please enter a location to search for clinics.');
-      }
-    });
-    
-    // Chat Functionality
+    // Chatbot functionality (simplified)
     const userInput = document.getElementById('userInput');
     const sendBtn = document.getElementById('sendBtn');
     const chatWindow = document.getElementById('chatWindow');
-    const quickReplyBtns = document.querySelectorAll('.quick-reply-btn');
-    
-    // Add event listener for quick reply buttons
-    quickReplyBtns.forEach(button => {
-      button.addEventListener('click', () => {
-        const message = button.textContent.trim();
-        addUserMessage(message);
-        processUserMessage(message);
-      });
-    });
-    
-    // Send message on button click
-    sendBtn.addEventListener('click', sendMessage);
-    
-    // Send message on Enter key
-    userInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
-    });
-    
-    function sendMessage() {
-      const message = userInput.value.trim();
-      
-      if (message) {
-        addUserMessage(message);
-        processUserMessage(message);
-        userInput.value = '';
-      }
-    }
-    
     function addUserMessage(message) {
       const messageDiv = document.createElement('div');
-      messageDiv.className = 'chat-message user-message mb-3 flex justify-end';
-      messageDiv.innerHTML = `
-        <div class="bg-green-100 p-3 rounded-lg shadow-sm max-w-3/4 inline-block">
-          <p>${message}</p>
-        </div>
-      `;
+      messageDiv.classList.add('chat-message', 'user-message', 'mb-3', 'text-right');
+      messageDiv.innerHTML = `<div class="bg-green-500 p-3 rounded-lg shadow-sm max-w-3/4 inline-block text-white">${message}</div>`;
       chatWindow.appendChild(messageDiv);
-      chatWindow.scrollTop = chatWindow.scrollHeight;
+      chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll to bottom
     }
-    
-    function addBotMessage(message, quickReplies = []) {
-      const messageDiv = document.createElement('div');
-      messageDiv.className = 'chat-message bot-message mb-3';
-      
-      let quickRepliesHTML = '';
-      if (quickReplies.length > 0) {
-        quickRepliesHTML = `
-          <div class="quick-reply-buttons mt-2 flex flex-wrap gap-2">
-            ${quickReplies.map(reply => 
-              `<button class="quick-reply-btn bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">${reply}</button>`
-            ).join('')}
-          </div>
-        `;
+    function simulateBotResponse(userMessage) {
+      const lowerMessage = userMessage.toLowerCase();
+      let response = "I'm still learning! Can you please rephrase or ask a different question?";
+      if (lowerMessage.includes("fever") || lowerMessage.includes("sick")) {
+        response = "If you have a fever, it's important to rest, drink plenty of fluids, and consider paracetamol. If it's severe or persists, please see a doctor.";
+      } else if (lowerMessage.includes("malaria")) {
+        response = "Malaria symptoms include fever, chills, headache, and muscle pain. Seek immediate medical attention for diagnosis and treatment. Use mosquito nets and repellent for prevention.";
+      } else if (lowerMessage.includes("pregnancy")) {
+        response = "For pregnancy-related questions, it's best to consult with a healthcare professional for personalized advice and prenatal care.";
+      } else if (lowerMessage.includes("clinic") || lowerMessage.includes("hospital")) {
+        response = "To find a clinic, please navigate to the 'Find Clinics' tab and enter your location.";
+      } else if (lowerMessage.includes("mosquito")) {
+        response = "To prevent mosquito bites, use insecticide-treated nets, apply repellent, and eliminate stagnant water sources around your home.";
+      } else if (lowerMessage.includes("hello") || lowerMessage.includes("hi")) {
+        response = "Hello there! How can I help you today?";
       }
-      
-      messageDiv.innerHTML = `
-        <div class="bg-white p-3 rounded-lg shadow-sm max-w-3/4 inline-block">
-          <p>${message}</p>
-          ${quickRepliesHTML}
-        </div>
-      `;
-      
-      chatWindow.appendChild(messageDiv);
-      
-      // Add event listeners to new quick reply buttons
-      messageDiv.querySelectorAll('.quick-reply-btn').forEach(button => {
-        button.addEventListener('click', () => {
-          const message = button.textContent.trim();
-          addUserMessage(message);
-          processUserMessage(message);
-        });
-      });
-      
-      chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
-    
-    function simulateBotResponse(message, quickReplies = []) {
-      // Show typing indicator
       const typingIndicator = document.createElement('div');
-      typingIndicator.className = 'chat-message bot-message mb-3 typing-indicator';
-      typingIndicator.innerHTML = `
-        <div class="bg-white p-3 rounded-lg shadow-sm w-16">
-          <span></span>
-        </div>
-      `;
+      typingIndicator.classList.add('chat-message', 'bot-message', 'mb-3', 'typing-indicator');
+      typingIndicator.innerHTML = '<div class="bg-white p-3 rounded-lg shadow-sm max-w-3/4 inline-block italic text-gray-500">DoxaCare AI is typing</div>';
       chatWindow.appendChild(typingIndicator);
       chatWindow.scrollTop = chatWindow.scrollHeight;
-      
-      // Remove typing indicator and add actual response after delay
       setTimeout(() => {
         chatWindow.removeChild(typingIndicator);
-        addBotMessage(message, quickReplies);
-      }, 1500);
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.classList.add('chat-message', 'bot-message', 'mb-3');
+        botMessageDiv.innerHTML = `<div class="bg-white p-3 rounded-lg shadow-sm max-w-3/4 inline-block">${response}</div>`;
+        chatWindow.appendChild(botMessageDiv);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }, 1500); // Simulate typing delay
     }
-    
-    async function processUserMessage(message) {
-      // Convert message to lowercase for easier matching
-      const lowerMessage = message.toLowerCase();
-      
-      // First try to get response from API
-      const apiResponse = await callEvaCareAPI('chat', {
-        message: message,
-        language: isEnglish ? 'en' : 'krio'
+    sendBtn?.addEventListener('click', () => {
+      const message = userInput.value.trim();
+      if (message) {
+        addUserMessage(message);
+        simulateBotResponse(message);
+        userInput.value = '';
+      }
+    });
+    userInput?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendBtn?.click();
+      }
+    });
+    document.querySelectorAll('.quick-reply-btn').forEach(button => {
+      button.addEventListener('click', (event) => {
+        const text = event.target.textContent || '';
+        if (text) {
+          addUserMessage(text);
+          simulateBotResponse(text);
+        }
       });
-      
-      if (apiResponse && !apiResponse.error) {
-        // If API returned a valid response, use it
-        simulateBotResponse(apiResponse.message);
-        return;
-      }
-      
-      // Emergency conditions
-      if (lowerMessage.includes('emergency') || 
-          lowerMessage.includes('help') || 
-          lowerMessage.includes('urgent') ||
-          lowerMessage.includes('trouble breathing') ||
-          lowerMessage.includes('can\'t breathe') ||
-          lowerMessage.includes('severe pain') ||
-          lowerMessage.includes('chest pain') ||
-          lowerMessage.includes('unconscious') ||
-          lowerMessage.includes('sever bleeding') ||
-          lowerMessage.includes('fainting')) {
-        // Emergency response
-        simulateBotResponse('⚠️ EMERGENCY WARNING ⚠️\n\nBased on your symptoms, you should seek medical attention immediately. These could indicate life-threatening conditions:\n\n• Heart attack\n• Severe infection\n• Stroke\n• Severe trauma\n\n🚑 Please:\n1. Call 117 or 112 NOW\n2. Go to nearest hospital\n3. Have someone stay with you\n\nWould you like me to find the closest emergency facility?');
-        showEmergencyModal();
-      } else if (lowerMessage.includes('fever') || 
-                 lowerMessage.includes('headache') ||
-                 lowerMessage.includes('chills') ||
-                 lowerMessage.includes('body ache') ||
-                 lowerMessage.includes('symptom') ||
-                 lowerMessage.includes('joint pain')) {
-        // Enhanced symptom response with home remedies
-        let response = "🤒 Symptom Analysis:\n\n";
-        
-        // Medical advice
-        response += "🔹 Medical Recommendations:\n";
-        response += "• Get tested for malaria if fever persists >48h\n";
-        response += "• Take paracetamol for fever/pain (follow dosage)\n";
-        response += "• Stay hydrated with clean water\n";
-        response += "• Monitor temperature regularly\n\n";
-        
-        // Home remedies
-        response += "🏠 Home Care & Traditional Remedies:\n";
-        response += "• Ginger tea (boil fresh ginger) for pain relief\n";
-        response += "• Neem leaf steam inhalation (antibacterial)\n";
-        response += "• Papaya leaf extract (traditional malaria support)\n";
-        response += "• Cold compress for forehead\n";
-        response += "• Rest in well-ventilated space\n\n";
-        
-        // Holistic recommendations
-        response += "🌿 Holistic Support:\n";
-        response += "• Light stretching if muscles ache\n";
-        response += "• Meditation to reduce stress on body\n";
-        response += "• Herbal teas (lemongrass, moringa)\n";
-        response += "• Maintain regular sleep schedule\n\n";
-        
-        response += "🚨 Seek medical care if:\n";
-        response += "- Fever >39°C or lasts >3 days\n";
-        response += "- Severe headache with stiff neck\n";
-        response += "- Confusion or seizures occur\n";
-        
-        simulateBotResponse(response, ['More home remedies', 'Find testing center', 'Other symptoms']);
-      } else if (lowerMessage.includes('fever') || 
-                 lowerMessage.includes('headache') ||
-                 lowerMessage.includes('chills') ||
-                 lowerMessage.includes('body ache') ||
-                 lowerMessage.includes('symptom') ||
-                 lowerMessage.includes('joint pain')) {
-        // Detailed symptom analysis with conditions
-        let response = "🤒 Symptom Analysis:\n\nPossible conditions:\n";
-        
-        if (lowerMessage.includes('malaria') || lowerMessage.includes('mosquito')) {
-          response += "1. Malaria (very likely)\n";
-          response += "2. Typhoid fever\n";
-          response += "3. Dengue fever\n";
-          response += "4. Other viral infection\n\n";
-          response += "🔴 HIGH likelihood of MALARIA\n\n";
-          response += "🔹 Typical Symptoms:\n- High fever (often cyclical)\n- Chills/sweats\n- Headache\n- Muscle/joint pain\n- Fatigue\n- Nausea/vomiting\n\n";
-          response += "🚨 Red Flags (Go to hospital IMMEDIATELY):\n- Confusion\n- Seizures\n- Blood in urine\n- Difficulty breathing\n- Very high fever (>39°C)\n\n";
-          response += "💊 Recommended Actions:\n1. Get rapid diagnostic test TODAY\n2. Take antimalarials if prescribed\n3. Stay hydrated\n4. Use mosquito net\n\n";
-          response += "Would you like more details about malaria treatment?";
-          simulateBotResponse(response, ['Malaria treatment', 'Find testing center', 'Other symptoms I have']);
-        } else {
-          response += "Possible causes:\n\n";
-          response += "1. Malaria (most common)\n2. Typhoid fever\n3. Respiratory infection\n4. Dengue fever\n5. Other viral infections\n\n";
-          response += "🔍 To help identify:\n\n▪️ Malaria: Fever comes every 48h with chills\n▪️ Typhoid: Sustained fever, stomach pain\n▪️ Flu: Sudden fever with cough\n▪️ Dengue: Fever with severe pain behind eyes\n\n";
-          response += "I recommend:\n1. Track fever pattern/temperature\n2. Note other symptoms\n3. Get tested if fever lasts >48h\n\nWould you like guidance specific to your symptoms?";
-          simulateBotResponse(response, ['Describe malaria symptoms', 'I have stomach pain too', 'Find testing center']);
-        }
-      } else if (lowerMessage.includes('malaria') || 
-                 lowerMessage.includes('mosquito')) {
-        // Enhanced malaria advice with holistic approach
-        if (isEnglish) {
-          let response = "🦟 Malaria Prevention & Care:\n\n";
-          response += "🔹 Medical Prevention:\n";
-          response += "• Sleep under insecticide-treated nets (ITNs)\n";
-          response += "• Take prophylaxis if prescribed\n";
-          response += "• Get rapid test if symptoms appear\n\n";
-          
-          response += "🏠 Home & Traditional Remedies:\n";
-          response += "• Neem leaves around sleeping area\n";
-          response += "• Camphor in water containers\n";
-          response += "• Papaya leaf tea (traditional remedy)\n";
-          response += "• Turmeric in warm milk (anti-inflammatory)\n\n";
-          
-          response += "🌿 Holistic Support:\n";
-          response += "• Stay hydrated with coconut water\n";
-          response += "• Light meals (porridge, soups)\n";
-          response += "• Rest in cool environment\n";
-          response += "• Avoid strenuous activity during recovery\n\n";
-          
-          response += "🚨 Emergency signs:\n";
-          response += "- Confusion/seizures\n";
-          response += "- Blood in urine\n";
-          response += "- Difficulty breathing\n";
-          
-          simulateBotResponse(response, 
-            ['Find ITNs near me', 'Malaria symptoms', 'Home remedies']);
-        } else {
-          let response = "🦟 Malaria Prevention & Care (Krio):\n\n";
-          response += "🔹 Medical Way:\n";
-          response += "• Sleep under net wey get medicine\n";
-          response += "• Take malaria prevention drug if doctor talk say\n";
-          response += "• Do test if you get sign\n\n";
-          
-          response += "🏠 Home Way:\n";
-          response += "• Put neem leaves for where you sleep\n";
-          response += "• Put camphor for water container\n";
-          response += "• Drink papaya leaf tea\n";
-          response += "• Drink turmeric inside warm milk\n\n";
-          
-          response += "🌿 Other Help:\n";
-          response += "• Drink coconut water\n";
-          response += "• Eat light food like pap\n";
-          response += "• Rest for cool place\n";
-          response += "• No hard work when you sick\n\n";
-          
-          response += "🚨 Emergency sign:\n";
-          response += "- You no dey think well\n";
-          response += "- Blood for urine\n";
-          response += "- You no fit breathe well\n";
-          
-          simulateBotResponse(response, 
-            ['Find net close to me', 'Sign of malaria', 'Home remedy']);
-        }
-      } else if (lowerMessage.includes('clinic') || 
-                 lowerMessage.includes('hospital') ||
-                 lowerMessage.includes('find') ||
-                 lowerMessage.includes('near me')) {
-        // Find clinics
-        simulateBotResponse('I can help you find clinics. What is your location (district or city name)? For example: "Freetown" or "Bo".');
-      } else if (lowerMessage.includes('pregnant') || 
-                 lowerMessage.includes('belleful') ||
-                 lowerMessage.includes('birth')) {
-        // Pregnancy advice
-        simulateBotResponse('For a healthy pregnancy in Sierra Leone:\n1. Attend all antenatal visits\n2. Take iron and folic acid\n3. Sleep under mosquito nets\n4. Learn danger signs\n5. Plan for delivery at a health facility', 
-          ['Pregnancy danger signs', 'Find maternity clinics', 'Malaria in pregnancy']);
-      } else if (lowerMessage.includes('diarrhea') || 
-                 lowerMessage.includes('run belle') ||
-                 lowerMessage.includes('vomiting') ||
-                 lowerMessage.includes('stomach pain')) {
-        // Enhanced digestive health response
-        let response = "🤢 Digestive Health Support:\n\n";
-        
-        response += "🔹 Medical Care:\n";
-        response += "• ORS solution (1L water + 6tsp sugar + ½tsp salt)\n";
-        response += "• Zinc supplements if available\n";
-        response += "• Seek care if blood in stool or severe dehydration\n\n";
-        
-        response += "🏠 Home & Traditional Remedies:\n";
-        response += "• Ginger tea (anti-nausea)\n";
-        response += "• Coconut water (electrolytes)\n";
-        response += "• Boiled rice water (soothing)\n";
-        response += "• Charcoal tablets (traditional detox)\n";
-        response += "• Mint leaves for stomach cramps\n\n";
-        
-        response += "🌿 Holistic Approach:\n";
-        response += "• BRAT diet (Bananas, Rice, Applesauce, Toast)\n";
-        response += "• Probiotic foods (fermented foods)\n";
-        response += "• Chamomile tea (calming)\n";
-        response += "• Warm compress on abdomen\n\n";
-        
-        response += "🚨 Danger signs:\n";
-        response += "- Blood/mucus in stool\n";
-        response += "- No urine >12 hours\n";
-        response += "- Sunken eyes/extreme thirst\n";
-        response += "- High fever with diarrhea\n";
-        
-        simulateBotResponse(response, 
-          ['How to make ORS', 'Safe foods list', 'Find treatment center']);
-      } else if (lowerMessage.includes('exercise') || 
-                 lowerMessage.includes('workout') ||
-                 lowerMessage.includes('physical activity')) {
-        // Exercise advice
-        simulateBotResponse('🏋️‍♂️ Exercise Recommendations:\n\nFor adults in Sierra Leone:\n• Aim for 150 minutes moderate activity weekly\n• Include strength training 2x/week\n• Walking is excellent exercise\n• Try traditional dances for cardio\n• Stay hydrated in the heat\n\nStart slow if new to exercise. Any movement is better than none!', 
-          ['Best exercises', 'Exercise for seniors', 'Exercise with injuries']);
-          
-      } else if (lowerMessage.includes('nutrition') || 
-                 lowerMessage.includes('diet') ||
-                 lowerMessage.includes('food') ||
-                 lowerMessage.includes('eat')) {
-        // Nutrition advice
-        simulateBotResponse('🍎 Healthy Eating Tips:\n\n• Eat plenty of local fruits/vegetables\n• Include protein (fish, beans, eggs)\n• Choose whole grains over refined\n• Limit salt, sugar and oily foods\n• Drink clean, safe water\n\nTraditional Sierra Leonean foods like cassava leaf, okra soup and groundnut stew can be very nutritious!', 
-          ['Healthy local foods', 'Foods to avoid', 'Eating on budget']);
-          
-      } else if (lowerMessage.includes('mental') || 
-                 lowerMessage.includes('stress') ||
-                 lowerMessage.includes('anxiety') ||
-                 lowerMessage.includes('depression')) {
-        // Mental health advice
-        simulateBotResponse('🧠 Mental Health Support:\n\n• Talk to someone you trust\n• Practice relaxation techniques\n• Maintain social connections\n• Get regular sleep\n• Limit alcohol/drugs\n\nFor serious concerns, contact:\n• 116 (Mental Health Helpline)\n• Local health centers\n• Religious/community leaders', 
-          ['Coping techniques', 'Find counselor', 'Emergency help']);
-          
+    });
+    // Symptom checker functionality (simplified)
+    const symptomsInput = document.getElementById('symptomsInput');
+    const checkSymptomsBtn = document.getElementById('checkSymptomsBtn');
+    const symptomResults = document.getElementById('symptomResults');
+    const refreshHealthTopics = document.getElementById('refreshHealthTopics');
+    function simulateHealthTopicResponse(topic) {
+      let resultHTML = '';
+      const lowerTopic = topic.toLowerCase();
+      if (lowerTopic.includes("fever") || lowerTopic.includes("malaria")) {
+        resultHTML = `
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-2">
+            <h4 class="font-semibold text-blue-800">Malaria (High Probability)</h4>
+            <p class="text-sm text-gray-700">Symptoms: Fever, chills, headache, muscle aches, fatigue. Can be severe if untreated.</p>
+            <p class="text-xs text-gray-600 mt-1">Recommended Action: Seek immediate medical attention for diagnosis and treatment. Use mosquito nets.</p>
+          </div>
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <h4 class="font-semibold text-blue-800">Typhoid Fever (Possible)</h4>
+            <p class="text-sm text-gray-700">Symptoms: Sustained fever, weakness, stomach pain, headache, loss of appetite. Spreads through contaminated food/water.</p>
+            <p class="text-xs text-gray-600 mt-1">Recommended Action: Consult a doctor for tests and antibiotics. Practice good hygiene.</p>
+          </div>
+        `;
+      } else if (lowerTopic.includes("exercise")) {
+        resultHTML = `
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <h4 class="font-semibold text-blue-800">Benefits of Regular Exercise</h4>
+            <p class="text-sm text-gray-700">Regular physical activity improves heart health, strengthens muscles and bones, boosts mood, and helps manage weight.</p>
+            <p class="text-xs text-gray-600 mt-1">Recommended Action: Aim for at least 30 minutes of moderate exercise most days of the week. Start slowly if you're new.</p>
+          </div>
+        `;
+      } else if (lowerTopic.includes("nutrition")) {
+        resultHTML = `
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <h4 class="font-semibold text-blue-800">Healthy Eating Tips</h4>
+            <p class="text-sm text-gray-700">Focus on a balanced diet with plenty of fruits, vegetables, whole grains, and lean proteins. Limit processed foods, sugar, and unhealthy fats.</p>
+            <p class="text-xs text-gray-600 mt-1">Recommended Action: Incorporate local, seasonal foods. Drink plenty of clean water.</p>
+          </div>
+        `;
+      } else if (lowerTopic.includes("diabetes")) {
+        resultHTML = `
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <h4 class="font-semibold text-blue-800">Understanding Diabetes</h4>
+            <p class="text-sm text-gray-700">Diabetes is a chronic condition that affects how your body turns food into energy. It can lead to serious health problems if not managed.</p>
+            <p class="text-xs text-gray-600 mt-1">Recommended Action: Regular check-ups, healthy diet, exercise, and medication as prescribed. Consult a doctor for diagnosis and management.</p>
+          </div>
+        `;
       } else {
-        // Default response
-        simulateBotResponse('I can help with:\n• Symptoms (fever, pain)\n• Chronic conditions\n• Exercise & nutrition\n• Mental health\n• Pregnancy care\n• Finding clinics\nWhat would you like to know?', 
-          ['Exercise tips', 'Nutrition advice', 'Mental health support', 'Find clinics']);
+        resultHTML = `<p class="text-gray-600 italic">No specific information found for "${topic}". Please try a more general health topic or symptom.</p>`;
+      }
+      if (symptomResults) {
+        symptomResults.innerHTML = resultHTML;
+        symptomResults.classList.remove('hidden');
       }
     }
-    
-    // Emergency Modal
-    const emergencyModal = document.getElementById('emergencyModal');
-    const emergencyBtn = document.getElementById('emergencyBtn');
-    const closeEmergencyModal = document.getElementById('closeEmergencyModal');
-    const callEmergencyBtn = document.getElementById('callEmergencyBtn');
-    
-    function showEmergencyModal() {
-      emergencyModal.classList.remove('hidden');
-    }
-    
-    function hideEmergencyModal() {
-      emergencyModal.classList.add('hidden');
-    }
-    
-    emergencyBtn.addEventListener('click', showEmergencyModal);
-    closeEmergencyModal.addEventListener('click', hideEmergencyModal);
-    callEmergencyBtn.addEventListener('click', () => {
-      alert('Calling emergency services at 117. Please hold...');
-      hideEmergencyModal();
-    });
-    
-    // Close modal when clicking outside
-    emergencyModal.addEventListener('click', (e) => {
-      if (e.target === emergencyModal) {
-        hideEmergencyModal();
+    checkSymptomsBtn?.addEventListener('click', () => {
+      const inputTopic = symptomsInput.value.trim();
+      if (inputTopic) {
+        simulateHealthTopicResponse(inputTopic);
+      } else {
+        showAlert("Please enter a health topic or symptom.");
       }
     });
-    
-    // Function to display WHO health alerts
-    function displayHealthAlert(data) {
-      if (data && data.length > 0) {
-        const alertsContainer = document.getElementById('healthAlertsText');
-        const alertsContainerKrio = document.getElementById('healthAlertsTextKrio');
-        
-        alertsContainer.innerHTML = '';
-        alertsContainerKrio.innerHTML = '';
-        
-        data.slice(0, 3).forEach(alert => {
-          const alertEng = document.createElement('p');
-          alertEng.innerHTML = `• ${alert.title_en}`;
-          alertsContainer.appendChild(alertEng);
-          
-          if (alert.title_krio) {
-            const alertKrio = document.createElement('p');
-            alertKrio.innerHTML = `• ${alert.title_krio}`;
-            alertsContainerKrio.appendChild(alertKrio);
-          } else {
-            alertsContainerKrio.innerHTML = alertsContainer.innerHTML;
-          }
-        });
+    symptomsInput?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        checkSymptomsBtn?.click();
+      }
+    });
+    document.querySelectorAll('.symptom-tag').forEach(button => {
+      button.addEventListener('click', (event) => {
+        const tagText = event.target.textContent || '';
+        const dataSymptoms = event.target.dataset.symptoms || tagText;
+        symptomsInput.value = dataSymptoms; // Prefill input with the tag value
+        checkSymptomsBtn?.click(); // Trigger search
+      });
+    });
+    refreshHealthTopics?.addEventListener('click', () => {
+      symptomsInput.value = '';
+      if (symptomResults) {
+        symptomResults.innerHTML = '';
+        symptomResults.classList.add('hidden');
+      }
+    });
+    // Find Clinics functionality (simplified)
+    const locationInput = document.getElementById('locationInput');
+    const findClinicsBtn = document.getElementById('findClinicsBtn');
+    const clinicResults = document.getElementById('clinicResults');
+    function simulateClinicSearch(location) {
+      let resultsHTML = '';
+      const lowerLocation = location.toLowerCase();
+      if (lowerLocation.includes("freetown")) {
+        resultsHTML = `
+          <div class="border border-gray-200 rounded-lg p-3 shadow-sm">
+            <h4 class="font-semibold text-red-700">Central Freetown Hospital</h4>
+            <p class="text-sm text-gray-700">Address: Hospital Rd, Freetown</p>
+            <p class="text-xs text-gray-600 mt-1">Services: General medicine, emergency, surgery. Open 24/7.</p>
+            <a href="#" class="text-red-500 hover:underline text-sm mt-2 block">View on Map</a>
+          </div>
+          <div class="border border-gray-200 rounded-lg p-3 shadow-sm">
+            <h4 class="font-semibold text-red-700">Lumley Community Clinic</h4>
+            <p class="text-sm text-gray-700">Address: Lumley Beach Rd, Freetown</p>
+            <p class="text-xs text-gray-600 mt-1">Services: Outpatient care, maternal & child health. Mon-Fri, 8 AM - 5 PM.</p>
+            <a href="#" class="text-red-500 hover:underline text-sm mt-2 block">View on Map</a>
+          </div>
+        `;
+      } else if (lowerLocation.includes("bo")) {
+        resultsHTML = `
+          <div class="border border-gray-200 rounded-lg p-3 shadow-sm">
+            <h4 class="font-semibold text-red-700">Bo Government Hospital</h4>
+            <p class="text-sm text-gray-700">Address: Hospital Road, Bo</p>
+            <p class="text-xs text-gray-600 mt-1">Services: General hospital services. Open 24/7.</p>
+            <a href="#" class="text-red-500 hover:underline text-sm mt-2 block">View on Map</a>
+          </div>
+        `;
+      } else if (lowerLocation.includes("kenema")) {
+        resultsHTML = `
+          <div class="border border-gray-200 rounded-lg p-3 shadow-sm">
+            <h4 class="font-semibold text-red-700">Kenema Government Hospital</h4>
+            <p class="text-sm text-gray-700">Address: Clinic Road, Kenema</p>
+            <p class="text-xs text-gray-600 mt-1">Services: Major regional hospital. Open 24/7.</p>
+            <a href="#" class="text-red-500 hover:underline text-sm mt-2 block">View on Map</a>
+          </div>
+        `;
+      } else {
+        resultsHTML = `<p class="text-gray-600 italic">No clinics found for "${location}". Try "Freetown", "Bo", or "Kenema".</p>`;
+      }
+      if (clinicResults) {
+        clinicResults.innerHTML = resultsHTML;
       }
     }
-  
-    // Initialization
-    document.addEventListener('DOMContentLoaded', () => {
-      // Fetch WHO health alerts
-      fetch('https://www.who.int/api/health-alerts')
-        .then(response => response.json())
-        .then(data => displayHealthAlert(data))
-        .catch(error => console.error('Error fetching health alerts:', error));
-      // Show welcome message in chat
-      setTimeout(() => {
-        if (isEnglish) {
-          addBotMessage(welcomeChatText.textContent, ['I have fever', 'Mosquito bite advice', 'Find clinic near me']);
-        } else {
-          addBotMessage(welcomeChatTextKrio.textContent, ['I get fever', 'Advice for mosquito', 'Find clinic close']);
-        }
-      }, 500);
-      
-      // Add shake animation to emergency button every 30 seconds
-      setInterval(() => {
-        emergencyBtn.classList.add('emergency-shake');
+    findClinicsBtn?.addEventListener('click', () => {
+      const location = locationInput.value.trim();
+      if (location) {
+        simulateClinicSearch(location);
+      } else {
+        showAlert("Please enter a location to search for clinics.");
+      }
+    });
+    locationInput?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        findClinicsBtn?.click();
+      }
+    });
+    // START Community Forum JS
+    // Global state variables
+    let posts = [];
+    // DOM elements
+    // Note: These elements are within the #advice-tab, so ensure they are correctly scoped if other tabs use similar IDs.
+    // For this combined file, we'll assume unique IDs across the entire document.
+    const postsContainer = document.getElementById('postsContainer');
+    const noPostsMessage = document.getElementById('noPostsMessage');
+    const newPostBtn = document.getElementById('newPostBtn');
+    const startNewDiscussionBtn = document.getElementById('startNewDiscussionBtn');
+    const newPostModal = document.getElementById('newPostModal');
+    const newPostModalContent = document.getElementById('newPostModalContent');
+    const closeNewPostModalBtn = document.getElementById('closeNewPostModalBtn');
+    const postTitleInput = document.getElementById('postTitle');
+    const postContentTextarea = document.getElementById('postContent');
+    const cancelPostBtn = document.getElementById('cancelPostBtn');
+    const submitPostBtn = document.getElementById('submitPostBtn');
+    const customAlertModal = document.getElementById('customAlertModal');
+    const customAlertModalContent = document.getElementById('customAlertModalContent');
+    const alertTitle = document.getElementById('alertTitle');
+    const alertMessage = document.getElementById('alertMessage');
+    const closeAlertModalBtn = document.getElementById('closeAlertModalBtn');
+    const okAlertBtn = document.getElementById('okAlertBtn');
+    // Helper function for custom alert
+    function showAlert(message, title = 'Alert') {
+        alertTitle.textContent = title;
+        alertMessage.textContent = message;
+        customAlertModal.classList.remove('hidden');
         setTimeout(() => {
-          emergencyBtn.classList.remove('emergency-shake');
-        }, 1000);
-      }, 30000);
-    });
-
-    // --- COMMUNITY HEALTH FORUM LOGIC ---
-    
-const forumFeed = document.getElementById('forumFeed');
-const forumPostInput = document.getElementById('forumPostInput');
-const forumPostBtn = document.getElementById('forumPostBtn');
-const refreshForumBtn = document.getElementById('refreshForumBtn');
-const forumSort = document.getElementById('forumSort');
-
-let forumPosts = JSON.parse(localStorage.getItem('evacare_forum_posts') || '[]');
-
-function saveForumPosts() {
-  localStorage.setItem('evacare_forum_posts', JSON.stringify(forumPosts));
-}
-
-function renderForum() {
-  let posts = [...forumPosts];
-  if (forumSort.value === 'trending') {
-    posts.sort((a, b) => (b.likes + b.comments.length) - (a.likes + a.comments.length));
-  } else {
-    posts.sort((a, b) => b.created - a.created);
-  }
-  forumFeed.innerHTML = posts.map((post, idx) => 
-    <div class="border border-gray-200 rounded-lg p-4 mb-3">
-  <div class="flex justify-between items-center mb-2">
-    <h4 class="font-medium text-purple-700">${post.content}</h4>
-    <div class="flex items-center gap-2">
-      <button onclick="likeForumPost(${post.id})" class="text-green-600 hover:text-green-800">
-        <i class="fas fa-thumbs-up"></i> ${post.likes}
-      </button>
-      <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">${post.comments.length} comments</span>
-    </div>
-  </div>
-  <div class="mb-2">
-    <small class="text-gray-500">${timeAgo(post.created)}</small>
-  </div>
-  <div>
-    <input id="commentInput${post.id}" class="border px-2 py-1 rounded text-sm" placeholder="Add a comment...">
-    <button onclick="addForumComment(${post.id})" class="text-purple-600 hover:underline text-sm ml-2">Comment</button>
-  </div>
-  <div class="mt-2 ml-2">
-    ${
-      post.comments.map(c => `
-        <div class="text-gray-700 text-sm mb-1">
-          <i class="fas fa-user-circle mr-1"></i>
-          ${c.text} <small class="text-gray-400 ml-2">${timeAgo(c.created)}</small>
-        </div>
-      `).join('')
+            customAlertModalContent.classList.remove('opacity-0', 'scale-95');
+            customAlertModalContent.classList.add('opacity-100', 'scale-100');
+        }, 10); // Small delay for transition
     }
-  </div>
-</div>
-  ).join('') || '<div class="text-gray-400 italic text-center">No posts yet. Be the first to share!</div>';
-}
-window.likeForumPost = function(postId) {
-  const post = forumPosts.find(p => p.id === postId);
-  if (post) { post.likes++; saveForumPosts(); renderForum(); }
-}
-window.addForumComment = function(postId) {
-  const inp = document.getElementById('commentInput' + postId);
-  const text = inp.value.trim();
-  if (!text) return;
-  const post = forumPosts.find(p => p.id === postId);
-  post.comments.push({text, created: Date.now()});
-  inp.value = '';
-  saveForumPosts();
-  renderForum();
-}
-forumPostBtn.onclick = () => {
-  const content = forumPostInput.value.trim();
-  if (!content) return alert('Please enter your post!');
-  forumPosts.unshift({ id: Date.now(), content, created: Date.now(), likes: 0, comments: [] });
-  forumPostInput.value = '';
-  saveForumPosts();
-  renderForum();
-}
-refreshForumBtn.onclick = renderForum;
-forumSort.onchange = renderForum;
-
-// Helper to show time ago
-function timeAgo(ts) {
-  const now = Date.now(), s = Math.floor((now-ts)/1000);
-  if (s < 60) return 'just now';
-  const m = Math.floor(s/60); if (m<60) return m+' min ago';
-  const h=Math.floor(m/60); if(h<24)return h+' hr ago';
-  const d=Math.floor(h/24);return d+' day'+(d>1?'s':'')+' ago';
-}
-
-// Render on load
-renderForum();
+    function hideAlert() {
+        customAlertModalContent.classList.remove('opacity-100', 'scale-100');
+        customAlertModalContent.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            customAlertModal.classList.add('hidden');
+        }, 300); // Match transition duration
+    }
+    // Event listeners for custom alert
+    closeAlertModalBtn.addEventListener('click', hideAlert);
+    okAlertBtn.addEventListener('click', hideAlert);
+    // Helper function to generate unique IDs
+    function generateUniqueId() {
+        return Math.random().toString(36).substring(2, 9) + Date.now().toString(36);
+    }
+    // Helper function to format timestamp
+    function formatTimestamp(date) {
+        const options = {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+        };
+        return new Intl.DateTimeFormat('en-US', options).format(date);
+    }
+    // Function to render a single post
+    function renderPost(post) {
+        const postDiv = document.createElement('div');
+        postDiv.id = `post-${post.id}`; // Add an ID for easy lookup
+        postDiv.className = 'border border-gray-200 rounded-lg p-4 bg-gray-50 shadow-sm';
+        postDiv.innerHTML = `
+            <h4 class="font-semibold text-purple-700 text-lg mb-2">${post.title}</h4>
+            <p class="text-gray-700 text-base mb-3">${post.content}</p>
+            <div class="flex items-center text-xs text-gray-500 mb-4">
+                <div class="bg-gray-200 border-2 border-dashed rounded-full w-6 h-6 mr-2 flex items-center justify-center overflow-hidden">
+                    <i class="fas fa-user text-gray-400 text-sm"></i>
+                </div>
+                <span>By ${post.author}</span>
+                <span class="mx-2">•</span>
+                <span>${post.timestamp}</span>
+            </div>
+            <!-- Comments Section -->
+            <div class="mt-4 border-t border-gray-200 pt-4">
+                <h5 class="font-medium text-gray-800 mb-3 flex items-center">
+                    <i class="fas fa-comment-dots mr-2 text-blue-500"></i>
+                    Comments (<span id="commentCount-${post.id}">${post.comments.length}</span>)
+                </h5>
+                <div id="commentsList-${post.id}" class="space-y-3 mb-4 max-h-48 overflow-y-auto pr-2">
+                    <!-- Comments will be dynamically inserted here -->
+                </div>
+                <p id="noCommentsMessage-${post.id}" class="text-sm text-gray-600 italic mb-3 ${post.comments.length > 0 ? 'hidden' : ''}">No comments yet. Be the first to reply!</p>
+                <!-- Add Comment Input -->
+                <div class="flex items-center mt-2">
+                    <input type="text" id="commentInput-${post.id}"
+                        class="flex-grow px-3 py-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                        placeholder="Add a comment..." data-post-id="${post.id}">
+                    <button class="add-comment-btn bg-purple-500 text-white p-2 rounded-r-lg hover:bg-purple-600 transition-colors shadow-sm" data-post-id="${post.id}">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+        // Render existing comments for the post
+        const commentsList = postDiv.querySelector(`#commentsList-${post.id}`);
+        post.comments.forEach(comment => {
+            commentsList.appendChild(renderComment(comment));
+        });
+        return postDiv;
+    }
+    // Function to render a single comment
+    function renderComment(comment) {
+        const commentDiv = document.createElement('div');
+        commentDiv.id = `comment-${comment.id}`;
+        commentDiv.className = 'bg-white border border-gray-100 rounded-lg p-3 shadow-xs';
+        commentDiv.innerHTML = `
+            <p class="text-gray-700 text-sm mb-1">${comment.text}</p>
+            <div class="flex items-center text-xs text-gray-500">
+                <div class="bg-gray-200 border-2 border-dashed rounded-full w-5 h-5 mr-1 flex items-center justify-center overflow-hidden">
+                    <i class="fas fa-reply text-gray-400 text-xs"></i>
+                </div>
+                <span>By ${comment.author}</span>
+                <span class="mx-1">•</span>
+                <span>${comment.timestamp}</span>
+            </div>
+        `;
+        return commentDiv;
+    }
+    // Function to update the entire posts display
+    function updatePostsDisplay() {
+        postsContainer.innerHTML = ''; // Clear existing posts
+        if (posts.length === 0) {
+            noPostsMessage.classList.remove('hidden');
+            postsContainer.appendChild(noPostsMessage);
+        } else {
+            noPostsMessage.classList.add('hidden');
+            // Add posts in reverse order to show newest at top
+            posts.slice().reverse().forEach(post => {
+                postsContainer.appendChild(renderPost(post));
+            });
+        }
+        addCommentEventListeners(); // Re-attach listeners after re-rendering
+    }
+    // Function to show the new post modal
+    function showNewPostModal() {
+        newPostModal.classList.remove('hidden');
+        setTimeout(() => {
+            newPostModalContent.classList.remove('opacity-0', 'scale-95');
+            newPostModalContent.classList.add('opacity-100', 'scale-100');
+        }, 10); // Small delay for transition
+        postTitleInput.value = '';
+        postContentTextarea.value = '';
+        postTitleInput.focus();
+    }
+    // Function to hide the new post modal
+    function hideNewPostModal() {
+        newPostModalContent.classList.remove('opacity-100', 'scale-100');
+        newPostModalContent.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            newPostModal.classList.add('hidden');
+        }, 300); // Match transition duration
+    }
+    // Event handler for adding a new post
+    function handleAddPost() {
+        const title = postTitleInput.value.trim();
+        const content = postContentTextarea.value.trim();
+        if (title === '' || content === '') {
+            showAlert('Please fill in both title and content for your post.');
+            return;
+        }
+        const newPost = {
+            id: generateUniqueId(),
+            title: title,
+            content: content,
+            author: 'Anonymous User', // Default author
+            timestamp: formatTimestamp(new Date()),
+            comments: [],
+        };
+        posts.push(newPost); // Add new post to the array
+        updatePostsDisplay(); // Re-render all posts
+        hideNewPostModal();
+    }
+    // Event handler for adding a comment
+    function handleAddComment(postId, commentText) {
+        if (commentText === '') {
+            showAlert('Please enter your comment.');
+            return;
+        }
+        const newComment = {
+            id: generateUniqueId(),
+            author: 'Community Member', // Default author
+            text: commentText,
+            timestamp: formatTimestamp(new Date()),
+        };
+        const postIndex = posts.findIndex(p => p.id === postId);
+        if (postIndex !== -1) {
+            posts[postIndex].comments.push(newComment);
+            // Update the specific post's comments section without re-rendering everything
+            const commentsListElement = document.getElementById(`commentsList-${postId}`);
+            const noCommentsMessageElement = document.getElementById(`noCommentsMessage-${postId}`);
+            const commentCountElement = document.getElementById(`commentCount-${postId}`);
+            if (commentsListElement) {
+                commentsListElement.appendChild(renderComment(newComment));
+                commentsListElement.scrollTop = commentsListElement.scrollHeight; // Scroll to bottom
+            }
+            if (noCommentsMessageElement) {
+                noCommentsMessageElement.classList.add('hidden');
+            }
+            if (commentCountElement) {
+                commentCountElement.textContent = posts[postIndex].comments.length;
+            }
+        }
+        // Clear the specific comment input after adding
+        const commentInput = document.getElementById(`commentInput-${postId}`);
+        if (commentInput) {
+            commentInput.value = '';
+        }
+    }
+    // Function to add event listeners to all comment buttons and inputs
+    function addCommentEventListeners() {
+        document.querySelectorAll('.add-comment-btn').forEach(button => {
+            // Remove existing listener to prevent duplicates
+            button.removeEventListener('click', handleCommentButtonClick);
+            button.addEventListener('click', handleCommentButtonClick);
+        });
+        document.querySelectorAll('input[id^="commentInput-"]').forEach(input => {
+            // Remove existing listener to prevent duplicates
+            input.removeEventListener('keypress', handleCommentInputKeyPress);
+            input.addEventListener('keypress', handleCommentInputKeyPress);
+        });
+    }
+    // Event handler for comment button click
+    function handleCommentButtonClick(event) {
+        const postId = event.currentTarget.dataset.postId;
+        const commentInput = document.getElementById(`commentInput-${postId}`);
+        if (commentInput) {
+            handleAddComment(postId, commentInput.value);
+        }
+    }
+    // Event handler for comment input keypress (Enter key)
+    function handleCommentInputKeyPress(event) {
+        if (event.key === 'Enter') {
+            const postId = event.currentTarget.dataset.postId;
+            const commentInput = event.currentTarget;
+            handleAddComment(postId, commentInput.value);
+        }
+    }
+    // Initial setup and event listeners for Community Forum
+    // This will run when the main DoxaCare AI DOMContentLoaded fires
+    document.addEventListener('DOMContentLoaded', () => { // Corrected: ensure this wraps all main JS
+        updatePostsDisplay(); // Render initial state (no posts)
+        newPostBtn.addEventListener('click', showNewPostModal);
+        startNewDiscussionBtn.addEventListener('click', showNewPostModal); // Button inside "no posts" message
+        closeNewPostModalBtn.addEventListener('click', hideNewPostModal);
+        cancelPostBtn.addEventListener('click', hideNewPostModal);
+        submitPostBtn.addEventListener('click', handleAddPost);
+        // Close modal if clicking outside the content
+        newPostModal.addEventListener('click', (event) => {
+            if (event.target === newPostModal) {
+                hideNewPostModal();
+            }
+        });
+        customAlertModal.addEventListener('click', (event) => {
+            if (event.target === customAlertModal) {
+                hideAlert();
+            }
+        });
+    });
+    // END Community Forum JS
   </script>
-  </div>
+</body>
 </html>
+
