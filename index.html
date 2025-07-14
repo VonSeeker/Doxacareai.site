@@ -683,64 +683,13 @@
     // Call initializeAuth on script load
     initializeAuth();
 
-    // DOM Elements for Account Menu
-    const accountMenuBtn = document.getElementById('accountMenuBtn');
-    const accountDropdown = document.getElementById('accountDropdown');
-    const accountStatusText = document.getElementById('accountStatusText');
-    const signInOption = document.getElementById('signInOption');
-    const signOutOption = document.getElementById('signOutOption');
-
-    // DOM Elements for Account Modal
-    const accountModal = document.getElementById('accountModal');
-    const accountModalContent = document.getElementById('accountModalContent');
-    const closeAccountModalBtn = document.getElementById('closeAccountModalBtn');
-    // Removed social login buttons: const googleSignInBtn = document.getElementById('googleSignInBtn');
-    // Removed social login buttons: const facebookSignInBtn = document.getElementById('facebookSignInBtn');
-    const signUpForm = document.getElementById('signUpForm');
-    const firstNameInput = document.getElementById('firstName');
-    const lastNameInput = document.getElementById('lastName');
-    const phoneInput = document.getElementById('phone');
-    const usernameInput = document.getElementById('username');
-    const authMessage = document.getElementById('authMessage');
-
-    // Toggle Account Dropdown
-    accountMenuBtn?.addEventListener('click', () => {
-        accountDropdown.classList.toggle('hidden');
-    });
-
-    // Close dropdown if clicked outside
-    document.addEventListener('click', (event) => {
-        if (!accountMenuBtn.contains(event.target) && !accountDropdown.contains(event.target)) {
-            accountDropdown.classList.add('hidden');
-        }
-    });
-
-    // Show Account Modal
-    signInOption?.addEventListener('click', (e) => {
-        e.preventDefault();
-        accountDropdown.classList.add('hidden'); // Hide dropdown
-        accountModal.classList.remove('hidden');
-        setTimeout(() => {
-            accountModalContent.classList.remove('opacity-0', 'scale-95');
-            accountModalContent.classList.add('opacity-100', 'scale-100');
-        }, 10);
-        authMessage.textContent = ''; // Clear previous messages
-    });
-
-    // Hide Account Modal
-    closeAccountModalBtn?.addEventListener('click', () => {
-        hideAccountModal();
-    });
-
-    // Close modal if clicking outside the content
-    accountModal.addEventListener('click', (event) => {
-        if (event.target === accountModal) {
-            hideAccountModal();
-        }
-    });
-
     // Update UI based on auth state
     function updateAccountStatusUI(userProfile) {
+        const accountStatusText = document.getElementById('accountStatusText');
+        const signInOption = document.getElementById('signInOption');
+        const signOutOption = document.getElementById('signOutOption');
+        const accountModal = document.getElementById('accountModal'); // Ensure this is accessible
+
         if (userProfile && userProfile.username) {
             accountStatusText.textContent = userProfile.username;
             signInOption.classList.add('hidden');
@@ -758,7 +707,10 @@
             signInOption.classList.remove('hidden');
             signOutOption.classList.add('hidden');
         }
-        hideAccountModal(); // Always hide modal after auth state change
+        // Only hide if the modal is currently open
+        if (!accountModal.classList.contains('hidden')) {
+            hideAccountModal(); // Always hide modal after auth state change
+        }
     }
 
     // Removed Google Sign-in event listener
@@ -774,6 +726,7 @@
         const lastName = lastNameInput.value.trim();
         const phone = phoneInput.value.trim();
         const username = usernameInput.value.trim();
+        const authMessage = document.getElementById('authMessage'); // Ensure this is accessible
 
         if (!firstName || !lastName || !phone || !username) {
             authMessage.textContent = 'Please fill in all fields.';
@@ -1485,9 +1438,110 @@
     }
 
     // Initial setup and event listeners for Community Forum
-    // This will run when the main DoxaCare AI DOMContentLoaded fires
-    document.addEventListener('DOMContentLoaded', () => { // Corrected: ensure this wraps all main JS
+    document.addEventListener('DOMContentLoaded', () => {
         updatePostsDisplay(); // Render initial state (no posts)
+
+        // DOM Elements for Account Menu
+        const accountMenuBtn = document.getElementById('accountMenuBtn');
+        const accountDropdown = document.getElementById('accountDropdown');
+        const signInOption = document.getElementById('signInOption');
+        const signOutOption = document.getElementById('signOutOption');
+
+        // DOM Elements for Account Modal
+        const accountModal = document.getElementById('accountModal');
+        const accountModalContent = document.getElementById('accountModalContent');
+        const closeAccountModalBtn = document.getElementById('closeAccountModalBtn');
+        const signUpForm = document.getElementById('signUpForm');
+        const firstNameInput = document.getElementById('firstName');
+        const lastNameInput = document.getElementById('lastName');
+        const phoneInput = document.getElementById('phone');
+        const usernameInput = document.getElementById('username');
+        const authMessage = document.getElementById('authMessage');
+
+        // Toggle Account Dropdown
+        accountMenuBtn?.addEventListener('click', () => {
+            accountDropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener('click', (event) => {
+            if (!accountMenuBtn.contains(event.target) && !accountDropdown.contains(event.target) && !accountModal.contains(event.target)) {
+                accountDropdown.classList.add('hidden');
+            }
+        });
+
+        // Show Account Modal
+        signInOption?.addEventListener('click', (e) => {
+            e.preventDefault();
+            accountDropdown.classList.add('hidden'); // Hide dropdown
+            accountModal.classList.remove('hidden');
+            setTimeout(() => {
+                accountModalContent.classList.remove('opacity-0', 'scale-95');
+                accountModalContent.classList.add('opacity-100', 'scale-100');
+            }, 10);
+            authMessage.textContent = ''; // Clear previous messages
+        });
+
+        // Hide Account Modal
+        closeAccountModalBtn?.addEventListener('click', () => {
+            hideAccountModal();
+        });
+
+        // Close modal if clicking outside the content
+        accountModal.addEventListener('click', (event) => {
+            if (event.target === accountModal) {
+                hideAccountModal();
+            }
+        });
+
+        // Sign Up (Update Profile for Anonymous User)
+        signUpForm?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const firstName = firstNameInput.value.trim();
+            const lastName = lastNameInput.value.trim();
+            const phone = phoneInput.value.trim();
+            const username = usernameInput.value.trim();
+
+            if (!firstName || !lastName || !phone || !username) {
+                authMessage.textContent = 'Please fill in all fields.';
+                authMessage.className = 'mt-4 text-center text-sm text-red-600';
+                return;
+            }
+
+            if (!currentUserId) {
+                authMessage.textContent = 'Authentication not ready. Please try again.';
+                authMessage.className = 'mt-4 text-center text-sm text-red-600';
+                return;
+            }
+
+            try {
+                await updateUserProfile(currentUserId, firstName, lastName, phone, username);
+                authMessage.textContent = 'Profile updated successfully!';
+                authMessage.className = 'mt-4 text-center text-sm text-green-600';
+                updateAccountStatusUI({ username: username });
+                firstNameInput.value = '';
+                lastNameInput.value = '';
+                phoneInput.value = '';
+                usernameInput.value = '';
+                hideAccountModal();
+            } catch (error) {
+                console.error("Sign Up (Profile Update) Error:", error);
+                authMessage.textContent = `Sign up failed: ${error.message}`;
+                authMessage.className = 'mt-4 text-center text-sm text-red-600';
+            }
+        });
+
+        // Sign Out
+        signOutOption?.addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                await signOut(auth);
+                console.log("User signed out.");
+            } catch (error) {
+                console.error("Sign Out Error:", error);
+                showAlert(`Failed to sign out: ${error.message}`, 'Sign Out Error');
+            }
+        });
 
         newPostBtn.addEventListener('click', showNewPostModal);
         startNewDiscussionBtn.addEventListener('click', showNewPostModal); // Button inside "no posts" message
@@ -1542,4 +1596,5 @@
   </script>
 </body>
 </html>
+
 
