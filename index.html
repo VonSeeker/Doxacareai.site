@@ -81,8 +81,20 @@
         </button>
         <button id="emergencyBtn" class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center hover:bg-red-700 emergency-shake">
           <i class="fas fa-exclamation-triangle mr-1"></i>
-          <span> Emergency </span>
+          Emergency
         </button>
+        <!-- Account Menu Button -->
+        <div class="relative">
+            <button id="accountMenuBtn" class="bg-white text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center translate-btn">
+                <i class="fas fa-user-circle mr-1"></i>
+                <span id="accountStatusText">Account</span>
+            </button>
+            <!-- Account Dropdown/Modal Trigger -->
+            <div id="accountDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 hidden">
+                <a href="#" id="signInOption" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign In / Sign Up</a>
+                <a href="#" id="signOutOption" class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 hidden">Sign Out</a>
+            </div>
+        </div>
       </div>
     </div>
   </header>
@@ -425,7 +437,7 @@
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-xl font-bold text-red-600">
           <i class="fas fa-exclamation-triangle mr-2"></i>
-          <span> Emergency Assistance </span>
+          Emergency Assistance
         </h3>
         <button id="closeEmergencyModal" class="text-gray-500 hover:text-gray-700">
           <i class="fas fa-times"></i>
@@ -460,7 +472,354 @@
       </button>
     </div>
   </div>
-  <script>
+
+  <!-- Account Modal -->
+  <div id="accountModal" class="fixed inset-0 modal-overlay flex items-center justify-center z-50 p-4 hidden">
+      <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 transform transition-all duration-300 scale-95 opacity-0" id="accountModalContent">
+          <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold text-green-700" id="accountModalTitle">Sign In / Sign Up</h3>
+              <button id="closeAccountModalBtn" class="text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-times text-lg"></i>
+              </button>
+          </div>
+
+          <!-- Removed Social Login Options -->
+          <!--
+          <div class="space-y-3 mb-6">
+              <button id="googleSignInBtn" class="w-full bg-red-500 text-white py-2 px-4 rounded-lg flex items-center justify-center hover:bg-red-600 transition-colors shadow-md">
+                  <i class="fab fa-google mr-2"></i> Sign in with Google
+              </button>
+              <button id="facebookSignInBtn" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors shadow-md">
+                  <i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook
+              </button>
+          </div>
+          <div class="relative flex py-5 items-center">
+              <div class="flex-grow border-t border-gray-300"></div>
+              <span class="flex-shrink mx-4 text-gray-500">Or</span>
+              <div class="flex-grow border-t border-gray-300"></div>
+          </div>
+          -->
+
+          <!-- Sign Up Form -->
+          <form id="signUpForm" class="space-y-4">
+              <div>
+                  <label for="firstName" class="block text-gray-700 text-sm font-medium mb-1">First Name:</label>
+                  <input type="text" id="firstName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Your first name">
+              </div>
+              <div>
+                  <label for="lastName" class="block text-gray-700 text-sm font-medium mb-1">Last Name:</label>
+                  <input type="text" id="lastName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Your last name">
+              </div>
+              <div>
+                  <label for="phone" class="block text-gray-700 text-sm font-medium mb-1">Phone Number:</label>
+                  <input type="tel" id="phone" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g., +23276123456">
+              </div>
+              <div>
+                  <label for="username" class="block text-gray-700 text-sm font-medium mb-1">Username:</label>
+                  <input type="text" id="username" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Choose a username">
+              </div>
+              <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors shadow-md">
+                  Sign Up
+              </button>
+          </form>
+          <p id="authMessage" class="mt-4 text-center text-sm text-red-600"></p>
+      </div>
+  </div>
+
+  <script type="module">
+    // Firebase Imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // Initialize Firebase
+    const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Global variables for Firebase instances and user ID
+    let currentUserId = null;
+    let isAuthReady = false;
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; // Define appId globally
+
+    // Helper function for custom alert
+    function showAlert(message, title = 'Alert') {
+        const customAlertModal = document.getElementById('customAlertModal');
+        const customAlertModalContent = document.getElementById('customAlertModalContent');
+        const alertTitle = document.getElementById('alertTitle');
+        const alertMessage = document.getElementById('alertMessage');
+
+        alertTitle.textContent = title;
+        alertMessage.textContent = message;
+        customAlertModal.classList.remove('hidden');
+        setTimeout(() => {
+            customAlertModalContent.classList.remove('opacity-0', 'scale-95');
+            customAlertModalContent.classList.add('opacity-100', 'scale-100');
+        }, 10); // Small delay for transition
+    }
+
+    function hideAlert() {
+        const customAlertModal = document.getElementById('customAlertModal');
+        const customAlertModalContent = document.getElementById('customAlertModalContent');
+
+        customAlertModalContent.classList.remove('opacity-100', 'scale-100');
+        customAlertModalContent.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            customAlertModal.classList.add('hidden');
+        }, 300); // Match transition duration
+    }
+
+    // Function to hide the account modal
+    function hideAccountModal() {
+        const accountModal = document.getElementById('accountModal');
+        const accountModalContent = document.getElementById('accountModalContent');
+
+        accountModalContent.classList.remove('opacity-100', 'scale-100');
+        accountModalContent.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            accountModal.classList.add('hidden');
+        }, 300);
+    }
+
+    // Function to hide the new post modal
+    function hideNewPostModal() {
+        const newPostModal = document.getElementById('newPostModal');
+        const newPostModalContent = document.getElementById('newPostModalContent');
+        newPostModalContent.classList.remove('opacity-100', 'scale-100');
+        newPostModalContent.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            newPostModal.classList.add('hidden');
+        }, 300); // Match transition duration
+    }
+
+    // Function to get or create user profile in Firestore
+    async function getUserProfile(uid, email, displayName, photoURL) {
+        const userProfileRef = doc(db, `artifacts/${appId}/users/${uid}/user_profiles`, "profile");
+        const docSnap = await getDoc(userProfileRef);
+
+        if (!docSnap.exists()) {
+            // Create a new profile if it doesn't exist
+            const newProfile = {
+                uid: uid,
+                email: email || null,
+                displayName: displayName || null,
+                photoURL: photoURL || null,
+                firstName: null,
+                lastName: null,
+                phone: null,
+                username: null,
+                createdAt: new Date().toISOString()
+            };
+            await setDoc(userProfileRef, newProfile);
+            return newProfile;
+        } else {
+            return docSnap.data();
+        }
+    }
+
+    // Function to update user profile in Firestore (for sign-up form)
+    async function updateUserProfile(uid, firstName, lastName, phone, username) {
+        const userProfileRef = doc(db, `artifacts/${appId}/users/${uid}/user_profiles`, "profile");
+        await setDoc(userProfileRef, {
+            firstName: firstName,
+            lastName: lastName,
+            phone: phone,
+            username: username,
+            updatedAt: new Date().toISOString()
+        }, { merge: true }); // Merge to update existing fields without overwriting others
+    }
+
+    // Auth state listener
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            currentUserId = user.uid;
+            console.log("User is signed in:", user.uid);
+            const userProfile = await getUserProfile(user.uid, user.email, user.displayName, user.photoURL);
+            updateAccountStatusUI(userProfile);
+        } else {
+            currentUserId = null;
+            console.log("User is signed out.");
+            updateAccountStatusUI(null);
+            // Sign in anonymously if no user is signed in and no initial token is provided
+            if (typeof __initial_auth_token === 'undefined') {
+                 try {
+                     await signInAnonymously(auth);
+                     console.log("Signed in anonymously.");
+                 } catch (error) {
+                     console.error("Error signing in anonymously:", error);
+                 }
+            }
+        }
+        isAuthReady = true; // Firebase Auth is ready
+    });
+
+    // Initial sign-in with custom token if available, otherwise anonymously
+    async function initializeAuth() {
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            try {
+                await signInWithCustomToken(auth, __initial_auth_token);
+                console.log("Signed in with custom token.");
+            } catch (error) {
+                console.error("Error signing in with custom token:", error);
+                // Fallback to anonymous if custom token fails
+                try {
+                    await signInAnonymously(auth);
+                    console.log("Signed in anonymously after custom token failure.");
+                } catch (anonError) {
+                    console.error("Error signing in anonymously:", anonError);
+                }
+            }
+        } else {
+            try {
+                await signInAnonymously(auth);
+                console.log("Signed in anonymously.");
+            } catch (error) {
+                console.error("Error signing in anonymously:", error);
+            }
+        }
+    }
+
+    // Call initializeAuth on script load
+    initializeAuth();
+
+    // DOM Elements for Account Menu
+    const accountMenuBtn = document.getElementById('accountMenuBtn');
+    const accountDropdown = document.getElementById('accountDropdown');
+    const accountStatusText = document.getElementById('accountStatusText');
+    const signInOption = document.getElementById('signInOption');
+    const signOutOption = document.getElementById('signOutOption');
+
+    // DOM Elements for Account Modal
+    const accountModal = document.getElementById('accountModal');
+    const accountModalContent = document.getElementById('accountModalContent');
+    const closeAccountModalBtn = document.getElementById('closeAccountModalBtn');
+    // Removed social login buttons: const googleSignInBtn = document.getElementById('googleSignInBtn');
+    // Removed social login buttons: const facebookSignInBtn = document.getElementById('facebookSignInBtn');
+    const signUpForm = document.getElementById('signUpForm');
+    const firstNameInput = document.getElementById('firstName');
+    const lastNameInput = document.getElementById('lastName');
+    const phoneInput = document.getElementById('phone');
+    const usernameInput = document.getElementById('username');
+    const authMessage = document.getElementById('authMessage');
+
+    // Toggle Account Dropdown
+    accountMenuBtn?.addEventListener('click', () => {
+        accountDropdown.classList.toggle('hidden');
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', (event) => {
+        if (!accountMenuBtn.contains(event.target) && !accountDropdown.contains(event.target)) {
+            accountDropdown.classList.add('hidden');
+        }
+    });
+
+    // Show Account Modal
+    signInOption?.addEventListener('click', (e) => {
+        e.preventDefault();
+        accountDropdown.classList.add('hidden'); // Hide dropdown
+        accountModal.classList.remove('hidden');
+        setTimeout(() => {
+            accountModalContent.classList.remove('opacity-0', 'scale-95');
+            accountModalContent.classList.add('opacity-100', 'scale-100');
+        }, 10);
+        authMessage.textContent = ''; // Clear previous messages
+    });
+
+    // Hide Account Modal
+    closeAccountModalBtn?.addEventListener('click', () => {
+        hideAccountModal();
+    });
+
+    // Close modal if clicking outside the content
+    accountModal.addEventListener('click', (event) => {
+        if (event.target === accountModal) {
+            hideAccountModal();
+        }
+    });
+
+    // Update UI based on auth state
+    function updateAccountStatusUI(userProfile) {
+        if (userProfile && userProfile.username) {
+            accountStatusText.textContent = userProfile.username;
+            signInOption.classList.add('hidden');
+            signOutOption.classList.remove('hidden');
+        } else if (userProfile && userProfile.displayName) {
+            accountStatusText.textContent = userProfile.displayName.split(' ')[0]; // Show first name
+            signInOption.classList.add('hidden');
+            signOutOption.classList.remove('hidden');
+        } else if (auth.currentUser && auth.currentUser.isAnonymous) {
+            accountStatusText.textContent = 'Guest';
+            signInOption.classList.remove('hidden');
+            signOutOption.classList.add('hidden'); // Guests can't "sign out" in the traditional sense, they can only sign in
+        } else {
+            accountStatusText.textContent = 'Account';
+            signInOption.classList.remove('hidden');
+            signOutOption.classList.add('hidden');
+        }
+        hideAccountModal(); // Always hide modal after auth state change
+    }
+
+    // Removed Google Sign-in event listener
+    // googleSignInBtn?.addEventListener('click', async () => { ... });
+
+    // Removed Facebook Sign-in event listener
+    // facebookSignInBtn?.addEventListener('click', async () => { ... });
+
+    // Sign Up (Update Profile for Anonymous User)
+    signUpForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const firstName = firstNameInput.value.trim();
+        const lastName = lastNameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const username = usernameInput.value.trim();
+
+        if (!firstName || !lastName || !phone || !username) {
+            authMessage.textContent = 'Please fill in all fields.';
+            authMessage.className = 'mt-4 text-center text-sm text-red-600';
+            return;
+        }
+
+        if (!currentUserId) {
+            authMessage.textContent = 'Authentication not ready. Please try again.';
+            authMessage.className = 'mt-4 text-center text-sm text-red-600';
+            return;
+        }
+
+        try {
+            await updateUserProfile(currentUserId, firstName, lastName, phone, username);
+            authMessage.textContent = 'Profile updated successfully!';
+            authMessage.className = 'mt-4 text-center text-sm text-green-600';
+            // Update UI after successful profile update
+            updateAccountStatusUI({ username: username }); // Pass the new username to update UI
+            // Clear form fields
+            firstNameInput.value = '';
+            lastNameInput.value = '';
+            phoneInput.value = '';
+            usernameInput.value = '';
+            hideAccountModal();
+        } catch (error) {
+            console.error("Sign Up (Profile Update) Error:", error);
+            authMessage.textContent = `Sign up failed: ${error.message}`;
+            authMessage.className = 'mt-4 text-center text-sm text-red-600';
+        }
+    });
+
+    // Sign Out
+    signOutOption?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+            await signOut(auth);
+            console.log("User signed out.");
+            // onAuthStateChanged listener will handle UI update
+        } catch (error) {
+            console.error("Sign Out Error:", error);
+            showAlert(`Failed to sign out: ${error.message}`, 'Sign Out Error');
+        }
+    });
+
+
     // Force refresh by adding cache-busting parameter
     if (performance.navigation.type === 1) {
       window.location.search = '?refresh=' + new Date().getTime();
@@ -479,7 +838,7 @@
     const malariaBtnText = document.getElementById('malariaBtnText');
     const pregnancyBtnText = document.getElementById('pregnancyBtnText');
     const diarrheaBtnText = document.getElementById('diarrheaBtnText');
-    const hypertensionBtnText = document = document.getElementById('hypertensionBtnText');
+    const hypertensionBtnText = document.getElementById('hypertensionBtnText');
     const chatTitle = document.getElementById('chatTitle');
     const welcomeTitle = document.getElementById('welcomeTitle');
     const culturalTitle = document.getElementById('culturalTitle');
@@ -719,7 +1078,7 @@
           if (result.candidates && result.candidates.length > 0 &&
               result.candidates[0].content && result.candidates[0].content.parts &&
               result.candidates[0].content.parts.length > 0) {
-              botResponseText = result.candidates[0].content.parts[0].text;
+              botResponseText = formatBotResponse(result.candidates[0].content.parts[0].text);
           } else {
               console.error("Unexpected API response structure for health topics:", result);
           }
@@ -896,38 +1255,14 @@
     const newPostModalContent = document.getElementById('newPostModalContent');
     const closeNewPostModalBtn = document.getElementById('closeNewPostModalBtn');
     const postTitleInput = document.getElementById('postTitle');
-    const postCityInput = document.getElementById('postCity'); // New: Get city input
+    const postCityInput = document.getElementById('postCity'); // Corrected: removed "= document"
     const postContentTextarea = document.getElementById('postContent');
     const cancelPostBtn = document.getElementById('cancelPostBtn');
     const submitPostBtn = document.getElementById('submitPostBtn');
 
-    const customAlertModal = document.getElementById('customAlertModal');
-    const customAlertModalContent = document.getElementById('customAlertModalContent');
-    const alertTitle = document.getElementById('alertTitle');
-    const alertMessage = document.getElementById('alertMessage');
+    // Event listeners for custom alert
     const closeAlertModalBtn = document.getElementById('closeAlertModalBtn');
     const okAlertBtn = document.getElementById('okAlertBtn');
-
-    // Helper function for custom alert
-    function showAlert(message, title = 'Alert') {
-        alertTitle.textContent = title;
-        alertMessage.textContent = message;
-        customAlertModal.classList.remove('hidden');
-        setTimeout(() => {
-            customAlertModalContent.classList.remove('opacity-0', 'scale-95');
-            customAlertModalContent.classList.add('opacity-100', 'scale-100');
-        }, 10); // Small delay for transition
-    }
-
-    function hideAlert() {
-        customAlertModalContent.classList.remove('opacity-100', 'scale-100');
-        customAlertModalContent.classList.add('opacity-0', 'scale-95');
-        setTimeout(() => {
-            customAlertModal.classList.add('hidden');
-        }, 300); // Match transition duration
-    }
-
-    // Event listeners for custom alert
     closeAlertModalBtn.addEventListener('click', hideAlert);
     okAlertBtn.addEventListener('click', hideAlert);
 
@@ -1048,15 +1383,6 @@
         postTitleInput.focus();
     }
 
-    // Function to hide the new post modal
-    function hideNewPostModal() {
-        newPostModalContent.classList.remove('opacity-100', 'scale-100');
-        newPostModalContent.classList.add('opacity-0', 'scale-95');
-        setTimeout(() => {
-            newPostModal.classList.add('hidden');
-        }, 300); // Match transition duration
-    }
-
     // Event handler for adding a new post
     function handleAddPost() {
         const title = postTitleInput.value.trim();
@@ -1072,7 +1398,7 @@
             id: generateUniqueId(),
             title: title,
             content: content,
-            author: 'Anonymous User', // Default author
+            author: accountStatusText.textContent === 'Guest' ? 'Anonymous User' : accountStatusText.textContent, // Use username if logged in
             city: city, // Add city to the post object
             timestamp: formatTimestamp(new Date()),
             comments: [],
@@ -1092,7 +1418,7 @@
 
         const newComment = {
             id: generateUniqueId(),
-            author: 'Community Member', // Default author
+            author: accountStatusText.textContent === 'Guest' ? 'Community Member' : accountStatusText.textContent, // Use username if logged in
             text: commentText,
             timestamp: formatTimestamp(new Date()),
         };
@@ -1175,12 +1501,7 @@
                 hideNewPostModal();
             }
         });
-        customAlertModal.addEventListener('click', (event) => {
-            if (event.target === customAlertModal) {
-                hideAlert();
-            }
-        });
-
+        
         // Emergency modal event listeners
         const emergencyBtn = document.getElementById('emergencyBtn');
         const emergencyModal = document.getElementById('emergencyModal');
