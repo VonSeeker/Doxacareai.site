@@ -842,51 +842,9 @@
       }
     });
         // Tab Switching
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-        tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const tabId = button.getAttribute('data-tab');
-                // Update active state for buttons
-        tabButtons.forEach(btn => btn.classList.remove('active', 'text-green-700', 'border-green-700'));
-        button.classList.add('active', 'text-green-700', 'border-green-700');
-                // Update active state for tab contents
-        tabContents.forEach(content => {
-          content.classList.add('hidden');
-          content.classList.remove('active');
-        });
-                document.getElementById(`${tabId}-tab`).classList.remove('hidden');
-        document.getElementById(`${tabId}-tab`).classList.add('active');
-      });
-    });
-        // Quick Action Buttons
-    const quickActionBtns = document.querySelectorAll('.quick-action-btn');
-        quickActionBtns.forEach(button => {
-      button.addEventListener('click', () => {
-        const action = button.getAttribute('data-action');
-        const chatWindow = document.getElementById('chatWindow');
-                switch(action) {
-          case 'malaria':
-            addUserMessage('malaria prevention');
-            simulateBotResponse('Malaria prevention is crucial in Sierra Leone. Use insecticide-treated mosquito nets every night, wear protective clothing in the evening, and eliminate stagnant water around your home where mosquitoes breed. If you experience fever, headache, or chills, seek medical attention immediately as these could be malaria symptoms.');
-            break;
-          case 'pregnancy':
-            addUserMessage('pregnancy care');
-            simulateBotResponse('For healthy pregnancy: Attend all antenatal check-ups, take prescribed iron and folic acid supplements, eat nutritious meals, and learn about danger signs like severe headaches, blurred vision,');
-            break;
-          case 'diarrhea':
-            addUserMessage('diarrhea treatment');
-            simulateBotResponse('For diarrhea, the most important thing is to prevent dehydration. Drink plenty of fluids, especially Oral Rehydration Salts (ORS). Avoid sugary drinks. If diarrhea is severe, bloody, or accompanied by high fever, seek medical attention.');
-            break;
-          case 'hypertension':
-            addUserMessage('hypertension management');
-            simulateBotResponse('Hypertension (high blood pressure) can be managed with a healthy diet low in salt, regular exercise, maintaining a healthy weight, and avoiding smoking and excessive alcohol. Regular check-ups and medication as prescribed by a doctor are essential.');
-            break;
-          default:
-            simulateBotResponse("I'm not sure about that specific quick action, but I can help with general health questions!");
-        }
-      });
-    });
+    // Moved inside DOMContentLoaded
+    // Quick Action Buttons
+    // Moved inside DOMContentLoaded
 
     // Chatbot functionality (simplified)
     const userInput = document.getElementById('userInput');
@@ -1208,7 +1166,7 @@
     const newPostModalContent = document.getElementById('newPostModalContent');
     const closeNewPostModalBtn = document.getElementById('closeNewPostModalBtn');
     const postTitleInput = document.getElementById('postTitle');
-    const postCityInput = document.getElementById('postCity'); // Corrected: removed "= document"
+    const postCityInput = document.getElementById('postCity');
     const postContentTextarea = document.getElementById('postContent');
     const cancelPostBtn = document.getElementById('cancelPostBtn');
     const submitPostBtn = document.getElementById('submitPostBtn');
@@ -1543,13 +1501,214 @@
             }
         });
 
+        // Language Toggle
+        // Re-get elements inside DOMContentLoaded to ensure they exist
+        const languageToggle = document.getElementById('languageToggle');
+        const currentLanguage = document.getElementById('currentLanguage');
+        const welcomeText = document.getElementById('welcomeText');
+        const welcomeTextKrio = document.getElementById('welcomeTextKrio');
+        const welcomeChatText = document.getElementById('welcomeChatText');
+        const welcomeChatTextKrio = document.getElementById('welcomeChatTextKrio');
+        const healthAlertsText = document.getElementById('healthAlertsText');
+        const healthAlertsTextKrio = document.getElementById('healthAlertsTextKrio');
+        const culturalTipText = document.getElementById('culturalTipText');
+        const culturalTipTextKrio = document.getElementById('culturalTipTextKrio');
+        const malariaBtnText = document.getElementById('malariaBtnText');
+        const pregnancyBtnText = document.getElementById('pregnancyBtnText');
+        const diarrheaBtnText = document.getElementById('diarrheaBtnText');
+        const hypertensionBtnText = document.getElementById('hypertensionBtnText');
+        const chatTitle = document.getElementById('chatTitle');
+        const welcomeTitle = document.getElementById('welcomeTitle');
+        const culturalTitle = document.getElementById('culturalTitle');
+        const localTipTitle = document.getElementById('localTipTitle');
+        const healthAlertsTitle = document.getElementById('healthAlertsTitle');
+        const quickLinksTitle = document.getElementById('quickLinksTitle');
+        let isEnglish = false; // Initialize here or globally if state needs to persist
+
+        languageToggle?.addEventListener('click', () => {
+            isEnglish = !isEnglish;
+            if (isEnglish) {
+                currentLanguage.textContent = 'English';
+                welcomeText.classList.remove('hidden');
+                welcomeTextKrio.classList.add('hidden');
+                healthAlertsText.classList.remove('hidden');
+                healthAlertsTextKrio.classList.add('hidden');
+                welcomeChatText.classList.remove('hidden');
+                welcomeChatTextKrio.classList.add('hidden');
+                culturalTipText.classList.remove('hidden');
+                culturalTipTextKrio.classList.add('hidden');
+                malariaBtnText.textContent = 'Malaria';
+                pregnancyBtnText.textContent = 'Pregnancy';
+                diarrheaBtnText.textContent = 'Diarrhea';
+                hypertensionBtnText.textContent = 'Hypertension';
+                chatTitle.textContent = 'Chat with DoxaCare AI';
+                culturalTitle.textContent = 'Cultural Health Tips';
+                localTipTitle.textContent = 'Local Health Wisdom';
+                healthAlertsTitle.textContent = 'Health Alerts';
+                quickLinksTitle.textContent = 'Quick Chats';
+            } else {
+                currentLanguage.textContent = 'Krio';
+                welcomeText.classList.add('hidden');
+                welcomeTextKrio.classList.remove('hidden');
+                healthAlertsText.classList.add('hidden');
+                healthAlertsTextKrio.classList.remove('hidden');
+                welcomeChatText.classList.add('hidden');
+                welcomeChatTextKrio.classList.remove('hidden');
+                culturalTipText.classList.add('hidden');
+                culturalTipTextKrio.classList.remove('hidden');
+                malariaBtnText.textContent = 'Malaria';
+                pregnancyBtnText.textContent = 'Belleful';
+                diarrheaBtnText.textContent = 'Run belle';
+                hypertensionBtnText.textContent = 'High BP';
+                chatTitle.textContent = 'Chat wit DoxaCare AI';
+                culturalTitle.textContent = 'Health Tip for We Culture';
+                localTipTitle.textContent = 'Local Health Sense';
+                healthAlertsTitle.textContent = 'Health News';
+                quickLinksTitle.textContent = 'Quick Chat';
+            }
+        });
+
+        // Tab Switching
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                tabButtons.forEach(btn => btn.classList.remove('active', 'text-green-700', 'border-green-700'));
+                button.classList.add('active', 'text-green-700', 'border-green-700');
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                    content.classList.remove('active');
+                });
+                document.getElementById(`${tabId}-tab`).classList.remove('hidden');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+
+        // Quick Action Buttons
+        const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+        quickActionBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                const action = button.getAttribute('data-action');
+                const chatWindow = document.getElementById('chatWindow');
+                switch(action) {
+                    case 'malaria':
+                        addUserMessage('malaria prevention');
+                        simulateBotResponse('Malaria prevention is crucial in Sierra Leone. Use insecticide-treated mosquito nets every night, wear protective clothing in the evening, and eliminate stagnant water around your home where mosquitoes breed. If you experience fever, headache, or chills, seek medical attention immediately as these could be malaria symptoms.');
+                        break;
+                    case 'pregnancy':
+                        addUserMessage('pregnancy care');
+                        simulateBotResponse('For healthy pregnancy: Attend all antenatal check-ups, take prescribed iron and folic acid supplements, eat nutritious meals, and learn about danger signs like severe headaches, blurred vision,');
+                        break;
+                    case 'diarrhea':
+                        addUserMessage('diarrhea treatment');
+                        simulateBotResponse('For diarrhea, the most important thing is to prevent dehydration. Drink plenty of fluids, especially Oral Rehydration Salts (ORS). Avoid sugary drinks. If diarrhea is severe, bloody, or accompanied by high fever, seek medical attention.');
+                        break;
+                    case 'hypertension':
+                        addUserMessage('hypertension management');
+                        simulateBotResponse('Hypertension (high blood pressure) can be managed with a healthy diet low in salt, regular exercise, maintaining a healthy weight, and avoiding smoking and excessive alcohol. Regular check-ups and medication as prescribed by a doctor are essential.');
+                        break;
+                    default:
+                        simulateBotResponse("I'm not sure about that specific quick action, but I can help with general health questions!");
+                }
+            });
+        });
+
+        // Chatbot functionality (simplified) - Re-get elements
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatWindow = document.getElementById('chatWindow');
+
+        sendBtn?.addEventListener('click', () => {
+            const message = userInput.value.trim();
+            if (message) {
+                addUserMessage(message);
+                simulateBotResponse(message);
+                userInput.value = '';
+            }
+        });
+
+        userInput?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendBtn?.click();
+            }
+        });
+
+        document.querySelectorAll('.quick-reply-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const text = event.target.textContent || '';
+                if (text) {
+                    addUserMessage(text);
+                    simulateBotResponse(text);
+                }
+            });
+        });
+
+        // Symptom checker functionality (now uses Gemini API) - Re-get elements
+        const symptomsInput = document.getElementById('symptomsInput');
+        const checkSymptomsBtn = document.getElementById('checkSymptomsBtn');
+        const symptomResults = document.getElementById('symptomResults');
+        const refreshHealthTopics = document.getElementById('refreshHealthTopics');
+
+        checkSymptomsBtn?.addEventListener('click', () => {
+            const inputTopic = symptomsInput.value.trim();
+            if (inputTopic) {
+                simulateHealthTopicResponse(inputTopic);
+            } else {
+                showAlert("Please enter a health topic or symptom.");
+            }
+        });
+
+        symptomsInput?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkSymptomsBtn?.click();
+            }
+        });
+
+        document.querySelectorAll('.symptom-tag').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const tagText = event.target.textContent || '';
+                const dataSymptoms = event.target.dataset.symptoms || tagText;
+                symptomsInput.value = dataSymptoms;
+                simulateHealthTopicResponse(dataSymptoms);
+            });
+        });
+
+        refreshHealthTopics?.addEventListener('click', () => {
+            symptomsInput.value = '';
+            if (symptomResults) {
+                symptomResults.innerHTML = '';
+                symptomResults.classList.add('hidden');
+            }
+        });
+
+        // Find Clinics functionality (expanded) - Re-get elements
+        const locationInput = document.getElementById('locationInput');
+        const findClinicsBtn = document.getElementById('findClinicsBtn');
+        const clinicResults = document.getElementById('clinicResults');
+
+        findClinicsBtn?.addEventListener('click', () => {
+            const location = locationInput.value.trim();
+            if (location) {
+                simulateClinicSearch(location);
+            } else {
+                showAlert("Please enter a location to search for clinics.");
+            }
+        });
+
+        locationInput?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                findClinicsBtn?.click();
+            }
+        });
+
+        // Community Forum elements and listeners
         newPostBtn.addEventListener('click', showNewPostModal);
-        startNewDiscussionBtn.addEventListener('click', showNewPostModal); // Button inside "no posts" message
+        startNewDiscussionBtn.addEventListener('click', showNewPostModal);
         closeNewPostModalBtn.addEventListener('click', hideNewPostModal);
         cancelPostBtn.addEventListener('click', hideNewPostModal);
         submitPostBtn.addEventListener('click', handleAddPost);
 
-        // Close modal if clicking outside the content
         newPostModal.addEventListener('click', (event) => {
             if (event.target === newPostModal) {
                 hideNewPostModal();
@@ -1576,14 +1735,11 @@
 
         if (callEmergencyBtn) {
             callEmergencyBtn.addEventListener('click', () => {
-                // In a real application, this would initiate a phone call
-                // For now, we'll just close the modal and could add a console log
                 console.log("Initiating emergency call...");
                 emergencyModal.classList.add('hidden');
             });
         }
 
-        // Close emergency modal if clicking outside the content
         if (emergencyModal) {
             emergencyModal.addEventListener('click', (event) => {
                 if (event.target === emergencyModal) {
@@ -1596,5 +1752,3 @@
   </script>
 </body>
 </html>
-
-
