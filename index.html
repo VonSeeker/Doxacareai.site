@@ -3,76 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DoxaCare AI - Healthcare Assistant for Sierra Leone</title>
+  <title>EvaCare AI - Healthcare Assistant for Sierra Leone</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
+    
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #f0fdf4;
     }
-        
+    
     .typing-indicator::after {
       content: '...';
       animation: typing 1.5s infinite;
     }
-        
+    
     @keyframes typing {
       0% { content: '.'; }
       33% { content: '..'; }
       66% { content: '...'; }
     }
-        
+    
     .translate-btn {
       transition: all 0.3s ease;
     }
-        
+    
     .translate-btn:hover {
       transform: scale(1.05);
     }
-        
+    
     .emergency-shake {
       animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
     }
-        
+    
     @keyframes shake {
       10%, 90% { transform: translate3d(-1px, 0, 0); }
       20%, 80% { transform: translate3d(2px, 0, 0); }
       30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
       40%, 60% { transform: translate3d(4px, 0, 0); }
     }
-    /* Custom styles for the modal overlay */
-    .modal-overlay {
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-    /* Custom styles for scrollbar in comments section */
-    .max-h-48::-webkit-scrollbar {
-        width: 8px;
-    }
-    .max-h-48::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-    }
-    .max-h-48::-webkit-scrollbar-thumb {
-        background: #cbd5e1; /* gray-300 */
-        border-radius: 10px;
-    }
-    .max-h-48::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8; /* gray-400 */
-    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
-  <div id="auth-root"></div>
-  <div id="app-content">
   <!-- Header -->
   <header class="bg-gradient-to-r from-green-600 to-yellow-400 shadow-md">
     <div class="container mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <i class="fas fa-heartbeat text-white text-2xl"></i>
-        <h1 class="text-white font-bold text-xl md:text-2xl">DoxaCare AI</h1>
+        <h1 class="text-white font-bold text-xl md:text-2xl">EvaCare AI</h1>
       </div>
       <div class="flex items-center space-x-4">
         <button id="languageToggle" class="bg-white text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center translate-btn">
@@ -83,21 +62,10 @@
           <i class="fas fa-exclamation-triangle mr-1"></i>
           Emergency
         </button>
-        <!-- Account Menu Button -->
-        <div class="relative">
-            <button id="accountMenuBtn" class="bg-white text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center translate-btn">
-                <i class="fas fa-user-circle mr-1"></i>
-                <span id="accountStatusText">Account</span>
-            </button>
-            <!-- Account Dropdown/Modal Trigger -->
-            <div id="accountDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 hidden">
-                <a href="#" id="signInOption" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign In / Sign Up</a>
-                <a href="#" id="signOutOption" class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 hidden">Sign Out</a>
-            </div>
-        </div>
       </div>
     </div>
   </header>
+
   <!-- Nav Tabs -->
   <div class="bg-white shadow-sm">
     <div class="container mx-auto px-4">
@@ -108,15 +76,16 @@
         <button class="tab-btn px-4 py-3 text-gray-600 font-medium whitespace-nowrap" data-tab="symptoms">
           <i class="fas fa-notes-medical mr-2"></i>Health Topics
         </button>
-       <button class="tab-btn px-4 py-3 text-gray-600 font-medium whitespace-nowrap" data-tab="forum">
-  <i class="fas fa-comments mr-2"></i>Health Forum
-</button>
+        <button class="tab-btn px-4 py-3 text-gray-600 font-medium whitespace-nowrap" data-tab="advice">
+          <i class="fas fa-lightbulb mr-2"></i>Health Advice
+        </button>
         <button class="tab-btn px-4 py-3 text-gray-600 font-medium whitespace-nowrap" data-tab="clinics">
           <i class="fas fa-hospital mr-2"></i>Find Clinics
         </button>
-          </div>
+      </div>
     </div>
   </div>
+
   <!-- Main Content -->
   <main class="flex-grow container mx-auto px-4 py-6">
     <!-- Home Tab (default visible) -->
@@ -174,7 +143,8 @@
           </div>
         </div>
       </div>
-            <!-- Chat Interface -->
+      
+      <!-- Chat Interface -->
       <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <div class="bg-green-600 p-3">
           <h2 class="text-white font-bold flex items-center">
@@ -204,7 +174,8 @@
           </div>
         </div>
       </div>
-            <!-- Cultural Feature Section -->
+      
+      <!-- Cultural Feature Section -->
       <div class="mt-6 bg-white rounded-lg shadow-md overflow-hidden">
         <div class="bg-gradient-to-r from-yellow-400 to-green-600 p-3">
           <h2 class="text-white font-bold flex items-center">
@@ -214,7 +185,7 @@
         </div>
         <div class="p-4">
           <div class="flex flex-col md:flex-row items-center">
-            <img src="https://images.app.goo.gl/6DwoTn2NgUnF7Di77" alt="Lumley Beach in Freetown, Sierra Leone" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-lg shadow mb-4 md:mb-0 md:mr-4">
+            <img src="Lumley-beach-in-Freetown-Sierra-Leone-jpg.webp" alt="Lumley Beach in Freetown, Sierra Leone" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-lg shadow mb-4 md:mb-0 md:mr-4">
             <div>
               <h3 class="font-semibold text-green-800 mb-2" id="localTipTitle">Local Health Wisdom</h3>
               <div id="culturalTipText" class="text-gray-700">
@@ -232,7 +203,7 @@
         </div>
       </div>
     </div>
-        
+    
     <!-- Symptom Checker Tab -->
     <div id="symptoms-tab" class="tab-content hidden">
       <div class="bg-white rounded-lg shadow-md overflow-hidden">
@@ -254,19 +225,20 @@
             </div>
           </div>
           <div id="symptomResults" class="hidden border-t pt-4">
+            <h3 class="font-semibold text-gray-800 mb-3">Possible Conditions:</h3>
             <!-- Results will be inserted here by JavaScript -->
           </div>
           <div class="mt-4 p-3 bg-gray-100 rounded-lg">
             <h4 class="font-medium text-gray-700 mb-2">Common Health Topics:</h4>
             <div class="grid grid-cols-2 gap-2">
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Malaria">Malaria</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Typhoid">Typhoid</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Cholera">Cholera</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Dengue">Dengue</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Pneumonia">Pneumonia</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Meningitis">Meningitis</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="Lassa Fever">Lassa Fever</button>
-              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="COVID-19">COVID-19</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="fever,chills,headache,muscle pain">Malaria</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="fever,abdominal pain,constipation,diarrhea">Typhoid</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="watery diarrhea,vomiting,dehydration">Cholera</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="high fever,severe headache,eye pain,muscle pain">Dengue</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="cough,fever,difficulty breathing">Pneumonia</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="fever,headache,stiff neck,sensitivity to light">Meningitis</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="fever,skin rash,conjunctivitis,muscle pain">Lassa Fever</button>
+              <button class="symptom-tag bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded text-sm" data-symptoms="fever,cough,loss of taste/smell,difficulty breathing">COVID-19</button>
             </div>
           </div>
           <div class="mt-4 p-3 bg-gray-100 rounded-lg">
@@ -283,45 +255,12 @@
         </div>
       </div>
     </div>
-        
-    <!-- Health Forum Tab -->
-   <div id="forum-tab" class="tab-content hidden">
-  <div class="max-w-3xl w-full bg-white rounded-lg shadow-md overflow-hidden">
-    <div class="bg-blue-600 p-3 flex justify-between items-center rounded-t-lg">
-      <h2 class="text-white font-bold flex items-center text-xl">
-        <i class="fas fa-comments mr-2"></i>
-        Sierra Leone Health Forum
-      </h2>
-      <input type="text" id="forumSearchInput" class="px-3 py-2 rounded-lg border ml-4" placeholder="Search Sierra Leone health topics...">
-      <button id="forumSearchBtn" class="bg-white text-blue-600 px-3 py-1 rounded-full text-sm font-medium hover:bg-blue-100 ml-2">
-        <i class="fas fa-search"></i>
-      </button>
+    
+    <!-- Health Advice Forum Tab -->
+    <div id="advice-tab" class="tab-content hidden">
+      
     </div>
-    <div id="forumResults" class="p-4 space-y-4">
-      <!-- Search results will go here -->
-    </div>
-  </div>
-</div>
-          <!-- Custom Alert Modal -->
-          <div id="customAlertModal" class="fixed inset-0 modal-overlay flex items-center justify-center z-50 p-4 hidden">
-              <div class="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 transform transition-all duration-300 scale-95 opacity-0" id="customAlertModalContent">
-                  <div class="flex justify-between items-center mb-4">
-                      <h3 class="text-xl font-bold text-red-700" id="alertTitle">Alert</h3>
-                      <button id="closeAlertModalBtn" class="text-gray-500 hover:text-gray-700">
-                          <i class="fas fa-times text-lg"></i>
-                      </button>
-                  </div>
-                  <p id="alertMessage" class="text-gray-700 mb-6"></p>
-                  <div class="flex justify-end">
-                      <button id="okAlertBtn" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors shadow-md">
-                          OK
-                      </button>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </div>
-        
+    
     <!-- Find Clinics Tab -->
     <div id="clinics-tab" class="tab-content hidden">
       <div class="bg-white rounded-lg shadow-md overflow-hidden">
@@ -340,18 +279,54 @@
             </div>
           </div>
           <div id="clinicResults" class="space-y-4">
-            <!-- Clinic cards will be dynamically inserted here by JavaScript -->
+            <!-- Sample clinic cards - will be replaced by dynamic content -->
+            <div class="border border-gray-200 rounded-lg p-3">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-semibold text-gray-800">Connaught Hospital</h3>
+                  <p class="text-sm text-gray-600">Freetown • Government Hospital</p>
+                </div>
+                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24-Hour</span>
+              </div>
+              <div class="mt-2 flex items-center text-sm">
+                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                <span>+232 25 345678</span>
+              </div>
+              <div class="mt-1 flex items-center text-sm">
+                <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                <span>Lightfoot Boston St, Freetown</span>
+              </div>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-3">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-semibold text-gray-800">Bo Government Hospital</h3>
+                  <p class="text-sm text-gray-600">Bo • Government Hospital</p>
+                </div>
+              </div>
+              <div class="mt-2 flex items-center text-sm">
+                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                <span>+232 76 345678</span>
+              </div>
+              <div class="mt-1 flex items-center text-sm">
+                <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                <span>Kissi Town, Bo</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-        </main>
+    
+    
+  </main>
+
   <!-- Footer -->
   <footer class="bg-green-800 text-white py-6">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <h3 class="font-bold mb-3">DoxaCare AI</h3>
+          <h3 class="font-bold mb-3">Doxacare AI</h3>
           <p class="text-sm">Providing trusted healthcare advice for Sierra Leone</p>
           <div class="mt-3">
             <p class="text-sm"><i class="fas fa-phone-alt mr-2"></i> Emergency: 117, 112</p>
@@ -368,14 +343,15 @@
         </div>
         <div>
           <h3 class="font-bold mb-3">Disclaimer</h3>
-          <p class="text-xs">DoxaCare AI provides general health information only and does not replace professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.</p>
+          <p class="text-xs">EvaCare AI provides general health information only and does not replace professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.</p>
         </div>
       </div>
       <div class="border-t border-green-700 mt-6 pt-4 text-center text-sm">
-        <p>© 2023 DoxaCare AI - Healthcare Assistant for Sierra Leone</p>
+        <p>© 2025 DoxaCare AI - Healthcare Assistant for Sierra Leone</p>
       </div>
     </div>
   </footer>
+
   <!-- Emergency Modal -->
   <div id="emergencyModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
@@ -418,311 +394,11 @@
     </div>
   </div>
 
-  <!-- Account Modal -->
-  <div id="accountModal" class="fixed inset-0 modal-overlay flex items-center justify-center z-50 p-4 hidden">
-      <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 transform transition-all duration-300 scale-95 opacity-0" id="accountModalContent">
-          <div class="flex justify-between items-center mb-4">
-              <h3 class="text-xl font-bold text-green-700" id="accountModalTitle">Sign In / Sign Up</h3>
-              <button id="closeAccountModalBtn" class="text-gray-500 hover:text-gray-700">
-                  <i class="fas fa-times text-lg"></i>
-              </button>
-          </div>
-
-          <!-- Removed Social Login Options -->
-          <!--
-          <div class="space-y-3 mb-6">
-              <button id="googleSignInBtn" class="w-full bg-red-500 text-white py-2 px-4 rounded-lg flex items-center justify-center hover:bg-red-600 transition-colors shadow-md">
-                  <i class="fab fa-google mr-2"></i> Sign in with Google
-              </button>
-              <button id="facebookSignInBtn" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors shadow-md">
-                  <i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook
-              </button>
-          </div>
-          <div class="relative flex py-5 items-center">
-              <div class="flex-grow border-t border-gray-300"></div>
-              <span class="flex-shrink mx-4 text-gray-500">Or</span>
-              <div class="flex-grow border-t border-gray-300"></div>
-          </div>
-          -->
-
-          <!-- Sign Up Form -->
-          <form id="signUpForm" class="space-y-4">
-              <div>
-                  <label for="firstName" class="block text-gray-700 text-sm font-medium mb-1">First Name:</label>
-                  <input type="text" id="firstName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Your first name">
-              </div>
-              <div>
-                  <label for="lastName" class="block text-gray-700 text-sm font-medium mb-1">Last Name:</label>
-                  <input type="text" id="lastName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Your last name">
-              </div>
-              <div>
-                  <label for="phone" class="block text-gray-700 text-sm font-medium mb-1">Phone Number:</label>
-                  <input type="tel" id="phone" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g., +23276123456">
-              </div>
-              <div>
-                  <label for="username" class="block text-gray-700 text-sm font-medium mb-1">Username:</label>
-                  <input type="text" id="username" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Choose a username">
-              </div>
-              <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors shadow-md">
-                  Sign Up
-              </button>
-          </form>
-          <p id="authMessage" class="mt-4 text-center text-sm text-red-600"></p>
-      </div>
-  </div>
-
-  <script type="module">
-    // Firebase Imports
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-    // Initialize Firebase
-    const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    // Global variables for Firebase instances and user ID
-    let currentUserId = null;
-    let isAuthReady = false;
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; // Define appId globally
-
-    // Helper function for custom alert
-    function showAlert(message, title = 'Alert') {
-        const customAlertModal = document.getElementById('customAlertModal');
-        const customAlertModalContent = document.getElementById('customAlertModalContent');
-        const alertTitle = document.getElementById('alertTitle');
-        const alertMessage = document.getElementById('alertMessage');
-
-        alertTitle.textContent = title;
-        alertMessage.textContent = message;
-        customAlertModal.classList.remove('hidden');
-        setTimeout(() => {
-            customAlertModalContent.classList.remove('opacity-0', 'scale-95');
-            customAlertModalContent.classList.add('opacity-100', 'scale-100');
-        }, 10); // Small delay for transition
-    }
-
-    function hideAlert() {
-        const customAlertModal = document.getElementById('customAlertModal');
-        const customAlertModalContent = document.getElementById('customAlertModalContent');
-
-        customAlertModalContent.classList.remove('opacity-100', 'scale-100');
-        customAlertModalContent.classList.add('opacity-0', 'scale-95');
-        setTimeout(() => {
-            customAlertModal.classList.add('hidden');
-        }, 300); // Match transition duration
-    }
-
-    // Function to hide the account modal
-    function hideAccountModal() {
-        const accountModal = document.getElementById('accountModal');
-        const accountModalContent = document.getElementById('accountModalContent');
-
-        accountModalContent.classList.remove('opacity-100', 'scale-100');
-        accountModalContent.classList.add('opacity-0', 'scale-95');
-        setTimeout(() => {
-            accountModal.classList.add('hidden');
-        }, 300);
-    }
-
-    // Function to hide the new post modal
-    function hideNewPostModal() {
-        const newPostModal = document.getElementById('newPostModal');
-        const newPostModalContent = document.getElementById('newPostModalContent');
-        newPostModalContent.classList.remove('opacity-100', 'scale-100');
-        newPostModalContent.classList.add('opacity-0', 'scale-95');
-        setTimeout(() => {
-            newPostModal.classList.add('hidden');
-        }, 300); // Match transition duration
-    }
-
-    // Function to get or create user profile in Firestore
-    async function getUserProfile(uid, email, displayName, photoURL) {
-        const userProfileRef = doc(db, `artifacts/${appId}/users/${uid}/user_profiles`, "profile");
-        const docSnap = await getDoc(userProfileRef);
-
-        if (!docSnap.exists()) {
-            // Create a new profile if it doesn't exist
-            const newProfile = {
-                uid: uid,
-                email: email || null,
-                displayName: displayName || null,
-                photoURL: photoURL || null,
-                firstName: null,
-                lastName: null,
-                phone: null,
-                username: null,
-                createdAt: new Date().toISOString()
-            };
-            await setDoc(userProfileRef, newProfile);
-            return newProfile;
-        } else {
-            return docSnap.data();
-        }
-    }
-
-    // Function to update user profile in Firestore (for sign-up form)
-    async function updateUserProfile(uid, firstName, lastName, phone, username) {
-        const userProfileRef = doc(db, `artifacts/${appId}/users/${uid}/user_profiles`, "profile");
-        await setDoc(userProfileRef, {
-            firstName: firstName,
-            lastName: lastName,
-            phone: phone,
-            username: username,
-            updatedAt: new Date().toISOString()
-        }, { merge: true }); // Merge to update existing fields without overwriting others
-    }
-
-    // Auth state listener
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            currentUserId = user.uid;
-            console.log("User is signed in:", user.uid);
-            const userProfile = await getUserProfile(user.uid, user.email, user.displayName, user.photoURL);
-            updateAccountStatusUI(userProfile);
-        } else {
-            currentUserId = null;
-            console.log("User is signed out.");
-            updateAccountStatusUI(null);
-            // Sign in anonymously if no user is signed in and no initial token is provided
-            if (typeof __initial_auth_token === 'undefined') {
-                 try {
-                     await signInAnonymously(auth);
-                     console.log("Signed in anonymously.");
-                 } catch (error) {
-                     console.error("Error signing in anonymously:", error);
-                 }
-            }
-        }
-        isAuthReady = true; // Firebase Auth is ready
-    });
-
-    // Initial sign-in with custom token if available, otherwise anonymously
-    async function initializeAuth() {
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-            try {
-                await signInWithCustomToken(auth, __initial_auth_token);
-                console.log("Signed in with custom token.");
-            } catch (error) {
-                console.error("Error signing in with custom token:", error);
-                // Fallback to anonymous if custom token fails
-                try {
-                    await signInAnonymously(auth);
-                    console.log("Signed in anonymously after custom token failure.");
-                } catch (anonError) {
-                    console.error("Error signing in anonymously:", anonError);
-                }
-            }
-        } else {
-            try {
-                await signInAnonymously(auth);
-                console.log("Signed in anonymously.");
-            } catch (error) {
-                console.error("Error signing in anonymously:", error);
-            }
-        }
-    }
-
-    // Call initializeAuth on script load
-    initializeAuth();
-
-    // Update UI based on auth state
-    function updateAccountStatusUI(userProfile) {
-        const accountStatusText = document.getElementById('accountStatusText');
-        const signInOption = document.getElementById('signInOption');
-        const signOutOption = document.getElementById('signOutOption');
-        const accountModal = document.getElementById('accountModal'); // Ensure this is accessible
-
-        if (userProfile && userProfile.username) {
-            accountStatusText.textContent = userProfile.username;
-            signInOption.classList.add('hidden');
-            signOutOption.classList.remove('hidden');
-        } else if (userProfile && userProfile.displayName) {
-            accountStatusText.textContent = userProfile.displayName.split(' ')[0]; // Show first name
-            signInOption.classList.add('hidden');
-            signOutOption.classList.remove('hidden');
-        } else if (auth.currentUser && auth.currentUser.isAnonymous) {
-            accountStatusText.textContent = 'Guest';
-            signInOption.classList.remove('hidden');
-            signOutOption.classList.add('hidden'); // Guests can't "sign out" in the traditional sense, they can only sign in
-        } else {
-            accountStatusText.textContent = 'Account';
-            signInOption.classList.remove('hidden');
-            signOutOption.classList.add('hidden');
-        }
-        // Only hide if the modal is currently open
-        if (!accountModal.classList.contains('hidden')) {
-            hideAccountModal(); // Always hide modal after auth state change
-        }
-    }
-
-    // Removed Google Sign-in event listener
-    // googleSignInBtn?.addEventListener('click', async () => { ... });
-
-    // Removed Facebook Sign-in event listener
-    // facebookSignInBtn?.addEventListener('click', async () => { ... });
-
-    // Sign Up (Update Profile for Anonymous User)
-    signUpForm?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const firstName = firstNameInput.value.trim();
-        const lastName = lastNameInput.value.trim();
-        const phone = phoneInput.value.trim();
-        const username = usernameInput.value.trim();
-        const authMessage = document.getElementById('authMessage'); // Ensure this is accessible
-
-        if (!firstName || !lastName || !phone || !username) {
-            authMessage.textContent = 'Please fill in all fields.';
-            authMessage.className = 'mt-4 text-center text-sm text-red-600';
-            return;
-        }
-
-        if (!currentUserId) {
-            authMessage.textContent = 'Authentication not ready. Please try again.';
-            authMessage.className = 'mt-4 text-center text-sm text-red-600';
-            return;
-        }
-
-        try {
-            await updateUserProfile(currentUserId, firstName, lastName, phone, username);
-            authMessage.textContent = 'Profile updated successfully!';
-            authMessage.className = 'mt-4 text-center text-sm text-green-600';
-            // Update UI after successful profile update
-            updateAccountStatusUI({ username: username }); // Pass the new username to update UI
-            // Clear form fields
-            firstNameInput.value = '';
-            lastNameInput.value = '';
-            phoneInput.value = '';
-            usernameInput.value = '';
-            hideAccountModal();
-        } catch (error) {
-            console.error("Sign Up (Profile Update) Error:", error);
-            authMessage.textContent = `Sign up failed: ${error.message}`;
-            authMessage.className = 'mt-4 text-center text-sm text-red-600';
-        }
-    });
-
-    // Sign Out
-    signOutOption?.addEventListener('click', async (e) => {
-        e.preventDefault();
-        try {
-            await signOut(auth);
-            console.log("User signed out.");
-            // onAuthStateChanged listener will handle UI update
-        } catch (error) {
-            console.error("Sign Out Error:", error);
-            showAlert(`Failed to sign out: ${error.message}`, 'Sign Out Error');
-        }
-    });
-
-
-    // Force refresh by adding cache-busting parameter
-    if (performance.navigation.type === 1) {
-      window.location.search = '?refresh=' + new Date().getTime();
-    }
-        // Language Toggle
+  <script>
+    // Install Firebase CLI (run this command in terminal)
+    // npm install -g firebase-tools
+    
+    // Language Toggle
     const languageToggle = document.getElementById('languageToggle');
     const currentLanguage = document.getElementById('currentLanguage');
     const welcomeText = document.getElementById('welcomeText');
@@ -743,10 +419,13 @@
     const localTipTitle = document.getElementById('localTipTitle');
     const healthAlertsTitle = document.getElementById('healthAlertsTitle');
     const quickLinksTitle = document.getElementById('quickLinksTitle');
-        let isEnglish = false;
-        languageToggle.addEventListener('click', () => {
+    
+    let isEnglish = false;
+    
+    languageToggle.addEventListener('click', () => {
       isEnglish = !isEnglish;
-            if (isEnglish) {
+      
+      if (isEnglish) {
         currentLanguage.textContent = 'English';
         welcomeText.classList.remove('hidden');
         welcomeTextKrio.classList.add('hidden');
@@ -760,7 +439,7 @@
         pregnancyBtnText.textContent = 'Pregnancy';
         diarrheaBtnText.textContent = 'Diarrhea';
         hypertensionBtnText.textContent = 'Hypertension';
-        chatTitle.textContent = 'Chat with DoxaCare AI';
+        chatTitle.textContent = 'Chat with EvaCare AI';
         culturalTitle.textContent = 'Cultural Health Tips';
         localTipTitle.textContent = 'Local Health Wisdom';
         healthAlertsTitle.textContent = 'Health Alerts';
@@ -779,960 +458,977 @@
         pregnancyBtnText.textContent = 'Belleful';
         diarrheaBtnText.textContent = 'Run belle';
         hypertensionBtnText.textContent = 'High BP';
-        chatTitle.textContent = 'Chat wit DoxaCare AI';
+        chatTitle.textContent = 'Chat wit EvaCare AI';
         culturalTitle.textContent = 'Health Tip for We Culture';
         localTipTitle.textContent = 'Local Health Sense';
         healthAlertsTitle.textContent = 'Health News';
         quickLinksTitle.textContent = 'Quick Chat';
       }
     });
-        // Tab Switching
-    // Moved inside DOMContentLoaded
+    
+    // Tab Switching
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+        
+        // Update active state for buttons
+        tabButtons.forEach(btn => btn.classList.remove('active', 'text-green-700', 'border-green-700'));
+        button.classList.add('active', 'text-green-700', 'border-green-700');
+        
+        // Update active state for tab contents
+        tabContents.forEach(content => {
+          content.classList.add('hidden');
+          content.classList.remove('active');
+        });
+        
+        document.getElementById(`${tabId}-tab`).classList.remove('hidden');
+        document.getElementById(`${tabId}-tab`).classList.add('active');
+      });
+    });
+    
     // Quick Action Buttons
-    // Moved inside DOMContentLoaded
+    const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+    
+    quickActionBtns.forEach(button => {
+      button.addEventListener('click', () => {
+        const action = button.getAttribute('data-action');
+        const chatWindow = document.getElementById('chatWindow');
+        
+        switch(action) {
+          case 'malaria':
+            addUserMessage('malaria prevention');
+            simulateBotResponse('Malaria prevention is crucial in Sierra Leone. Use insecticide-treated mosquito nets every night, wear protective clothing in the evening, and eliminate stagnant water around your home where mosquitoes breed. If you experience fever, headache, or chills, seek medical attention immediately as these could be malaria symptoms.');
+            break;
+          case 'pregnancy':
+            addUserMessage('pregnancy care');
+            simulateBotResponse('For healthy pregnancy: Attend all antenatal check-ups, take prescribed iron and folic acid supplements, eat nutritious meals, and learn about danger signs like severe headaches, blurred vision, or reduced fetal movement. Always have a skilled birth attendant during delivery.');
+            break;
+          case 'diarrhea':
+            addUserMessage('diarrhea treatment');
+            simulateBotResponse('For diarrhea: Drink oral rehydration solution (ORS) frequently to prevent dehydration. Continue breastfeeding infants more often. Seek medical help if diarrhea persists more than 2 days, contains blood, or if dehydration signs (dry mouth, sunken eyes, less urination) appear.');
+            break;
+          case 'hypertension':
+            addUserMessage('hypertension management');
+            simulateBotResponse('Managing high blood pressure: Reduce salt intake, exercise regularly, maintain healthy weight, limit alcohol, and take prescribed medications consistently. Monitor blood pressure weekly and contact your doctor if readings are consistently high (above 140/90).');
+            break;
+        }
+        
+        // Switch to chat tab
+        tabButtons.forEach(btn => btn.classList.remove('active', 'text-green-700', 'border-green-700'));
+        document.querySelector('.tab-btn[data-tab="home"]').classList.add('active', 'text-green-700', 'border-green-700');
+        tabContents.forEach(content => {
+          content.classList.add('hidden');
+          content.classList.remove('active');
+        });
+        document.getElementById('home-tab').classList.remove('hidden');
+        document.getElementById('home-tab').classList.add('active');
+        
+        // Scroll to chat
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      });
+    });
+    
+    // Symptom Checker
+    const checkSymptomsBtn = document.getElementById('checkSymptomsBtn');
+    const symptomsInput = document.getElementById('symptomsInput');
+    const symptomResults = document.getElementById('symptomResults');
+    
+    checkSymptomsBtn.addEventListener('click', () => {
+      const symptoms = symptomsInput.value.trim();
+      
+      if (symptoms) {
+        // Show loading state
+        symptomResults.innerHTML = `
+          <div class="flex items-center justify-center py-4">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <span class="ml-3">Analyzing symptoms...</span>
+          </div>
+        `;
+        symptomResults.classList.remove('hidden');
+        
+        // Simulate API call delay
+        setTimeout(() => {
+          let conditions = [];
+          let advice = '';
+          
+          // Enhanced symptom matching with detailed condition information
+          if (symptoms.toLowerCase().includes('fever') && 
+              (symptoms.toLowerCase().includes('headache') || symptoms.toLowerCase().includes('chills'))) {
+            conditions.push({
+              name: 'Possible Malaria',
+              description: 'A life-threatening parasitic disease transmitted through mosquito bites',
+              symptoms: '• High fever (often cyclical)\n• Chills and sweating\n• Headache\n• Muscle/joint pain\n• Fatigue\n• Nausea/vomiting',
+              treatment: '• Rapid diagnostic test required\n• Artemisinin-based combination therapy (ACT)\n• IV quinine for severe cases\n• Complete full medication course',
+              prevention: '• Use insecticide-treated nets (ITNs)\n• Indoor residual spraying\n• Wear protective clothing\n• Eliminate standing water',
+              emergency: 'Seek immediate care for:\n• Impaired consciousness\n• Multiple convulsions\n• Difficulty breathing\n• Severe bleeding\n• Clinical jaundice'
+            });
+            advice = 'Malaria is endemic in Sierra Leone. Get tested immediately at a clinic.';
+          }
+          
+          if (symptoms.toLowerCase().includes('cough') && 
+              (symptoms.toLowerCase().includes('fever') || symptoms.toLowerCase().includes('difficulty breathing'))) {
+            conditions.push({
+              name: 'Possible Respiratory Infection',
+              description: 'Infection affecting lungs and airways, ranging from mild to severe',
+              symptoms: '• Cough (dry or productive)\n• Fever\n• Shortness of breath\n• Chest pain\n• Nasal congestion\n• Fatigue',
+              treatment: '• Rest and hydration\n• Antipyretics for fever\n• Antibiotics if bacterial\n• Antivirals for influenza\n• Steam inhalation',
+              prevention: '• Frequent handwashing\n• Cover coughs/sneezes\n• Avoid close contact with sick people\n• Get vaccinated (flu, COVID-19)',
+              emergency: 'Emergency signs:\n• Blue lips/face\n• Chest indrawing\n• Inability to drink\n• Severe respiratory distress'
+            });
+            advice = 'Respiratory infections can become serious. Monitor symptoms closely.';
+          }
+          
+          if (symptoms.toLowerCase().includes('diarrhea') && 
+              (symptoms.toLowerCase().includes('vomiting') || symptoms.toLowerCase().includes('stomach pain'))) {
+            conditions.push({
+              name: 'Possible Gastroenteritis',
+              description: 'Inflammation of stomach and intestines from infection',
+              symptoms: '• Watery diarrhea\n• Vomiting\n• Abdominal cramps\n• Low-grade fever\n• Dehydration signs',
+              treatment: '• Oral rehydration solution (ORS)\n• Zinc supplements\n• Continued feeding\n• Antibiotics if bacterial',
+              prevention: '• Handwashing with soap\n• Safe water/food preparation\n• Proper sanitation\n• Rotavirus vaccination',
+              emergency: 'Seek care for:\n• Blood in stool\n• No urine >12 hours\n• Sunken eyes\n• Lethargy\n• High fever'
+            });
+            advice = 'Diarrheal diseases can lead to dangerous dehydration.';
+          }
+          
+          if (conditions.length === 0) {
+            conditions.push({
+              name: 'General Symptoms',
+              description: 'Non-specific symptoms requiring monitoring',
+              symptoms: '• Fatigue\n• Mild fever\n• Body aches\n• General discomfort',
+              treatment: '• Rest\n• Hydration\n• Symptom monitoring\n• Basic pain/fever relief',
+              prevention: '• Maintain good hygiene\n• Balanced nutrition\n• Adequate sleep\n• Stress management',
+              emergency: 'Seek care if:\n• Symptoms worsen\n• New concerning symptoms appear\n• No improvement in 48 hours'
+            });
+            advice = 'Monitor symptoms and seek care if they persist or worsen.';
+          }
+          
+          // Display results with detailed conditions list
+          let conditionsHTML = `
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
+              <h4 class="font-medium text-blue-800 mb-3 flex items-center">
+                <i class="fas fa-diagnoses mr-2"></i>
+                Possible Conditions Based on Your Symptoms:
+              </h4>
+              ${conditions.map(cond => `
+                <div class="mb-4 last:mb-0">
+                  <h5 class="font-semibold text-blue-700">${cond.name}</h5>
+                  <p class="text-sm text-gray-600 mb-1">${cond.description}</p>
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
+                    <div class="bg-white p-2 rounded border">
+                      <h6 class="text-xs font-medium text-gray-500">Symptoms</h6>
+                      <p class="text-sm whitespace-pre-line">${cond.symptoms}</p>
+                    </div>
+                    <div class="bg-white p-2 rounded border">
+                      <h6 class="text-xs font-medium text-gray-500">Treatment</h6>
+                      <p class="text-sm whitespace-pre-line">${cond.treatment}</p>
+                    </div>
+                    <div class="bg-white p-2 rounded border">
+                      <h6 class="text-xs font-medium text-gray-500">Prevention</h6>
+                      <p class="text-sm whitespace-pre-line">${cond.prevention}</p>
+                    </div>
+                    <div class="bg-white p-2 rounded border">
+                      <h6 class="text-xs font-medium text-gray-500">Emergency Signs</h6>
+                      <p class="text-sm whitespace-pre-line">${cond.emergency}</p>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+              <div class="mt-3 text-xs text-gray-500">
+                <i class="fas fa-info-circle mr-1"></i>
+                Note: This is not a diagnosis. Please consult a healthcare provider for proper evaluation.
+              </div>
+            </div>
+          `;
+          
+          symptomResults.innerHTML = `
+            ${conditionsHTML}
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+              <h4 class="font-medium text-yellow-800 mb-2">
+                <i class="fas fa-lightbulb mr-2"></i>
+                Recommended Actions
+              </h4>
+              <p class="text-gray-700">${advice}</p>
+              <div class="mt-3 space-y-2">
+                <div class="flex items-center">
+                  <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                  <input type="text" id="symptomLocationInput" class="flex-grow px-3 py-1 border border-gray-300 rounded text-sm" placeholder="Enter your location for clinics">
+                </div>
+                <div class="flex space-x-2">
+                  <button id="findClinicFromSymptoms" class="bg-red-100 text-red-800 px-3 py-1 rounded text-sm hover:bg-red-200">
+                    <i class="fas fa-hospital mr-1"></i> Find nearest clinic
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
 
-    // Chatbot functionality (simplified)
+          
+          // Add event listener to the find clinic button
+          document.getElementById('findClinicFromSymptoms').addEventListener('click', () => {
+            const location = document.getElementById('symptomLocationInput').value.trim();
+            if (location) {
+              // Set location in clinics tab
+              document.getElementById('locationInput').value = location;
+              // Trigger clinic search
+              document.getElementById('findClinicsBtn').click();
+              // Switch to clinics tab
+              tabButtons.forEach(btn => btn.classList.remove('active', 'text-green-700', 'border-green-700'));
+              document.querySelector('.tab-btn[data-tab="clinics"]').classList.add('active', 'text-green-700', 'border-green-700');
+              tabContents.forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('active');
+              });
+              document.getElementById('clinics-tab').classList.remove('hidden');
+              document.getElementById('clinics-tab').classList.add('active');
+            } else {
+              alert('Please enter your location to find clinics.');
+            }
+          });
+        }, 1500);
+      } else {
+        alert('Please enter at least one symptom.');
+      }
+    });
+    
+    // Health Topics Refresh
+    const refreshHealthTopicsBtn = document.getElementById('refreshHealthTopics');
+    refreshHealthTopicsBtn.addEventListener('click', () => {
+      // Show loading state
+      const symptomResults = document.getElementById('symptomResults');
+      symptomResults.innerHTML = `
+        <div class="flex items-center justify-center py-4">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          <span class="ml-3">Refreshing health topics...</span>
+        </div>
+      `;
+      symptomResults.classList.remove('hidden');
+      
+      // Simulate refresh delay
+      setTimeout(() => {
+        symptomResults.innerHTML = '';
+        symptomResults.classList.add('hidden');
+        document.getElementById('symptomsInput').value = '';
+      }, 1000);
+    });
+
+    // Symptom Tag Buttons
+    const symptomTags = document.querySelectorAll('.symptom-tag');
+    
+    symptomTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        const symptoms = tag.getAttribute('data-symptoms');
+        symptomsInput.value = symptoms;
+        checkSymptomsBtn.click();
+      });
+    });
+    
+    // Find Clinics
+    const findClinicsBtn = document.getElementById('findClinicsBtn');
+    const locationInput = document.getElementById('locationInput');
+    
+    findClinicsBtn.addEventListener('click', () => {
+      const location = locationInput.value.trim();
+      
+      if (location) {
+        // Show loading state
+        const clinicResults = document.getElementById('clinicResults');
+        clinicResults.innerHTML = `
+          <div class="flex items-center justify-center py-4">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
+            <span class="ml-3">Searching for clinics in ${location}...</span>
+          </div>
+        `;
+        
+        // Simulate API call delay
+        setTimeout(() => {
+          let clinics = [];
+          
+          // Mock data for districts
+          const districtMap = {
+            'freetown': [
+              {
+                name: 'Connaught Hospital',
+                location: 'Lightfoot Boston St, Freetown',
+                phone: '+232 25 345678',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Lumley Government Hospital',
+                location: 'Lumley, Freetown',
+                phone: '+232 76 543210',
+                type: 'Government Hospital',
+                is24Hour: false
+              },
+              {
+                name: 'Cottage Hospital',
+                location: 'Fourah Bay Road, Freetown',
+                phone: '+232 22 221234',
+                type: 'Private Hospital',
+                is24Hour: true
+              }
+            ],
+            'bo': [
+              {
+                name: 'Bo Government Hospital',
+                location: 'Kissi Town, Bo',
+                phone: '+232 76 345678',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Mercy Hospital',
+                location: 'Tikonko Rd, Bo',
+                phone: '+232 33 567890',
+                type: 'Private Hospital',
+                is24Hour: false
+              },
+              {
+                name: 'St. Francis Health Center',
+                location: 'Dambala Rd, Bo',
+                phone: '+232 76 789012',
+                type: 'Clinic',
+                is24Hour: false
+              }
+            ],
+            'kenema': [
+              {
+                name: 'Kenema Government Hospital',
+                location: 'Hanga Rd, Kenema',
+                phone: '+232 78 123456',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Holy Spirit Hospital',
+                location: 'Dama Rd, Kenema',
+                phone: '+232 78 654321',
+                type: 'Mission Hospital',
+                is24Hour: true
+              }
+            ],
+            'makeni': [
+              {
+                name: 'Makeni Government Hospital',
+                location: 'Magburaka Rd, Makeni',
+                phone: '+232 77 112233',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Binkolo Community Health Center',
+                location: 'Binkolo, Makeni',
+                phone: '+232 77 445566',
+                type: 'Clinic',
+                is24Hour: false
+              }
+            ],
+            'koidu': [
+              {
+                name: 'Koidu Government Hospital',
+                location: 'Mines Rd, Koidu',
+                phone: '+232 77 778899',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Mines Medical Center',
+                location: 'Koidu Mines Area',
+                phone: '+232 77 001122',
+                type: 'Company Hospital',
+                is24Hour: true
+              }
+            ],
+            'port loko': [
+              {
+                name: 'Port Loko Government Hospital',
+                location: 'Rokel St, Port Loko',
+                phone: '+232 76 334455',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Mercy Community Health Center',
+                location: 'Gbinti Rd, Port Loko',
+                phone: '+232 77 667788',
+                type: 'Clinic',
+                is24Hour: false
+              }
+            ],
+            'kambia': [
+              {
+                name: 'Kambia Government Hospital',
+                location: 'Mange Bureh Rd, Kambia',
+                phone: '+232 77 998877',
+                type: 'Government Hospital',
+                is24Hour: false
+              }
+            ],
+            'kailahun': [
+              {
+                name: 'Kailahun Government Hospital',
+                location: 'Luawa Rd, Kailahun',
+                phone: '+232 77 665544',
+                type: 'Government Hospital',
+                is24Hour: true
+              },
+              {
+                name: 'Segbwema Community Health Center',
+                location: 'Segbwema Town',
+                phone: '+232 76 223344',
+                type: 'Clinic',
+                is24Hour: false
+              }
+            ],
+            'default': [
+              {
+                name: 'General Advice',
+                location: '',
+                phone: '', 
+                type: '',
+                is24Hour: false,
+                advice: 'For medical facilities in your area, visit the local health center or district hospital. In emergencies, call 117. Major district hospitals include:\n\n' +
+                        '• Freetown - Connaught Hospital\n' +
+                        '• Bo - Bo Government Hospital\n' + 
+                        '• Kenema - Kenema Government Hospital\n' +
+                        '• Makeni - Makeni Government Hospital\n' +
+                        '• Koidu - Koidu Government Hospital\n' +
+                        '• Port Loko - Port Loko Government Hospital\n' +
+                        '• Kambia - Kambia Government Hospital\n' +
+                        '• Kailahun - Kailahun Government Hospital'
+              }
+            ]
+          };
+
+          // Find matching districts
+          clinics = [];
+          for (const [district, facilities] of Object.entries(districtMap)) {
+            if (location.toLowerCase().includes(district)) {
+              clinics = [...facilities];
+              break;
+            }
+          }
+
+          if (clinics.length === 0) {
+            clinics = districtMap.default;
+          }
+          
+          // Display results
+          let clinicsHTML = clinics.map(clinic => {
+            if (clinic.advice) {
+              return `
+                <div class="border border-gray-200 rounded-lg p-3">
+                  <p class="text-gray-700">${clinic.advice}</p>
+                </div>
+              `;
+            } else {
+              return `
+                <div class="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <h3 class="font-semibold text-gray-800">${clinic.name}</h3>
+                      <p class="text-sm text-gray-600">${clinic.location} • ${clinic.type}</p>
+                    </div>
+                    ${clinic.is24Hour ? '<span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24-Hour</span>' : ''}
+                  </div>
+                  ${clinic.phone ? `
+                  <div class="mt-2 flex items-center text-sm">
+                    <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                    <span>${clinic.phone}</span>
+                  </div>` : ''}
+                  <div class="mt-1 flex items-center text-sm">
+                    <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                    <span>${clinic.location}</span>
+                  </div>
+                </div>
+              `;
+            }
+          }).join('');
+          
+          clinicResults.innerHTML = clinicsHTML;
+        }, 1200);
+      } else {
+        alert('Please enter a location to search for clinics.');
+      }
+    });
+    
+    // Chat Functionality
     const userInput = document.getElementById('userInput');
     const sendBtn = document.getElementById('sendBtn');
     const chatWindow = document.getElementById('chatWindow');
-
-    function addUserMessage(message) {
-      const messageDiv = document.createElement('div');
-      messageDiv.classList.add('chat-message', 'user-message', 'mb-3', 'text-right');
-      messageDiv.innerHTML = `<div class="bg-green-500 p-3 rounded-lg shadow-sm max-w-3/4 inline-block text-white">${message}</div>`;
-      chatWindow.appendChild(messageDiv);
-      chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll to bottom
-    }
-
-    // Function to format bot responses from plain text/markdown to HTML
-    function formatBotResponse(text) {
-      // Replace double newlines with paragraph breaks, adding mb-2 for spacing
-      let formattedText = text.replace(/\n\n/g, '</p><p class="mb-2">');
-      // Replace single newlines with line breaks
-      formattedText = formattedText.replace(/\n/g, '<br>');
-      // Basic bolding: **text** to <strong>text</strong>
-      formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      // Basic italics: *text* to <em>text</em>
-      formattedText = formattedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
-      // Wrap in a paragraph if not already starting with one, adding mb-2
-      if (!formattedText.startsWith('<p')) {
-          formattedText = `<p class="mb-2">${formattedText}</p>`;
+    const quickReplyBtns = document.querySelectorAll('.quick-reply-btn');
+    
+    // Add event listener for quick reply buttons
+    quickReplyBtns.forEach(button => {
+      button.addEventListener('click', () => {
+        const message = button.textContent.trim();
+        addUserMessage(message);
+        processUserMessage(message);
+      });
+    });
+    
+    // Send message on button click
+    sendBtn.addEventListener('click', sendMessage);
+    
+    // Send message on Enter key
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
       }
-      return formattedText;
-    }
-
-
-    async function simulateBotResponse(userMessage) {
-      const typingIndicator = document.createElement('div');
-      typingIndicator.classList.add('chat-message', 'bot-message', 'mb-3', 'typing-indicator');
-      typingIndicator.innerHTML = '<div class="bg-white p-3 rounded-lg shadow-sm max-w-3/4 inline-block italic text-gray-500 leading-relaxed">DoxaCare AI is thinking...</div>';
-      chatWindow.appendChild(typingIndicator);
-      chatWindow.scrollTop = chatWindow.scrollHeight;
-
-      try {
-          let chatHistory = [];
-          chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
-          const payload = { contents: chatHistory };
-          const apiKey = ""; // Canvas will automatically provide the API key
-          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-          const response = await fetch(apiUrl, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
-          });
-
-          const result = await response.json();
-          let botResponseText = "I'm sorry, I couldn't get a response at this time. Please try again.";
-
-          if (result.candidates && result.candidates.length > 0 &&
-              result.candidates[0].content && result.candidates[0].content.parts &&
-              result.candidates[0].content.parts.length > 0) {
-              botResponseText = result.candidates[0].content.parts[0].text;
-          } else {
-              console.error("Unexpected API response structure:", result);
-          }
-
-          chatWindow.removeChild(typingIndicator);
-          const botMessageDiv = document.createElement('div');
-          botMessageDiv.classList.add('chat-message', 'bot-message', 'mb-3');
-          // Apply formatting here, and add leading-relaxed to the container
-          const formattedHtmlResponse = formatBotResponse(botResponseText);
-          botMessageDiv.innerHTML = `<div class="bg-white p-3 rounded-lg shadow-sm max-w-3/4 inline-block leading-relaxed">${formattedHtmlResponse}</div>`;
-          chatWindow.appendChild(botMessageDiv);
-          chatWindow.scrollTop = chatWindow.scrollHeight;
-
-      } catch (error) {
-          console.error("Error communicating with Gemini API:", error);
-          chatWindow.removeChild(typingIndicator);
-          const errorMessageDiv = document.createElement('div');
-          errorMessageDiv.classList.add('chat-message', 'bot-message', 'mb-3');
-          errorMessageDiv.innerHTML = `<div class="bg-red-100 text-red-700 p-3 rounded-lg shadow-sm max-w-3/4 inline-block leading-relaxed">Error: Could not get a response. Please check your internet connection or try again later.</div>`;
-          chatWindow.appendChild(errorMessageDiv);
-          chatWindow.scrollTop = chatWindow.scrollHeight;
-      }
-    }
-
-    sendBtn?.addEventListener('click', () => {
+    });
+    
+    function sendMessage() {
       const message = userInput.value.trim();
+      
       if (message) {
         addUserMessage(message);
-        simulateBotResponse(message);
+        processUserMessage(message);
         userInput.value = '';
       }
-    });
-
-    userInput?.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        sendBtn?.click();
-      }
-    });
-
-    document.querySelectorAll('.quick-reply-btn').forEach(button => {
-      button.addEventListener('click', (event) => {
-        const text = event.target.textContent || '';
-        if (text) {
-          addUserMessage(text);
-          simulateBotResponse(text);
-        }
-      });
-    });
-
-    // Symptom checker functionality (now uses Gemini API)
-    const symptomsInput = document.getElementById('symptomsInput');
-    const checkSymptomsBtn = document.getElementById('checkSymptomsBtn');
-    const symptomResults = document.getElementById('symptomResults');
-    const refreshHealthTopics = document.getElementById('refreshHealthTopics');
-
-    async function simulateHealthTopicResponse(topic) {
-      symptomResults.innerHTML = ''; // Clear previous results
-      symptomResults.classList.remove('hidden'); // Ensure results section is visible
-
-      const typingIndicator = document.createElement('div');
-      typingIndicator.classList.add('bg-gray-100', 'p-3', 'rounded-lg', 'shadow-sm', 'text-center', 'text-gray-500', 'italic', 'typing-indicator', 'leading-relaxed');
-      typingIndicator.textContent = 'DoxaCare AI is fetching information...';
-      symptomResults.appendChild(typingIndicator);
-
-      try {
-          let chatHistory = [];
-          // Craft a more specific prompt for health topics
-          const prompt = `Provide detailed and accurate health information about "${topic}" relevant to Sierra Leone, including symptoms, prevention, and common treatments. Format the response clearly with paragraphs and important terms in bold.`;
-          chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-          const payload = { contents: chatHistory };
-          const apiKey = ""; // Canvas will automatically provide the API key
-          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-          const response = await fetch(apiUrl, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
-          });
-
-          const result = await response.json();
-          let botResponseText = "<p class='text-gray-600 italic'>I'm sorry, I couldn't get detailed information for that topic at this time. Please try again or ask a different question.</p>";
-
-          if (result.candidates && result.candidates.length > 0 &&
-              result.candidates[0].content && result.candidates[0].content.parts &&
-              result.candidates[0].content.parts.length > 0) {
-              botResponseText = formatBotResponse(result.candidates[0].content.parts[0].text);
-          } else {
-              console.error("Unexpected API response structure for health topics:", result);
-          }
-          
-          symptomResults.removeChild(typingIndicator); // Remove loading indicator
-          symptomResults.innerHTML = `
-            <h3 class="font-semibold text-blue-800 mb-3">Information on ${topic}:</h3>
-            <div class="text-gray-700 leading-relaxed">${botResponseText}</div>
-          `;
-
-      } catch (error) {
-          console.error("Error communicating with Gemini API for health topics:", error);
-          symptomResults.removeChild(typingIndicator); // Remove loading indicator
-          symptomResults.innerHTML = `<p class="text-red-700 leading-relaxed">Error: Could not fetch information for "${topic}". Please check your internet connection or try again later.</p>`;
-      }
     }
-
-    checkSymptomsBtn?.addEventListener('click', () => {
-      const inputTopic = symptomsInput.value.trim();
-      if (inputTopic) {
-        simulateHealthTopicResponse(inputTopic);
-      } else {
-        showAlert("Please enter a health topic or symptom.");
-      }
-    });
-
-    symptomsInput?.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        checkSymptomsBtn?.click();
-      }
-    });
-
-    document.querySelectorAll('.symptom-tag').forEach(button => {
-      button.addEventListener('click', (event) => {
-        const tagText = event.target.textContent || '';
-        const dataSymptoms = event.target.dataset.symptoms || tagText;
-        symptomsInput.value = dataSymptoms; // Prefill input with the tag value
-        simulateHealthTopicResponse(dataSymptoms); // Directly call API with the tag
-      });
-    });
-
-    refreshHealthTopics?.addEventListener('click', () => {
-      symptomsInput.value = '';
-      if (symptomResults) {
-        symptomResults.innerHTML = '';
-        symptomResults.classList.add('hidden');
-      }
-    });
-
-    // Find Clinics functionality (expanded)
-    const sierraLeoneClinics = {
-      "freetown": [
-        { name: "Connaught Hospital", type: "Government Hospital", address: "Lightfoot Boston St, Freetown", phone: "+232 25 345678", services: "General medicine, emergency, surgery. Open 24/7." },
-        { name: "Lumley Community Clinic", type: "Community Health Centre", address: "Lumley Beach Rd, Freetown", phone: "+232 78 123456", services: "Outpatient care, maternal & child health. Mon-Fri, 8 AM - 5 PM." },
-        { name: "Choithram Memorial Hospital", type: "Private Hospital", address: "Hill Station, Freetown", phone: "+232 79 987654", services: "Specialized care, diagnostics, surgery." },
-        { name: "PCMH (Princess Christian Maternity Hospital)", type: "Maternity Hospital", address: "Freetown Central", phone: "+232 76 112233", services: "Maternal and child health services." }
-      ],
-      "bo": [
-        { name: "Bo Government Hospital", type: "Government Hospital", address: "Hospital Road, Bo", phone: "+232 76 345678", services: "General hospital services. Open 24/7." },
-        { name: "Bo Clinic Centre", type: "Private Clinic", address: "Dambala Road, Bo", phone: "+232 77 876543", services: "General consultations, minor procedures." }
-      ],
-      "kenema": [
-        { name: "Kenema Government Hospital", type: "Government Hospital", address: "Clinic Road, Kenema", phone: "+232 76 987654", services: "Major regional hospital. Open 24/7." },
-        { name: "Kenema Health Post", type: "Community Health Post", address: "Ngelehun, Kenema", phone: "N/A", services: "Basic health services, vaccinations." }
-      ],
-      "makeni": [
-        { name: "Makeni Government Hospital", type: "Government Hospital", address: "Hospital Road, Makeni", phone: "+232 76 223344", services: "General hospital services." },
-        { name: "St. John of God Hospital (Fatima Hospital)", type: "Mission Hospital", address: "Makeni", phone: "+232 77 556677", services: "General medical, surgical, and maternity services." }
-      ],
-      "port loko": [
-        { name: "Port Loko Government Hospital", type: "Government Hospital", address: "Hospital Road, Port Loko", phone: "+232 76 889900", services: "General hospital services." }
-      ],
-      "kailahun": [
-        { name: "Kailahun Government Hospital", type: "Government Hospital", address: "Hospital Road, Kailahun", phone: "+232 76 112233", services: "General hospital services." },
-        { name: "Daru Community Health Centre", type: "Community Health Centre", address: "Daru, Kailahun", phone: "N/A", services: "Basic health services." }
-      ],
-      "kono": [
-        { name: "Kono Government Hospital (Koidu)", type: "Government Hospital", address: "Koidu Town, Kono", phone: "+232 76 445566", services: "General hospital services." }
-      ],
-      "moyamba": [
-        { name: "Moyamba Government Hospital", type: "Government Hospital", address: "Hospital Road, Moyamba", phone: "+232 76 778899", services: "General hospital services." }
-      ],
-      "bombali": [
-        { name: "Bombali District Hospital", type: "Government Hospital", address: "Makeni", phone: "+232 76 223344", services: "General hospital services (same as Makeni Gov. Hospital for this example)." }
-      ],
-      "tonkolili": [
-        { name: "Magburaka Government Hospital", type: "Government Hospital", address: "Magburaka, Tonkolili", phone: "+232 76 334455", services: "General hospital services." }
-      ],
-      "pujehun": [
-        { name: "Pujehun Government Hospital", type: "Government Hospital", address: "Pujehun", phone: "+232 76 990011", services: "General hospital services." }
-      ],
-      "kambia": [
-        { name: "Kambia Government Hospital", type: "Government Hospital", address: "Kambia", phone: "+232 76 102030", services: "General hospital services." }
-      ],
-      "bonthe": [
-        { name: "Bonthe Government Hospital", type: "Government Hospital", address: "Bonthe Island", phone: "+232 76 405060", services: "General hospital services." }
-      ],
-      "koinadugu": [
-        { name: "Kabala Government Hospital", type: "Government Hospital", address: "Kabala, Koinadugu", phone: "+232 76 708090", services: "General hospital services." }
-      ],
-      "falaba": [
-        { name: "Falaba District Hospital", type: "Government Hospital", address: "Bendugu, Falaba", phone: "N/A", services: "General hospital services (newest district)." }
-      ],
-      " karene": [
-        { name: "Karene District Hospital", type: "Government Hospital", address: "Karene", phone: "N/A", services: "General hospital services (newest district)." }
-      ]
-    };
-
-    function simulateClinicSearch(location) {
-      let resultsHTML = '';
-      const lowerLocation = location.toLowerCase();
-      const clinicsInDistrict = sierraLeoneClinics[lowerLocation];
-
-      if (clinicsInDistrict && clinicsInDistrict.length > 0) {
-        clinicsInDistrict.forEach(clinic => {
-          resultsHTML += `
-            <div class="border border-gray-200 rounded-lg p-3 shadow-sm">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="font-semibold text-red-700">${clinic.name}</h3>
-                  <p class="text-sm text-gray-600">${clinic.address} • ${clinic.type}</p>
-                </div>
-                ${clinic.services.includes('24/7') ? '<span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">24-Hour</span>' : ''}
-              </div>
-              ${clinic.phone !== 'N/A' ? `
-              <div class="mt-2 flex items-center text-sm">
-                <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
-                <span>${clinic.phone}</span>
-              </div>` : ''}
-              <div class="mt-1 flex items-center text-sm">
-                <i class="fas fa-info-circle text-blue-500 mr-2"></i>
-                <span>Services: ${clinic.services}</span>
-              </div>
-              <a href="#" class="text-red-500 hover:underline text-sm mt-2 block">View on Map</a>
-            </div>
-          `;
-        });
-      } else {
-        resultsHTML = `<p class="text-gray-600 italic">No clinics found for "${location}". Please try a different district or city in Sierra Leone. (e.g., Freetown, Bo, Kenema, Makeni, Port Loko, Kailahun, Kono, Moyamba, Bombali, Tonkolili, Pujehun, Kambia, Bonthe, Koinadugu, Falaba, Karene)</p>`;
-      }
-
-      if (clinicResults) {
-        clinicResults.innerHTML = resultsHTML;
-      }
-    }
-
-    findClinicsBtn?.addEventListener('click', () => {
-      const location = locationInput.value.trim();
-      if (location) {
-        simulateClinicSearch(location);
-      } else {
-        showAlert("Please enter a location to search for clinics.");
-      }
-    });
-
-    locationInput?.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        findClinicsBtn?.click();
-      }
-    });
-
-    // START Community Forum JS
-    // Global state variables
-    let posts = [];
-
-    // DOM elements
-    // Note: These elements are within the #advice-tab, so ensure they are correctly scoped if other tabs use similar IDs.
-    // For this combined file, we'll assume unique IDs across the entire document.
-    const postsContainer = document.getElementById('postsContainer');
-    const noPostsMessage = document.getElementById('noPostsMessage');
-    const newPostBtn = document.getElementById('newPostBtn');
-    const startNewDiscussionBtn = document.getElementById('startNewDiscussionBtn');
-    const newPostModal = document.getElementById('newPostModal');
-    const newPostModalContent = document.getElementById('newPostModalContent');
-    const closeNewPostModalBtn = document.getElementById('closeNewPostModalBtn');
-    const postTitleInput = document.getElementById('postTitle');
-    const postCityInput = document.getElementById('postCity');
-    const postContentTextarea = document.getElementById('postContent');
-    const cancelPostBtn = document.getElementById('cancelPostBtn');
-    const submitPostBtn = document.getElementById('submitPostBtn');
-
-    // Event listeners for custom alert
-    const closeAlertModalBtn = document.getElementById('closeAlertModalBtn');
-    const okAlertBtn = document.getElementById('okAlertBtn');
-    closeAlertModalBtn.addEventListener('click', hideAlert);
-    okAlertBtn.addEventListener('click', hideAlert);
-
-
-    // Helper function to generate unique IDs
-    function generateUniqueId() {
-        return Math.random().toString(36).substring(2, 9) + Date.now().toString(36);
-    }
-
-    // Helper function to format timestamp
-    function formatTimestamp(date) {
-        const options = {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true,
-        };
-        return new Intl.DateTimeFormat('en-US', options).format(date);
-    }
-
-    // Function to render a single post
-    function renderPost(post) {
-        const postDiv = document.createElement('div');
-        postDiv.id = `post-${post.id}`; // Add an ID for easy lookup
-        postDiv.className = 'border border-gray-200 rounded-lg p-4 bg-gray-50 shadow-sm';
-        postDiv.innerHTML = `
-            <h4 class="font-semibold text-purple-700 text-lg mb-2">${post.title}</h4>
-            <p class="text-gray-700 text-base mb-3">${post.content}</p>
-            <div class="flex items-center text-xs text-gray-500 mb-4">
-                <div class="bg-gray-200 border-2 border-dashed rounded-full w-6 h-6 mr-2 flex items-center justify-center overflow-hidden">
-                    <i class="fas fa-user text-gray-400 text-sm"></i>
-                </div>
-                <span>By ${post.author}</span>
-                ${post.city ? `<span class="mx-2">•</span><span>${post.city}</span>` : ''} <!-- Display city if available -->
-                <span class="mx-2">•</span>
-                <span>${post.timestamp}</span>
-            </div>
-
-            <!-- Comments Section -->
-            <div class="mt-4 border-t border-gray-200 pt-4">
-                <h5 class="font-medium text-gray-800 mb-3 flex items-center">
-                    <i class="fas fa-comment-dots mr-2 text-blue-500"></i>
-                    Comments (<span id="commentCount-${post.id}">${post.comments.length}</span>)
-                </h5>
-                <div id="commentsList-${post.id}" class="space-y-3 mb-4 max-h-48 overflow-y-auto pr-2">
-                    <!-- Comments will be dynamically inserted here -->
-                </div>
-                <p id="noCommentsMessage-${post.id}" class="text-sm text-gray-600 italic mb-3 ${post.comments.length > 0 ? 'hidden' : ''}">No comments yet. Be the first to reply!</p>
-
-                <!-- Add Comment Input -->
-                <div class="flex items-center mt-2">
-                    <input type="text" id="commentInput-${post.id}"
-                        class="flex-grow px-3 py-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
-                        placeholder="Add a comment..." data-post-id="${post.id}">
-                    <button class="add-comment-btn bg-purple-500 text-white p-2 rounded-r-lg hover:bg-purple-600 transition-colors shadow-sm" data-post-id="${post.id}">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
-        `;
-        // Render existing comments for the post
-        const commentsList = postDiv.querySelector(`#commentsList-${post.id}`);
-        post.comments.forEach(comment => {
-            commentsList.appendChild(renderComment(comment));
-        });
-
-        return postDiv;
-    }
-
-    // Function to render a single comment
-    function renderComment(comment) {
-        const commentDiv = document.createElement('div');
-        commentDiv.id = `comment-${comment.id}`;
-        commentDiv.className = 'bg-white border border-gray-100 rounded-lg p-3 shadow-xs';
-        commentDiv.innerHTML = `
-            <p class="text-gray-700 text-sm mb-1">${comment.text}</p>
-            <div class="flex items-center text-xs text-gray-500">
-                <div class="bg-gray-200 border-2 border-dashed rounded-full w-5 h-5 mr-1 flex items-center justify-center overflow-hidden">
-                    <i class="fas fa-reply text-gray-400 text-xs"></i>
-                </div>
-                <span>By ${comment.author}</span>
-                <span class="mx-1">•</span>
-                <span>${comment.timestamp}</span>
-            </div>
-        `;
-        return commentDiv;
-    }
-
-    // Function to update the entire posts display
-    function updatePostsDisplay() {
-        postsContainer.innerHTML = ''; // Clear existing posts
-
-        if (posts.length === 0) {
-            noPostsMessage.classList.remove('hidden');
-            postsContainer.appendChild(noPostsMessage);
-        } else {
-            noPostsMessage.classList.add('hidden');
-            // Add posts in reverse order to show newest at top
-            posts.slice().reverse().forEach(post => {
-                postsContainer.appendChild(renderPost(post));
-            });
-        }
-        addCommentEventListeners(); // Re-attach listeners after re-rendering
-    }
-
-    // Function to show the new post modal
-    function showNewPostModal() {
-        newPostModal.classList.remove('hidden');
-        setTimeout(() => {
-            newPostModalContent.classList.remove('opacity-0', 'scale-95');
-            newPostModalContent.classList.add('opacity-100', 'scale-100');
-        }, 10); // Small delay for transition
-        postTitleInput.value = '';
-        postCityInput.value = ''; // Clear city input
-        postContentTextarea.value = '';
-        postTitleInput.focus();
-    }
-
-    // Event handler for adding a new post
-    function handleAddPost() {
-        const title = postTitleInput.value.trim();
-        const city = postCityInput.value.trim(); // Get city value
-        const content = postContentTextarea.value.trim();
-
-        if (title === '' || content === '' || city === '') { // Require city now
-            showAlert('Please fill in title, content, and city/town for your post.');
-            return;
-        }
-
-        const newPost = {
-            id: generateUniqueId(),
-            title: title,
-            content: content,
-            author: accountStatusText.textContent === 'Guest' ? 'Anonymous User' : accountStatusText.textContent, // Use username if logged in
-            city: city, // Add city to the post object
-            timestamp: formatTimestamp(new Date()),
-            comments: [],
-        };
-
-        posts.push(newPost); // Add new post to the array
-        updatePostsDisplay(); // Re-render all posts
-        hideNewPostModal();
-    }
-
-    // Event handler for adding a comment
-    function handleAddComment(postId, commentText) {
-        if (commentText === '') {
-            showAlert('Please enter your comment.');
-            return;
-        }
-
-        const newComment = {
-            id: generateUniqueId(),
-            author: accountStatusText.textContent === 'Guest' ? 'Community Member' : accountStatusText.textContent, // Use username if logged in
-            text: commentText,
-            timestamp: formatTimestamp(new Date()),
-        };
-
-        const postIndex = posts.findIndex(p => p.id === postId);
-        if (postIndex !== -1) {
-            posts[postIndex].comments.push(newComment);
-
-            // Update the specific post's comments section without re-rendering everything
-            const commentsListElement = document.getElementById(`commentsList-${postId}`);
-            const noCommentsMessageElement = document.getElementById(`noCommentsMessage-${postId}`);
-            const commentCountElement = document.getElementById(`commentCount-${postId}`);
-
-            if (commentsListElement) {
-                commentsListElement.appendChild(renderComment(newComment));
-                commentsListElement.scrollTop = commentsListElement.scrollHeight; // Scroll to bottom
-            }
-            if (noCommentsMessageElement) {
-                noCommentsMessageElement.classList.add('hidden');
-            }
-            if (commentCountElement) {
-                commentCountElement.textContent = posts[postIndex].comments.length;
-            }
-        }
-
-        // Clear the specific comment input after adding
-        const commentInput = document.getElementById(`commentInput-${postId}`);
-        if (commentInput) {
-            commentInput.value = '';
-        }
-    }
-
-    // Function to add event listeners to all comment buttons and inputs
-    function addCommentEventListeners() {
-        document.querySelectorAll('.add-comment-btn').forEach(button => {
-            // Remove existing listener to prevent duplicates
-            button.removeEventListener('click', handleCommentButtonClick);
-            button.addEventListener('click', handleCommentButtonClick);
-        });
-
-        document.querySelectorAll('input[id^="commentInput-"]').forEach(input => {
-            // Remove existing listener to prevent duplicates
-            input.removeEventListener('keypress', handleCommentInputKeyPress);
-            input.addEventListener('keypress', handleCommentInputKeyPress);
-        });
-    }
-
-    // Event handler for comment button click
-    function handleCommentButtonClick(event) {
-        const postId = event.currentTarget.dataset.postId;
-        const commentInput = document.getElementById(`commentInput-${postId}`);
-        if (commentInput) {
-            handleAddComment(postId, commentInput.value);
-        }
-    }
-
-    // Event handler for comment input keypress (Enter key)
-    function handleCommentInputKeyPress(event) {
-        if (event.key === 'Enter') {
-            const postId = event.currentTarget.dataset.postId;
-            const commentInput = event.currentTarget;
-            handleAddComment(postId, commentInput.value);
-        }
-    }
-
-    // Initial setup and event listeners for Community Forum
-    document.addEventListener('DOMContentLoaded', () => {
-        updatePostsDisplay(); // Render initial state (no posts)
-
-        // DOM Elements for Account Menu
-        const accountMenuBtn = document.getElementById('accountMenuBtn');
-        const accountDropdown = document.getElementById('accountDropdown');
-        const signInOption = document.getElementById('signInOption');
-        const signOutOption = document.getElementById('signOutOption');
-
-        // DOM Elements for Account Modal
-        const accountModal = document.getElementById('accountModal');
-        const accountModalContent = document.getElementById('accountModalContent');
-        const closeAccountModalBtn = document.getElementById('closeAccountModalBtn');
-        const signUpForm = document.getElementById('signUpForm');
-        const firstNameInput = document.getElementById('firstName');
-        const lastNameInput = document.getElementById('lastName');
-        const phoneInput = document.getElementById('phone');
-        const usernameInput = document.getElementById('username');
-        const authMessage = document.getElementById('authMessage');
-
-        // Toggle Account Dropdown
-        accountMenuBtn?.addEventListener('click', () => {
-            accountDropdown.classList.toggle('hidden');
-        });
-
-        // Close dropdown if clicked outside
-        document.addEventListener('click', (event) => {
-            if (!accountMenuBtn.contains(event.target) && !accountDropdown.contains(event.target) && !accountModal.contains(event.target)) {
-                accountDropdown.classList.add('hidden');
-            }
-        });
-
-        // Show Account Modal
-        signInOption?.addEventListener('click', (e) => {
-            e.preventDefault();
-            accountDropdown.classList.add('hidden'); // Hide dropdown
-            accountModal.classList.remove('hidden');
-            setTimeout(() => {
-                accountModalContent.classList.remove('opacity-0', 'scale-95');
-                accountModalContent.classList.add('opacity-100', 'scale-100');
-            }, 10);
-            authMessage.textContent = ''; // Clear previous messages
-        });
-
-        // Hide Account Modal
-        closeAccountModalBtn?.addEventListener('click', () => {
-            hideAccountModal();
-        });
-
-        // Close modal if clicking outside the content
-        accountModal.addEventListener('click', (event) => {
-            if (event.target === accountModal) {
-                hideAccountModal();
-            }
-        });
-
-        // Sign Up (Update Profile for Anonymous User)
-        signUpForm?.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const firstName = firstNameInput.value.trim();
-            const lastName = lastNameInput.value.trim();
-            const phone = phoneInput.value.trim();
-            const username = usernameInput.value.trim();
-
-            if (!firstName || !lastName || !phone || !username) {
-                authMessage.textContent = 'Please fill in all fields.';
-                authMessage.className = 'mt-4 text-center text-sm text-red-600';
-                return;
-            }
-
-            if (!currentUserId) {
-                authMessage.textContent = 'Authentication not ready. Please try again.';
-                authMessage.className = 'mt-4 text-center text-sm text-red-600';
-                return;
-            }
-
-            try {
-                await updateUserProfile(currentUserId, firstName, lastName, phone, username);
-                authMessage.textContent = 'Profile updated successfully!';
-                authMessage.className = 'mt-4 text-center text-sm text-green-600';
-                updateAccountStatusUI({ username: username });
-                firstNameInput.value = '';
-                lastNameInput.value = '';
-                phoneInput.value = '';
-                usernameInput.value = '';
-                hideAccountModal();
-            } catch (error) {
-                console.error("Sign Up (Profile Update) Error:", error);
-                authMessage.textContent = `Sign up failed: ${error.message}`;
-                authMessage.className = 'mt-4 text-center text-sm text-red-600';
-            }
-        });
-
-        // Sign Out
-        signOutOption?.addEventListener('click', async (e) => {
-            e.preventDefault();
-            try {
-                await signOut(auth);
-                console.log("User signed out.");
-            } catch (error) {
-                console.error("Sign Out Error:", error);
-                showAlert(`Failed to sign out: ${error.message}`, 'Sign Out Error');
-            }
-        });
-
-        // Language Toggle
-        // Re-get elements inside DOMContentLoaded to ensure they exist
-        const languageToggle = document.getElementById('languageToggle');
-        const currentLanguage = document.getElementById('currentLanguage');
-        const welcomeText = document.getElementById('welcomeText');
-        const welcomeTextKrio = document.getElementById('welcomeTextKrio');
-        const welcomeChatText = document.getElementById('welcomeChatText');
-        const welcomeChatTextKrio = document.getElementById('welcomeChatTextKrio');
-        const healthAlertsText = document.getElementById('healthAlertsText');
-        const healthAlertsTextKrio = document.getElementById('healthAlertsTextKrio');
-        const culturalTipText = document.getElementById('culturalTipText');
-        const culturalTipTextKrio = document.getElementById('culturalTipTextKrio');
-        const malariaBtnText = document.getElementById('malariaBtnText');
-        const pregnancyBtnText = document.getElementById('pregnancyBtnText');
-        const diarrheaBtnText = document.getElementById('diarrheaBtnText');
-        const hypertensionBtnText = document.getElementById('hypertensionBtnText');
-        const chatTitle = document.getElementById('chatTitle');
-        const welcomeTitle = document.getElementById('welcomeTitle');
-        const culturalTitle = document.getElementById('culturalTitle');
-        const localTipTitle = document.getElementById('localTipTitle');
-        const healthAlertsTitle = document.getElementById('healthAlertsTitle');
-        const quickLinksTitle = document.getElementById('quickLinksTitle');
-        let isEnglish = false; // Initialize here or globally if state needs to persist
-
-        languageToggle?.addEventListener('click', () => {
-            isEnglish = !isEnglish;
-            if (isEnglish) {
-                currentLanguage.textContent = 'English';
-                welcomeText.classList.remove('hidden');
-                welcomeTextKrio.classList.add('hidden');
-                healthAlertsText.classList.remove('hidden');
-                healthAlertsTextKrio.classList.add('hidden');
-                welcomeChatText.classList.remove('hidden');
-                welcomeChatTextKrio.classList.add('hidden');
-                culturalTipText.classList.remove('hidden');
-                culturalTipTextKrio.classList.add('hidden');
-                malariaBtnText.textContent = 'Malaria';
-                pregnancyBtnText.textContent = 'Pregnancy';
-                diarrheaBtnText.textContent = 'Diarrhea';
-                hypertensionBtnText.textContent = 'Hypertension';
-                chatTitle.textContent = 'Chat with DoxaCare AI';
-                culturalTitle.textContent = 'Cultural Health Tips';
-                localTipTitle.textContent = 'Local Health Wisdom';
-                healthAlertsTitle.textContent = 'Health Alerts';
-                quickLinksTitle.textContent = 'Quick Chats';
-            } else {
-                currentLanguage.textContent = 'Krio';
-                welcomeText.classList.add('hidden');
-                welcomeTextKrio.classList.remove('hidden');
-                healthAlertsText.classList.add('hidden');
-                healthAlertsTextKrio.classList.remove('hidden');
-                welcomeChatText.classList.add('hidden');
-                welcomeChatTextKrio.classList.remove('hidden');
-                culturalTipText.classList.add('hidden');
-                culturalTipTextKrio.classList.remove('hidden');
-                malariaBtnText.textContent = 'Malaria';
-                pregnancyBtnText.textContent = 'Belleful';
-                diarrheaBtnText.textContent = 'Run belle';
-                hypertensionBtnText.textContent = 'High BP';
-                chatTitle.textContent = 'Chat wit DoxaCare AI';
-                culturalTitle.textContent = 'Health Tip for We Culture';
-                localTipTitle.textContent = 'Local Health Sense';
-                healthAlertsTitle.textContent = 'Health News';
-                quickLinksTitle.textContent = 'Quick Chat';
-            }
-        });
-
-        // Tab Switching
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const tabId = button.getAttribute('data-tab');
-                tabButtons.forEach(btn => btn.classList.remove('active', 'text-green-700', 'border-green-700'));
-                button.classList.add('active', 'text-green-700', 'border-green-700');
-                tabContents.forEach(content => {
-                    content.classList.add('hidden');
-                    content.classList.remove('active');
-                });
-                document.getElementById(`${tabId}-tab`).classList.remove('hidden');
-                document.getElementById(`${tabId}-tab`).classList.add('active');
-            });
-        });
-
-        // Quick Action Buttons
-        const quickActionBtns = document.querySelectorAll('.quick-action-btn');
-        quickActionBtns.forEach(button => {
-            button.addEventListener('click', () => {
-                const action = button.getAttribute('data-action');
-                const chatWindow = document.getElementById('chatWindow');
-                switch(action) {
-                    case 'malaria':
-                        addUserMessage('malaria prevention');
-                        simulateBotResponse('Malaria prevention is crucial in Sierra Leone. Use insecticide-treated mosquito nets every night, wear protective clothing in the evening, and eliminate stagnant water around your home where mosquitoes breed. If you experience fever, headache, or chills, seek medical attention immediately as these could be malaria symptoms.');
-                        break;
-                    case 'pregnancy':
-                        addUserMessage('pregnancy care');
-                        simulateBotResponse('For healthy pregnancy: Attend all antenatal check-ups, take prescribed iron and folic acid supplements, eat nutritious meals, and learn about danger signs like severe headaches, blurred vision,');
-                        break;
-                    case 'diarrhea':
-                        addUserMessage('diarrhea treatment');
-                        simulateBotResponse('For diarrhea, the most important thing is to prevent dehydration. Drink plenty of fluids, especially Oral Rehydration Salts (ORS). Avoid sugary drinks. If diarrhea is severe, bloody, or accompanied by high fever, seek medical attention.');
-                        break;
-                    case 'hypertension':
-                        addUserMessage('hypertension management');
-                        simulateBotResponse('Hypertension (high blood pressure) can be managed with a healthy diet low in salt, regular exercise, maintaining a healthy weight, and avoiding smoking and excessive alcohol. Regular check-ups and medication as prescribed by a doctor are essential.');
-                        break;
-                    default:
-                        simulateBotResponse("I'm not sure about that specific quick action, but I can help with general health questions!");
-                }
-            });
-        });
-
-        // Chatbot functionality (simplified) - Re-get elements
-        const userInput = document.getElementById('userInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const chatWindow = document.getElementById('chatWindow');
-
-        sendBtn?.addEventListener('click', () => {
-            const message = userInput.value.trim();
-            if (message) {
-                addUserMessage(message);
-                simulateBotResponse(message);
-                userInput.value = '';
-            }
-        });
-
-        userInput?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendBtn?.click();
-            }
-        });
-
-        document.querySelectorAll('.quick-reply-btn').forEach(button => {
-            button.addEventListener('click', (event) => {
-                const text = event.target.textContent || '';
-                if (text) {
-                    addUserMessage(text);
-                    simulateBotResponse(text);
-                }
-            });
-        });
-
-        // Symptom checker functionality (now uses Gemini API) - Re-get elements
-        const symptomsInput = document.getElementById('symptomsInput');
-        const checkSymptomsBtn = document.getElementById('checkSymptomsBtn');
-        const symptomResults = document.getElementById('symptomResults');
-        const refreshHealthTopics = document.getElementById('refreshHealthTopics');
-
-        checkSymptomsBtn?.addEventListener('click', () => {
-            const inputTopic = symptomsInput.value.trim();
-            if (inputTopic) {
-                simulateHealthTopicResponse(inputTopic);
-            } else {
-                showAlert("Please enter a health topic or symptom.");
-            }
-        });
-
-        symptomsInput?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                checkSymptomsBtn?.click();
-            }
-        });
-
-        document.querySelectorAll('.symptom-tag').forEach(button => {
-            button.addEventListener('click', (event) => {
-                const tagText = event.target.textContent || '';
-                const dataSymptoms = event.target.dataset.symptoms || tagText;
-                symptomsInput.value = dataSymptoms;
-                simulateHealthTopicResponse(dataSymptoms);
-            });
-        });
-
-        refreshHealthTopics?.addEventListener('click', () => {
-            symptomsInput.value = '';
-            if (symptomResults) {
-                symptomResults.innerHTML = '';
-                symptomResults.classList.add('hidden');
-            }
-        });
-
-        // Find Clinics functionality (expanded) - Re-get elements
-        const locationInput = document.getElementById('locationInput');
-        const findClinicsBtn = document.getElementById('findClinicsBtn');
-        const clinicResults = document.getElementById('clinicResults');
-
-        findClinicsBtn?.addEventListener('click', () => {
-            const location = locationInput.value.trim();
-            if (location) {
-                simulateClinicSearch(location);
-            } else {
-                showAlert("Please enter a location to search for clinics.");
-            }
-        });
-
-        locationInput?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                findClinicsBtn?.click();
-            }
-        });
-
-        // Community Forum elements and listeners
-        newPostBtn.addEventListener('click', showNewPostModal);
-        startNewDiscussionBtn.addEventListener('click', showNewPostModal);
-        closeNewPostModalBtn.addEventListener('click', hideNewPostModal);
-        cancelPostBtn.addEventListener('click', hideNewPostModal);
-        submitPostBtn.addEventListener('click', handleAddPost);
-
-        newPostModal.addEventListener('click', (event) => {
-            if (event.target === newPostModal) {
-                hideNewPostModal();
-            }
-        });
-        
-        // Emergency modal event listeners
-        const emergencyBtn = document.getElementById('emergencyBtn');
-        const emergencyModal = document.getElementById('emergencyModal');
-        const closeEmergencyModal = document.getElementById('closeEmergencyModal');
-        const callEmergencyBtn = document.getElementById('callEmergencyBtn');
-
-        if (emergencyBtn) {
-            emergencyBtn.addEventListener('click', () => {
-                emergencyModal.classList.remove('hidden');
-            });
-        }
-
-        if (closeEmergencyModal) {
-            closeEmergencyModal.addEventListener('click', () => {
-                emergencyModal.classList.add('hidden');
-            });
-        }
-
-        if (callEmergencyBtn) {
-            callEmergencyBtn.addEventListener('click', () => {
-                console.log("Initiating emergency call...");
-                emergencyModal.classList.add('hidden');
-            });
-        }
-
-        if (emergencyModal) {
-            emergencyModal.addEventListener('click', (event) => {
-                if (event.target === emergencyModal) {
-                    emergencyModal.classList.add('hidden');
-                }
-            });
-        }
-    });
-    // END Community Forum JS
-
-    // Health Forum Internet Search (Step 3)
-const forumSearchBtn = document.getElementById('forumSearchBtn');
-const forumSearchInput = document.getElementById('forumSearchInput');
-const forumResults = document.getElementById('forumResults');
-
-forumSearchInput?.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') forumSearchBtn.click();
-});
     
-forumSearchBtn?.addEventListener('click', async () => {
-  const query = forumSearchInput.value.trim();
-  if (!query) return;
-
-  forumResults.innerHTML = '<div class="text-gray-500 italic">Searching...</div>';
-
-  try {
-    // Example using Bing Web Search API (replace YOUR_BING_API_KEY with your Bing API key)
-    const apiKey = 'YOUR_BING_API_KEY';
-    const apiUrl = `https://api.bing.microsoft.com/v7.0/search?q=${encodeURIComponent(query + ' Sierra Leone health')}&count=5&setLang=en`;
-    const response = await fetch(apiUrl, {
-      headers: { 'Ocp-Apim-Subscription-Key': apiKey }
-    });
-    const data = await response.json();
-
-    if (data.webPages && data.webPages.value.length > 0) {
-      forumResults.innerHTML = data.webPages.value.map(result => `
-        <div class="bg-gray-50 p-4 rounded-lg shadow mb-2">
-          <a href="${result.url}" target="_blank" class="text-blue-700 font-semibold hover:underline">${result.name}</a>
-          <p class="text-gray-700 mt-1">${result.snippet}</p>
+    function addUserMessage(message) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'chat-message user-message mb-3 flex justify-end';
+      messageDiv.innerHTML = `
+        <div class="bg-green-100 p-3 rounded-lg shadow-sm max-w-3/4 inline-block">
+          <p>${message}</p>
         </div>
-      `).join('');
-    } else {
-      forumResults.innerHTML = '<div class="text-red-600">No results found for Sierra Leone health topics.</div>';
+      `;
+      chatWindow.appendChild(messageDiv);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
     }
-  } catch (error) {
-    forumResults.innerHTML = `<div class="text-red-600">Error fetching results: ${error.message}</div>`;
+    
+    function addBotMessage(message, quickReplies = []) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'chat-message bot-message mb-3';
+      
+      let quickRepliesHTML = '';
+      if (quickReplies.length > 0) {
+        quickRepliesHTML = `
+          <div class="quick-reply-buttons mt-2 flex flex-wrap gap-2">
+            ${quickReplies.map(reply => 
+              `<button class="quick-reply-btn bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">${reply}</button>`
+            ).join('')}
+          </div>
+        `;
+      }
+      
+      messageDiv.innerHTML = `
+        <div class="bg-white p-3 rounded-lg shadow-sm max-w-3/4 inline-block">
+          <p>${message}</p>
+          ${quickRepliesHTML}
+        </div>
+      `;
+      
+      chatWindow.appendChild(messageDiv);
+      
+      // Add event listeners to new quick reply buttons
+      messageDiv.querySelectorAll('.quick-reply-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          const message = button.textContent.trim();
+          addUserMessage(message);
+          processUserMessage(message);
+        });
+      });
+      
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+    
+    function simulateBotResponse(message, quickReplies = []) {
+      // Show typing indicator
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'chat-message bot-message mb-3 typing-indicator';
+      typingIndicator.innerHTML = `
+        <div class="bg-white p-3 rounded-lg shadow-sm w-16">
+          <span></span>
+        </div>
+      `;
+      chatWindow.appendChild(typingIndicator);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+      
+      // Remove typing indicator and add actual response after delay
+      setTimeout(() => {
+          chatWindow.removeChild(typingIndicator);
+          addBotMessage(message, quickReplies);
+      }, 1500); 
   }
-});
+
+    async function processUserMessage(message) {
+        try {
+            // Prepare loading message
+            const loadingMessage = document.createElement('div');
+            loadingMessage.className = 'chat-message bot-message mb-3';
+            loadingMessage.innerHTML = `
+                <div class="bg-white p-3 rounded-lg shadow-sm max-w-3/4 inline-block">
+                    <p>DoxaCare AI is thinking...</p>
+                </div>
+            `;
+            chatWindow.appendChild(loadingMessage);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+
+            const response = await fetch('https://api.botpress.cloud/v1/chatbots/bp_bak_-szirpnF0wejfmSYq5bEJCOqKQniiCNU2JGZ/conversations', { // Replace with your Bot ID
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    type: 'text',
+                    text: message
+                })
+            });
+            const data = await response.json();
+            const botResponse = data.messages.map(msg => msg.payload.text).join('\n');  // Assuming text responses
+            simulateBotResponse(botResponse);
+        } catch (error) {
+            console.error('Error communicating with Botpress:', error);
+            simulateBotResponse('I am experiencing a temporary issue. Please try again later.');
+        } finally {
+            chatWindow.removeChild(loadingMessage); // Ensure loading message is removed
+        }
+  }
+    
+  // Emergency conditions
+      if (lowerMessage.includes('emergency') || 
+          lowerMessage.includes('help') || 
+          lowerMessage.includes('urgent') ||
+          lowerMessage.includes('trouble breathing') ||
+          lowerMessage.includes('can\'t breathe') ||
+          lowerMessage.includes('severe pain') ||
+          lowerMessage.includes('chest pain') ||
+          lowerMessage.includes('unconscious') ||
+          lowerMessage.includes('sever bleeding') ||
+          lowerMessage.includes('fainting')) {
+        // Emergency response
+        simulateBotResponse('⚠️ EMERGENCY WARNING ⚠️\n\nBased on your symptoms, you should seek medical attention immediately. These could indicate life-threatening conditions:\n\n• Heart attack\n• Severe infection\n• Stroke\n• Severe trauma\n\n🚑 Please:\n1. Call 117 or 112 NOW\n2. Go to nearest hospital\n3. Have someone stay with you\n\nWould you like me to find the closest emergency facility?');
+        showEmergencyModal();
+      } else if (lowerMessage.includes('fever') || 
+                 lowerMessage.includes('headache') ||
+                 lowerMessage.includes('chills') ||
+                 lowerMessage.includes('body ache') ||
+                 lowerMessage.includes('symptom') ||
+                 lowerMessage.includes('joint pain')) {
+        // Enhanced symptom response with home remedies
+        let response = "🤒 Symptom Analysis:\n\n";
+        
+        // Medical advice
+        response += "🔹 Medical Recommendations:\n";
+        response += "• Get tested for malaria if fever persists >48h\n";
+        response += "• Take paracetamol for fever/pain (follow dosage)\n";
+        response += "• Stay hydrated with clean water\n";
+        response += "• Monitor temperature regularly\n\n";
+        
+        // Home remedies
+        response += "🏠 Home Care & Traditional Remedies:\n";
+        response += "• Ginger tea (boil fresh ginger) for pain relief\n";
+        response += "• Neem leaf steam inhalation (antibacterial)\n";
+        response += "• Papaya leaf extract (traditional malaria support)\n";
+        response += "• Cold compress for forehead\n";
+        response += "• Rest in well-ventilated space\n\n";
+        
+        // Holistic recommendations
+        response += "🌿 Holistic Support:\n";
+        response += "• Light stretching if muscles ache\n";
+        response += "• Meditation to reduce stress on body\n";
+        response += "• Herbal teas (lemongrass, moringa)\n";
+        response += "• Maintain regular sleep schedule\n\n";
+        
+        response += "🚨 Seek medical care if:\n";
+        response += "- Fever >39°C or lasts >3 days\n";
+        response += "- Severe headache with stiff neck\n";
+        response += "- Confusion or seizures occur\n";
+        
+        simulateBotResponse(response, ['More home remedies', 'Find testing center', 'Other symptoms']);
+      } else if (lowerMessage.includes('fever') || 
+                 lowerMessage.includes('headache') ||
+                 lowerMessage.includes('chills') ||
+                 lowerMessage.includes('body ache') ||
+                 lowerMessage.includes('symptom') ||
+                 lowerMessage.includes('joint pain')) {
+        // Detailed symptom analysis with conditions
+        let response = "🤒 Symptom Analysis:\n\nPossible conditions:\n";
+        
+        if (lowerMessage.includes('malaria') || lowerMessage.includes('mosquito')) {
+          response += "1. Malaria (very likely)\n";
+          response += "2. Typhoid fever\n";
+          response += "3. Dengue fever\n";
+          response += "4. Other viral infection\n\n";
+          response += "🔴 HIGH likelihood of MALARIA\n\n";
+          response += "🔹 Typical Symptoms:\n- High fever (often cyclical)\n- Chills/sweats\n- Headache\n- Muscle/joint pain\n- Fatigue\n- Nausea/vomiting\n\n";
+          response += "🚨 Red Flags (Go to hospital IMMEDIATELY):\n- Confusion\n- Seizures\n- Blood in urine\n- Difficulty breathing\n- Very high fever (>39°C)\n\n";
+          response += "💊 Recommended Actions:\n1. Get rapid diagnostic test TODAY\n2. Take antimalarials if prescribed\n3. Stay hydrated\n4. Use mosquito net\n\n";
+          response += "Would you like more details about malaria treatment?";
+          simulateBotResponse(response, ['Malaria treatment', 'Find testing center', 'Other symptoms I have']);
+        } else {
+          response += "Possible causes:\n\n";
+          response += "1. Malaria (most common)\n2. Typhoid fever\n3. Respiratory infection\n4. Dengue fever\n5. Other viral infections\n\n";
+          response += "🔍 To help identify:\n\n▪️ Malaria: Fever comes every 48h with chills\n▪️ Typhoid: Sustained fever, stomach pain\n▪️ Flu: Sudden fever with cough\n▪️ Dengue: Fever with severe pain behind eyes\n\n";
+          response += "I recommend:\n1. Track fever pattern/temperature\n2. Note other symptoms\n3. Get tested if fever lasts >48h\n\nWould you like guidance specific to your symptoms?";
+          simulateBotResponse(response, ['Describe malaria symptoms', 'I have stomach pain too', 'Find testing center']);
+        }
+      } else if (lowerMessage.includes('malaria') || 
+                 lowerMessage.includes('mosquito')) {
+        // Enhanced malaria advice with holistic approach
+        if (isEnglish) {
+          let response = "🦟 Malaria Prevention & Care:\n\n";
+          response += "🔹 Medical Prevention:\n";
+          response += "• Sleep under insecticide-treated nets (ITNs)\n";
+          response += "• Take prophylaxis if prescribed\n";
+          response += "• Get rapid test if symptoms appear\n\n";
+          
+          response += "🏠 Home & Traditional Remedies:\n";
+          response += "• Neem leaves around sleeping area\n";
+          response += "• Camphor in water containers\n";
+          response += "• Papaya leaf tea (traditional remedy)\n";
+          response += "• Turmeric in warm milk (anti-inflammatory)\n\n";
+          
+          response += "🌿 Holistic Support:\n";
+          response += "• Stay hydrated with coconut water\n";
+          response += "• Light meals (porridge, soups)\n";
+          response += "• Rest in cool environment\n";
+          response += "• Avoid strenuous activity during recovery\n\n";
+          
+          response += "🚨 Emergency signs:\n";
+          response += "- Confusion/seizures\n";
+          response += "- Blood in urine\n";
+          response += "- Difficulty breathing\n";
+          
+          simulateBotResponse(response, 
+            ['Find ITNs near me', 'Malaria symptoms', 'Home remedies']);
+        } else {
+          let response = "🦟 Malaria Prevention & Care (Krio):\n\n";
+          response += "🔹 Medical Way:\n";
+          response += "• Sleep under net wey get medicine\n";
+          response += "• Take malaria prevention drug if doctor talk say\n";
+          response += "• Do test if you get sign\n\n";
+          
+          response += "🏠 Home Way:\n";
+          response += "• Put neem leaves for where you sleep\n";
+          response += "• Put camphor for water container\n";
+          response += "• Drink papaya leaf tea\n";
+          response += "• Drink turmeric inside warm milk\n\n";
+          
+          response += "🌿 Other Help:\n";
+          response += "• Drink coconut water\n";
+          response += "• Eat light food like pap\n";
+          response += "• Rest for cool place\n";
+          response += "• No hard work when you sick\n\n";
+          
+          response += "🚨 Emergency sign:\n";
+          response += "- You no dey think well\n";
+          response += "- Blood for urine\n";
+          response += "- You no fit breathe well\n";
+          
+          simulateBotResponse(response, 
+            ['Find net close to me', 'Sign of malaria', 'Home remedy']);
+        }
+      } else if (lowerMessage.includes('clinic') || 
+                 lowerMessage.includes('hospital') ||
+                 lowerMessage.includes('find') ||
+                 lowerMessage.includes('near me')) {
+        // Find clinics
+        simulateBotResponse('I can help you find clinics. What is your location (district or city name)? For example: "Freetown" or "Bo".');
+      } else if (lowerMessage.includes('pregnant') || 
+                 lowerMessage.includes('belleful') ||
+                 lowerMessage.includes('birth')) {
+        // Pregnancy advice
+        simulateBotResponse('For a healthy pregnancy in Sierra Leone:\n1. Attend all antenatal visits\n2. Take iron and folic acid\n3. Sleep under mosquito nets\n4. Learn danger signs\n5. Plan for delivery at a health facility', 
+          ['Pregnancy danger signs', 'Find maternity clinics', 'Malaria in pregnancy']);
+      } else if (lowerMessage.includes('diarrhea') || 
+                 lowerMessage.includes('run belle') ||
+                 lowerMessage.includes('vomiting') ||
+                 lowerMessage.includes('stomach pain')) {
+        // Enhanced digestive health response
+        let response = "🤢 Digestive Health Support:\n\n";
+        
+        response += "🔹 Medical Care:\n";
+        response += "• ORS solution (1L water + 6tsp sugar + ½tsp salt)\n";
+        response += "• Zinc supplements if available\n";
+        response += "• Seek care if blood in stool or severe dehydration\n\n";
+        
+        response += "🏠 Home & Traditional Remedies:\n";
+        response += "• Ginger tea (anti-nausea)\n";
+        response += "• Coconut water (electrolytes)\n";
+        response += "• Boiled rice water (soothing)\n";
+        response += "• Charcoal tablets (traditional detox)\n";
+        response += "• Mint leaves for stomach cramps\n\n";
+        
+        response += "🌿 Holistic Approach:\n";
+        response += "• BRAT diet (Bananas, Rice, Applesauce, Toast)\n";
+        response += "• Probiotic foods (fermented foods)\n";
+        response += "• Chamomile tea (calming)\n";
+        response += "• Warm compress on abdomen\n\n";
+        
+        response += "🚨 Danger signs:\n";
+        response += "- Blood/mucus in stool\n";
+        response += "- No urine >12 hours\n";
+        response += "- Sunken eyes/extreme thirst\n";
+        response += "- High fever with diarrhea\n";
+        
+        simulateBotResponse(response, 
+          ['How to make ORS', 'Safe foods list', 'Find treatment center']);
+      } else if (lowerMessage.includes('exercise') || 
+                 lowerMessage.includes('workout') ||
+                 lowerMessage.includes('physical activity')) {
+        // Exercise advice
+        simulateBotResponse('🏋️‍♂️ Exercise Recommendations:\n\nFor adults in Sierra Leone:\n• Aim for 150 minutes moderate activity weekly\n• Include strength training 2x/week\n• Walking is excellent exercise\n• Try traditional dances for cardio\n• Stay hydrated in the heat\n\nStart slow if new to exercise. Any movement is better than none!', 
+          ['Best exercises', 'Exercise for seniors', 'Exercise with injuries']);
+          
+      } else if (lowerMessage.includes('nutrition') || 
+                 lowerMessage.includes('diet') ||
+                 lowerMessage.includes('food') ||
+                 lowerMessage.includes('eat')) {
+        // Nutrition advice
+        simulateBotResponse('🍎 Healthy Eating Tips:\n\n• Eat plenty of local fruits/vegetables\n• Include protein (fish, beans, eggs)\n• Choose whole grains over refined\n• Limit salt, sugar and oily foods\n• Drink clean, safe water\n\nTraditional Sierra Leonean foods like cassava leaf, okra soup and groundnut stew can be very nutritious!', 
+          ['Healthy local foods', 'Foods to avoid', 'Eating on budget']);
+          
+      } else if (lowerMessage.includes('mental') || 
+                 lowerMessage.includes('stress') ||
+                 lowerMessage.includes('anxiety') ||
+                 lowerMessage.includes('depression')) {
+        // Mental health advice
+        simulateBotResponse('🧠 Mental Health Support:\n\n• Talk to someone you trust\n• Practice relaxation techniques\n• Maintain social connections\n• Get regular sleep\n• Limit alcohol/drugs\n\nFor serious concerns, contact:\n• 116 (Mental Health Helpline)\n• Local health centers\n• Religious/community leaders', 
+          ['Coping techniques', 'Find counselor', 'Emergency help']);
+          
+      } else {
+        // Default response
+        simulateBotResponse('I can help with:\n• Symptoms (fever, pain)\n• Chronic conditions\n• Exercise & nutrition\n• Mental health\n• Pregnancy care\n• Finding clinics\nWhat would you like to know?', 
+          ['Exercise tips', 'Nutrition advice', 'Mental health support', 'Find clinics']);
+      }
+    
+
+    // Emergency Modal
+    const emergencyModal = document.getElementById('emergencyModal');
+    const emergencyBtn = document.getElementById('emergencyBtn');
+    const closeEmergencyModal = document.getElementById('closeEmergencyModal');
+    const callEmergencyBtn = document.getElementById('callEmergencyBtn');
+    
+    function showEmergencyModal() {
+      emergencyModal.classList.remove('hidden');
+    }
+    
+    function hideEmergencyModal() {
+      emergencyModal.classList.add('hidden');
+    }
+    
+    emergencyBtn.addEventListener('click', showEmergencyModal);
+    closeEmergencyModal.addEventListener('click', hideEmergencyModal);
+    callEmergencyBtn.addEventListener('click', () => {
+      alert('Calling emergency services at 117. Please hold...');
+      hideEmergencyModal();
+    });
+    
+    // Close modal when clicking outside
+    emergencyModal.addEventListener('click', (e) => {
+      if (e.target === emergencyModal) {
+        hideEmergencyModal();
+      }
+    });
+    
+    // Function to display WHO health alerts
+    function displayHealthAlert(data) {
+      if (data && data.length > 0) {
+        const alertsContainer = document.getElementById('healthAlertsText');
+        const alertsContainerKrio = document.getElementById('healthAlertsTextKrio');
+        
+        alertsContainer.innerHTML = '';
+        alertsContainerKrio.innerHTML = '';
+        
+        data.slice(0, 3).forEach(alert => {
+          const alertEng = document.createElement('p');
+          alertEng.innerHTML = `• ${alert.title_en}`;
+          alertsContainer.appendChild(alertEng);
+          
+          if (alert.title_krio) {
+            const alertKrio = document.createElement('p');
+            alertKrio.innerHTML = `• ${alert.title_krio}`;
+            alertsContainerKrio.appendChild(alertKrio);
+          } else {
+            alertsContainerKrio.innerHTML = alertsContainer.innerHTML;
+          }
+        });
+      }
+    }
+
+    // Account Form Toggle
+    document.getElementById('show-signup').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('signin-form').classList.add('hidden');
+      document.getElementById('signup-form').classList.remove('hidden');
+    });
+
+    document.getElementById('show-signin').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('signup-form').classList.add('hidden');
+      document.getElementById('signin-form').classList.remove('hidden');
+    });
+
+    // Social Login Handlers
+    document.querySelectorAll('#signin-form .fab, #signup-form .fab').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const provider = e.target.closest('button').textContent.trim().toLowerCase();
+        alert(`Redirecting to ${provider} login...`);
+        // In a real app, you would implement OAuth flow here
+      });
+    });
+
+    // Form Submission
+    document.querySelector('#signin-form form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      // In a real app, you would validate and send to backend
+      alert(`Signing in with ${email}`);
+    });
+
+    document.querySelector('#signup-form form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const confirm = document.getElementById('signup-confirm').value;
+      
+      if (password !== confirm) {
+        alert("Passwords don't match!");
+        return;
+      }
+      // In a real app, you would validate and send to backend
+      alert(`Creating account for ${name} (${email})`);
+    });
+
+    // Phone Sign-in/Sign-up Handlers
+    document.getElementById('phone-signin').addEventListener('click', () => alert('Initiating phone sign-in... (Feature not fully implemented)'));
+    document.getElementById('phone-signup').addEventListener('click', () => alert('Initiating phone sign-up... (Feature not fully implemented)'));
+
+    // Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      // Fetch WHO health alerts
+      fetch('https://www.who.int/api/health-alerts')
+        .then(response => response.json())
+        .then(data => displayHealthAlert(data))
+        .catch(error => console.error('Error fetching health alerts:', error));
+
+      // Show welcome message in chat
+      setTimeout(() => {
+        if (isEnglish) {
+          addBotMessage(welcomeChatText.textContent, ['I have fever', 'Mosquito bite advice', 'Find clinic near me']);
+        } else {
+          addBotMessage(welcomeChatTextKrio.textContent, ['I get fever', 'Advice for mosquito', 'Find clinic close']);
+        }
+      }, 500);
+
+      // Add shake animation to emergency button every 30 seconds
+      setInterval(() => {
+        emergencyBtn.classList.add('emergency-shake');
+        setTimeout(() => {
+          emergencyBtn.classList.remove('emergency-shake');
+        }, 1000);
+      }, 30000);
+    });
   </script>
-</body>
 </html>
