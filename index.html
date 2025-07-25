@@ -767,7 +767,6 @@
               </div>
             </div>
           `;
-
           
           // Add event listener to the find clinic button
           document.getElementById('findClinicFromSymptoms').addEventListener('click', () => {
@@ -816,7 +815,6 @@
         document.getElementById('symptomsInput').value = '';
       }, 1000);
     });
-
     // Symptom Tag Buttons
     const symptomTags = document.querySelectorAll('.symptom-tag');
     
@@ -1005,7 +1003,6 @@
               }
             ]
           };
-
           // Find matching districts
           clinics = [];
           for (const [district, facilities] of Object.entries(districtMap)) {
@@ -1014,7 +1011,6 @@
               break;
             }
           }
-
           if (clinics.length === 0) {
             clinics = districtMap.default;
           }
@@ -1159,7 +1155,6 @@
           addBotMessage(message, quickReplies);
       }, 1500); 
   }
-
     async function processUserMessage(message) {
         try {
             // Prepare loading message
@@ -1172,7 +1167,6 @@
             `;
             chatWindow.appendChild(loadingMessage);
             chatWindow.scrollTop = chatWindow.scrollHeight;
-
             const response = await fetch('https://api.botpress.cloud/v1/chatbots/bp_bak_-szirpnF0wejfmSYq5bEJCOqKQniiCNU2JGZ/conversations', { // Replace with your Bot ID
                 method: 'POST',
                 headers: {
@@ -1402,7 +1396,6 @@
           ['Exercise tips', 'Nutrition advice', 'Mental health support', 'Find clinics']);
       }
     
-
     // Emergency Modal
     const emergencyModal = document.getElementById('emergencyModal');
     const emergencyBtn = document.getElementById('emergencyBtn');
@@ -1463,7 +1456,6 @@
         .then(response => response.json())
         .then(data => displayHealthAlert(data))
         .catch(error => console.error('Error fetching health alerts:', error));
-
       // Show welcome message in chat
       setTimeout(() => {
         if (isEnglish) {
@@ -1472,7 +1464,6 @@
           addBotMessage(welcomeChatTextKrio.textContent, ['I get fever', 'Advice for mosquito', 'Find clinic close']);
         }
       }, 500);
-
       // Add shake animation to emergency button every 30 seconds
       setInterval(() => {
         emergencyBtn.classList.add('emergency-shake');
